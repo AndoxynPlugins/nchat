@@ -1,0 +1,24 @@
+name: UberChat
+main: net.daboross.bukkitdev.uberchat.UberChat
+version: 1.0
+author: Dabo Ross
+prefix: UC
+description: This Plugin Is UBER CHAT
+commands:
+   colorme:
+     description: This command colorizes your messages.
+     usage: /<command>
+     permission: uberchat.colorize
+permissions:
+  uberchat.*:
+    description: Gives access to all UberChat commands
+    children:
+      uberchat.ignorecaps: true
+      uberchat.colorize: true
+    default: false
+  uberchat.ignorecaps:
+    description: Allows you to do all caps messages.
+    default: false
+  uberchat.colorize:
+    description: Allows you to use /colorme
+    default: true
