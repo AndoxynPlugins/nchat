@@ -6,9 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.LazyMetadataValue;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -66,10 +64,10 @@ public final class UberChat extends JavaPlugin {
             }
             if (on) {
                 p.removeMetadata("isMessageColorOn", this);
-                sender.sendMessage(ChatColor.RED + "Your chat messages are no longer being colorized.");
+                sender.sendMessage(ChatColor.GREEN + "Your chat messages are no longer being colorized.");
             } else {
                 p.setMetadata("isMessageColorOn", new FixedMetadataValue(this, Boolean.TRUE));
-                sender.sendMessage(ChatColor.RED + "Your future chat messages will now be colorized.");
+                sender.sendMessage(ChatColor.GREEN + "Your future chat messages will now be colorized.");
             }
             return true;
         }

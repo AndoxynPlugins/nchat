@@ -11,7 +11,7 @@ public class Colorizor {
     private static int num = 0;
 
     public static String colorize(String orig) {
-        char[] list = orig.toCharArray();
+        char[] list = ChatColor.stripColor(orig).toCharArray();
         if (list.length == 0) {
             return "";
         }

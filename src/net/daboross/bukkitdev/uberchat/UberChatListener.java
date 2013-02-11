@@ -51,7 +51,7 @@ public class UberChatListener implements Listener {
         int capChars = 0;
         char[] charArray = message.toCharArray();
         for (char c : charArray) {
-            if (!Character.isLowerCase(c)) {
+            if (Character.isUpperCase(c)) {
                 capChars += 1;
             }
         }
