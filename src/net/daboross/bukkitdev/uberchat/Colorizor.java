@@ -18,7 +18,7 @@ public class Colorizor {
         for (int i = 0; i < list.length; i++) {
         }
         String colorizedString = "";
-        for (int i = 0; i < list.length; i++,num++) {
+        for (int i = 0; i < list.length; i++, num++) {
             if (list[i] != ' ') {
                 if (num > 8) {
                     num = 0;
