@@ -11,7 +11,7 @@ import org.bukkit.metadata.MetadataValue;
 
 /**
  *
- * @author Dabo Ross <Dabo.Ross at daboross.net>
+ * @author Dabo Ross
  */
 public class UberChatListener implements Listener {
 
@@ -25,8 +25,10 @@ public class UberChatListener implements Listener {
         if (evt.isCancelled()) {
             return;
         }
+        toggleCheck(evt);
         checkCaps(evt);
         checkColor(evt);
+        checkName(evt);
     }
 
     private void checkColor(AsyncPlayerChatEvent evt) {
@@ -46,18 +48,67 @@ public class UberChatListener implements Listener {
         if (p.hasPermission("uberchat.ignorecaps")) {
             return;
         }
-        String message = evt.getMessage();
+        String message = ChatColor.stripColor(evt.getMessage());
         int totalChars = message.length();
         int capChars = 0;
+        int lowChars = 0;
         char[] charArray = message.toCharArray();
         for (char c : charArray) {
             if (Character.isUpperCase(c)) {
-                capChars += 1;
+                capChars++;
+            } else if (Character.isLowerCase(c)) {
+                lowChars++;
             }
         }
         if (totalChars / (double) capChars < 1.7 && totalChars > 5) {
             p.sendMessage(capsMessage);
-            evt.setMessage(message.toLowerCase());
+            evt.setMessage(toggleCase(evt.getMessage()));
+        } else if (capChars > (lowChars * 1.2)) {
+            p.sendMessage(capsMessage);
+            evt.setMessage(toggleCase(evt.getMessage()));
+        }
+    }
+
+    private String toggleCase(String input) {
+        String output = "";
+        char[] in = input.toCharArray();
+        int state = 1;//0 for in word, 1 for new word.
+        for (char c : in) {
+            if (c == ' ') {
+                state = 1;
+                output += c;
+            } else if (Character.isUpperCase(c) || Character.isLowerCase(c)) {
+                if (state == 1) {
+                    output += Character.toUpperCase(c);
+                    state = 0;
+                } else {
+                    output += Character.toLowerCase(c);
+                }
+            } else {
+                output += c;
+            }
+        }
+        return output;
+    }
+
+    private void checkName(AsyncPlayerChatEvent evt) {
+        String name = ChatColor.stripColor(evt.getPlayer().getDisplayName());
+        if (name.length() > 22) {
+            evt.getPlayer().sendMessage(Colorizor.colorize("Your Name Is Very Long! use /nick to shorten it!"));
+            evt.getPlayer().sendMessage(Colorizor.colorize("Your Name Is Very Long! use /nick to shorten it!"));
+            evt.getPlayer().sendMessage(Colorizor.colorize("Your Name Is Very Long! use /nick to shorten it!"));
+        }
+    }
+
+    private void toggleCheck(AsyncPlayerChatEvent evt) {
+        Player p = evt.getPlayer();
+        if (p.hasMetadata("isMessageToggleOn")) {
+            List<MetadataValue> meta = p.getMetadata("isMessageToggleOn");
+            if (meta.size() >= 1) {
+                if (meta.get(0).asBoolean()) {
+                    evt.setMessage(toggleCase(evt.getMessage()));
+                }
+            }
         }
     }
 }
