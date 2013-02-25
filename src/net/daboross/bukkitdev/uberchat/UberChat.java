@@ -70,6 +70,27 @@ public final class UberChat extends JavaPlugin {
                 sender.sendMessage(ChatColor.GREEN + "Your future chat messages will now be colorized.");
             }
             return true;
+        } else if (command.getName().equalsIgnoreCase("toggleme")) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("Sorry, Players Only");
+                return true;
+            }
+            Player p = (Player) sender;
+            boolean on = false;
+            if (p.hasMetadata("isMessageToggleOn")) {
+                List<MetadataValue> meta = p.getMetadata("isMessageToggleOn");
+                if (meta.size() >= 1 && (meta.get(0).asBoolean())) {
+                    on = true;
+                }
+            }
+            if (on) {
+                p.removeMetadata("isMessageToggleOn", this);
+                sender.sendMessage(ChatColor.GREEN + "Your chat messages are no longer being toggled.");
+            } else {
+                p.setMetadata("isMessageToggleOn", new FixedMetadataValue(this, Boolean.TRUE));
+                sender.sendMessage(ChatColor.GREEN + "Your future chat messages will now be toggled.");
+            }
+            return true;
         }
         return false;
     }
