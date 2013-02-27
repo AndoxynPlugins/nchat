@@ -60,10 +60,7 @@ public class UberChatListener implements Listener {
                 lowChars++;
             }
         }
-        if (totalChars / (double) capChars < 1.7 && totalChars > 5) {
-            p.sendMessage(capsMessage);
-            evt.setMessage(toggleCase(evt.getMessage()));
-        } else if (capChars > (lowChars * 1.2)) {
+        if ((capChars > (lowChars * 2)) && totalChars > 5 || (capChars > 9)) {
             p.sendMessage(capsMessage);
             evt.setMessage(toggleCase(evt.getMessage()));
         }
@@ -73,7 +70,8 @@ public class UberChatListener implements Listener {
         String output = "";
         char[] in = input.toCharArray();
         int state = 1;//0 for in word, 1 for new word.
-        for (char c : in) {
+        for (int i = 0; i < in.length; i++) {
+            char c = in[i];
             if (c == ' ') {
                 state = 1;
                 output += c;
@@ -82,9 +80,16 @@ public class UberChatListener implements Listener {
                     output += Character.toUpperCase(c);
                     state = 0;
                 } else {
-                    output += Character.toLowerCase(c);
+                    if (i + 1 < in.length && in[i + 1] == ' ') {
+                        output += c;
+                    } else {
+                        output += Character.toLowerCase(c);
+                    }
                 }
+            } else if (c == ChatColor.COLOR_CHAR) {
+                output += c;
             } else {
+                state = 1;
                 output += c;
             }
         }
@@ -93,10 +98,10 @@ public class UberChatListener implements Listener {
 
     private void checkName(AsyncPlayerChatEvent evt) {
         String name = ChatColor.stripColor(evt.getPlayer().getDisplayName());
-        if (name.length() > 22) {
-            evt.getPlayer().sendMessage(Colorizor.colorize("Your Name Is Very Long! use /nick to shorten it!"));
-            evt.getPlayer().sendMessage(Colorizor.colorize("Your Name Is Very Long! use /nick to shorten it!"));
-            evt.getPlayer().sendMessage(Colorizor.colorize("Your Name Is Very Long! use /nick to shorten it!"));
+        if (name.length() > 20) {
+            evt.getPlayer().sendMessage(Colorizor.colorize(toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
+            evt.getPlayer().sendMessage(Colorizor.colorize(toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
+            evt.getPlayer().sendMessage(Colorizor.colorize(toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
         }
     }
 
