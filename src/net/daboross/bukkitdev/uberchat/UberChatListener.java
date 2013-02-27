@@ -15,7 +15,7 @@ import org.bukkit.metadata.MetadataValue;
  */
 public class UberChatListener implements Listener {
 
-    private static final String capsMessage = ChatColor.RED + "I'm sorry, but your chat message contains to many uppercase letters.";
+    private static final String capsMessage = ChatColor.RED + Colorizor.colorize("I'm sorry, but your chat message contains to many uppercase letters.");
 
     public UberChatListener() {
     }
@@ -98,7 +98,7 @@ public class UberChatListener implements Listener {
 
     private void checkName(AsyncPlayerChatEvent evt) {
         String name = ChatColor.stripColor(evt.getPlayer().getDisplayName());
-        if (name.length() > 20) {
+        if (name.length() > 22) {
             evt.getPlayer().sendMessage(Colorizor.colorize(toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
             evt.getPlayer().sendMessage(Colorizor.colorize(toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
             evt.getPlayer().sendMessage(Colorizor.colorize(toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
