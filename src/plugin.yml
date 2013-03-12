@@ -1,6 +1,6 @@
 name: UberChat
 main: net.daboross.bukkitdev.uberchat.UberChat
-version: 1.3
+version: 1.5
 author: Dabo Ross
 prefix: UC
 description: This Plugin Is UBER CHAT
@@ -13,6 +13,10 @@ commands:
      description: This command colorizes your messages.
      usage: /<command>
      permission: uberchat.toggleme
+   color:
+     description: This command colorizes one message.
+     usage: /<command> message
+     permission: uberchat.colorize
 permissions:
   uberchat.*:
     description: Gives access to all UberChat commands
