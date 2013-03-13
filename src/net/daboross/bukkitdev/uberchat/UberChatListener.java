@@ -1,6 +1,8 @@
 package net.daboross.bukkitdev.uberchat;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -15,17 +17,20 @@ import org.bukkit.metadata.MetadataValue;
  * @author Dabo Ross
  */
 public class UberChatListener implements Listener {
-
+    
     private static final String capsMessage = ChatColor.RED + Colorizor.colorize("I'm sorry, but your chat message contains to many uppercase letters.");
-
+    
     public UberChatListener() {
+        mapInit();
     }
-
+    
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChatEvent(AsyncPlayerChatEvent evt) {
         if (evt.isCancelled()) {
             return;
         }
+        andColorCheck(evt);
+        format(evt);
         if (!whatCheck(evt)) {
             swearCheck(evt);
             toggleCheck(evt);
@@ -34,7 +39,11 @@ public class UberChatListener implements Listener {
             nameCheck(evt);
         }
     }
-
+    
+    private void format(AsyncPlayerChatEvent evt) {
+        evt.setFormat(ChatColor.YELLOW + "%s" + ChatColor.GRAY + " %s");
+    }
+    
     private void colorCheck(AsyncPlayerChatEvent evt) {
         Player p = evt.getPlayer();
         if (p.hasMetadata("isMessageColorOn")) {
@@ -46,7 +55,7 @@ public class UberChatListener implements Listener {
             }
         }
     }
-
+    
     private void capsCheck(AsyncPlayerChatEvent evt) {
         Player p = evt.getPlayer();
         if (p.hasPermission("uberchat.ignorecaps")) {
@@ -69,7 +78,7 @@ public class UberChatListener implements Listener {
             evt.setMessage(UberChatHelpers.toggleCase(evt.getMessage()));
         }
     }
-
+    
     private void nameCheck(AsyncPlayerChatEvent evt) {
         String name = ChatColor.stripColor(evt.getPlayer().getDisplayName());
         if (name.length() > 22) {
@@ -78,7 +87,7 @@ public class UberChatListener implements Listener {
             evt.getPlayer().sendMessage(Colorizor.colorize(UberChatHelpers.toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
         }
     }
-
+    
     private void toggleCheck(AsyncPlayerChatEvent evt) {
         Player p = evt.getPlayer();
         if (p.hasMetadata("isMessageToggleOn")) {
@@ -90,7 +99,7 @@ public class UberChatListener implements Listener {
             }
         }
     }
-
+    
     private boolean whatCheck(AsyncPlayerChatEvent evt) {
         String msg = ChatColor.stripColor(evt.getMessage()).toLowerCase();
         if (msg.equals("back") || msg.equals("im back") || msg.equals("i'm back")) {
@@ -104,15 +113,31 @@ public class UberChatListener implements Listener {
             return false;
         }
     }
-
+    private Map<String, String> swears = new HashMap<String, String>();
+    
+    private void mapInit() {
+        swears.put("fuck", "barnacles");
+        swears.put("nigger", "happy");
+        swears.put("bitch", "love");
+        swears.put("shit", "Lovely Ladies");
+        swears.put("sh!t", "Lovelier Ladies");
+    }
+    
     private void swearCheck(AsyncPlayerChatEvent evt) {
-        String colorMsg = evt.getMessage();
-        if (colorMsg.contains("fuck")) {
-            evt.setMessage(colorMsg.replaceAll("fuck", "barnacles"));
+        String msg = evt.getMessage();
+        for (String str : swears.keySet()) {
+            if (msg.contains(str)) {
+                msg = msg.replaceAll(str, swears.get(str));
+                evt.setMessage(msg);
+            }
+            String noColorMsg = ChatColor.stripColor(msg);
+            if (noColorMsg.contains(str)) {
+                msg = noColorMsg.replaceAll(str, swears.get(str));
+            }
         }
-        String nonColorMsg = ChatColor.stripColor(colorMsg);
-        if (nonColorMsg.contains("fuck")) {
-            evt.setMessage(nonColorMsg.replaceAll("fuck", "barnacles"));
-        }
+    }
+    
+    private void andColorCheck(AsyncPlayerChatEvent evt) {
+        evt.setMessage(ChatColor.translateAlternateColorCodes('&', evt.getMessage()));
     }
 }
