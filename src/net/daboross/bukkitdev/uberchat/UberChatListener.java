@@ -17,20 +17,21 @@ import org.bukkit.metadata.MetadataValue;
  * @author Dabo Ross
  */
 public class UberChatListener implements Listener {
-    
+
     private static final String capsMessage = ChatColor.RED + Colorizor.colorize("I'm sorry, but your chat message contains to many uppercase letters.");
-    
+    private static final String chatFormat = ChatColor.YELLOW + "%s " + ChatColor.GRAY + "%s";
+
     public UberChatListener() {
         mapInit();
     }
-    
+
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChatEvent(AsyncPlayerChatEvent evt) {
         if (evt.isCancelled()) {
             return;
         }
-        andColorCheck(evt);
         format(evt);
+        andColorCheck(evt);
         if (!whatCheck(evt)) {
             swearCheck(evt);
             toggleCheck(evt);
@@ -39,11 +40,11 @@ public class UberChatListener implements Listener {
             nameCheck(evt);
         }
     }
-    
+
     private void format(AsyncPlayerChatEvent evt) {
-        evt.setFormat(ChatColor.YELLOW + "%s" + ChatColor.GRAY + " %s");
+        evt.setFormat(chatFormat);
     }
-    
+
     private void colorCheck(AsyncPlayerChatEvent evt) {
         Player p = evt.getPlayer();
         if (p.hasMetadata("isMessageColorOn")) {
@@ -55,7 +56,7 @@ public class UberChatListener implements Listener {
             }
         }
     }
-    
+
     private void capsCheck(AsyncPlayerChatEvent evt) {
         Player p = evt.getPlayer();
         if (p.hasPermission("uberchat.ignorecaps")) {
@@ -78,7 +79,7 @@ public class UberChatListener implements Listener {
             evt.setMessage(UberChatHelpers.toggleCase(evt.getMessage()));
         }
     }
-    
+
     private void nameCheck(AsyncPlayerChatEvent evt) {
         String name = ChatColor.stripColor(evt.getPlayer().getDisplayName());
         if (name.length() > 22) {
@@ -87,7 +88,7 @@ public class UberChatListener implements Listener {
             evt.getPlayer().sendMessage(Colorizor.colorize(UberChatHelpers.toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
         }
     }
-    
+
     private void toggleCheck(AsyncPlayerChatEvent evt) {
         Player p = evt.getPlayer();
         if (p.hasMetadata("isMessageToggleOn")) {
@@ -99,7 +100,7 @@ public class UberChatListener implements Listener {
             }
         }
     }
-    
+
     private boolean whatCheck(AsyncPlayerChatEvent evt) {
         String msg = ChatColor.stripColor(evt.getMessage()).toLowerCase();
         if (msg.equals("back") || msg.equals("im back") || msg.equals("i'm back")) {
@@ -114,29 +115,72 @@ public class UberChatListener implements Listener {
         }
     }
     private Map<String, String> swears = new HashMap<String, String>();
-    
+    private Map<String, Boolean> swearWord = new HashMap<String, Boolean>();
+
     private void mapInit() {
         swears.put("fuck", "barnacles");
+        swearWord.put("fuck", false);
         swears.put("nigger", "happy");
-        swears.put("bitch", "love");
-        swears.put("shit", "Lovely Ladies");
-        swears.put("sh!t", "Lovelier Ladies");
+        swearWord.put("nigger", false);
+        swears.put("bitch", "lady");
+        swearWord.put("bitch", false);
+        swears.put("shit", "feces");
+        swearWord.put("shit", false);
+        swears.put("ass", "donkey");
+        swearWord.put("ass", true);
+        swears.put("wtf", "wth");
+        swearWord.put("wtf", true);
+        swears.put("crap", "feces");
+        swearWord.put("crap", false);
+        swears.put("fag", "apple");
+        swearWord.put("fag", false);
+        swears.put("pimp", "thief");
+        swearWord.put("pimp", true);
+        swears.put("dick", "fruit");
+        swearWord.put("dick", false);
     }
-    
+
     private void swearCheck(AsyncPlayerChatEvent evt) {
-        String msg = evt.getMessage();
-        for (String str : swears.keySet()) {
-            if (msg.contains(str)) {
-                msg = msg.replaceAll(str, swears.get(str));
-                evt.setMessage(msg);
-            }
-            String noColorMsg = ChatColor.stripColor(msg);
-            if (noColorMsg.contains(str)) {
-                msg = noColorMsg.replaceAll(str, swears.get(str));
+        String rawMessage = evt.getMessage();
+        String msg = rawMessage;
+        boolean msgNonColor = false;
+        for (String rawSwear : swears.keySet()) {
+            boolean word = swearWord.get(rawSwear);
+            String rawReplacement = swears.get(rawSwear);
+            String replacement = word ? (" " + rawReplacement + " ") : rawReplacement;
+            String swearRegex = "(?i)" + (word ? (" " + rawSwear + " ") : rawSwear);
+            msg = msg.replaceAll(swearRegex, replacement);
+            if (!msgNonColor) {
+                String noColorOrig = ChatColor.stripColor(msg);
+                String noColorMsg = noColorOrig;
+                if (noColorMsg.equals(msg)) {
+                    msgNonColor = true;
+                } else {
+                    noColorMsg = noColorMsg.replaceAll(swearRegex, replacement);
+                    if (word) {
+                        if (noColorMsg.equals(rawSwear)) {
+                            noColorMsg = rawReplacement;
+                        } else {
+                            if (noColorMsg.toLowerCase().endsWith(" " + rawSwear.toLowerCase())) {
+                                noColorMsg = noColorMsg.substring(0, noColorMsg.length() - rawSwear.length()).concat(rawReplacement);
+                            }
+                            if (noColorMsg.toLowerCase().startsWith(rawSwear.toLowerCase() + " ")) {
+                                noColorMsg = rawReplacement.concat(noColorMsg.substring(rawSwear.length(), noColorMsg.length()));
+                            }
+                        }
+                    }
+                    if (!noColorOrig.equals(noColorMsg)) {
+                        msg = noColorMsg;
+                        msgNonColor = true;
+                    }
+                }
             }
         }
+        if (!rawMessage.equals(msg)) {
+            evt.setMessage(msg);
+        }
     }
-    
+
     private void andColorCheck(AsyncPlayerChatEvent evt) {
         evt.setMessage(ChatColor.translateAlternateColorCodes('&', evt.getMessage()));
     }
