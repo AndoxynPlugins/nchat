@@ -20,6 +20,7 @@ public class UberChatListener implements Listener {
 
     private static final String capsMessage = ChatColor.RED + Colorizor.colorize("I'm sorry, but your chat message contains to many uppercase letters.");
     private static final String chatFormat = ChatColor.YELLOW + "%s " + ChatColor.GRAY + "%s";
+    private static final String longNick = Colorizor.colorize(UberChatHelpers.toggleCase("Your Name Is Very Long! use /nick to shorten it!"));
 
     public UberChatListener() {
         mapInit();
@@ -83,9 +84,9 @@ public class UberChatListener implements Listener {
     private void nameCheck(AsyncPlayerChatEvent evt) {
         String name = ChatColor.stripColor(evt.getPlayer().getDisplayName());
         if (name.length() > 22) {
-            evt.getPlayer().sendMessage(Colorizor.colorize(UberChatHelpers.toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
-            evt.getPlayer().sendMessage(Colorizor.colorize(UberChatHelpers.toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
-            evt.getPlayer().sendMessage(Colorizor.colorize(UberChatHelpers.toggleCase("Your Name Is Very Long! use /nick to shorten it!")));
+            evt.getPlayer().sendMessage(longNick);
+            evt.getPlayer().sendMessage(longNick);
+            evt.getPlayer().sendMessage(longNick);
         }
     }
 
@@ -150,6 +151,18 @@ public class UberChatListener implements Listener {
             String replacement = word ? (" " + rawReplacement + " ") : rawReplacement;
             String swearRegex = "(?i)" + (word ? (" " + rawSwear + " ") : rawSwear);
             msg = msg.replaceAll(swearRegex, replacement);
+            if (word) {
+                if (msg.equals(rawSwear)) {
+                    msg = rawReplacement;
+                } else {
+                    if (msg.toLowerCase().endsWith(" " + rawSwear.toLowerCase())) {
+                        msg = msg.substring(0, msg.length() - rawSwear.length()).concat(rawReplacement);
+                    }
+                    if (msg.toLowerCase().startsWith(rawSwear.toLowerCase() + " ")) {
+                        msg = rawReplacement.concat(msg.substring(rawSwear.length(), msg.length()));
+                    }
+                }
+            }
             if (!msgNonColor) {
                 String noColorOrig = ChatColor.stripColor(msg);
                 String noColorMsg = noColorOrig;
