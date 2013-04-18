@@ -8,11 +8,11 @@ import org.bukkit.ChatColor;
  * @author Dabo Ross <Dabo.Ross at daboross.net>
  */
 public class Colorizor {
-    
-    private static Random r = new Random();
-    private static int num = 0;
-    
-    public static String colorize(String orig) {
+
+    private Random r = new Random();
+    private int num = 0;
+
+    public String colorize(String orig) {
         char[] list = ChatColor.stripColor(orig).toCharArray();
         if (list.length == 0) {
             return "";
@@ -31,30 +31,18 @@ public class Colorizor {
         }
         return colorizedString;
     }
-    private static String[] colorList;
-    
-    private static String getColor(int i) {
-        if (colorList == null) {
-            colorList = new String[9];
-            colorList[0] = ChatColor.AQUA.toString();
-            colorList[1] = ChatColor.BLUE.toString();
-            colorList[2] = ChatColor.DARK_BLUE.toString();
-            colorList[3] = ChatColor.DARK_PURPLE.toString();
-            colorList[4] = ChatColor.DARK_RED.toString();
-            colorList[5] = ChatColor.RED.toString();
-            colorList[6] = ChatColor.GOLD.toString();
-            colorList[7] = ChatColor.GREEN.toString();
-            colorList[8] = ChatColor.DARK_GREEN.toString();
-        }
+    private final String[] colorList = new String[]{ChatColor.AQUA.toString(), ChatColor.BLUE.toString(), ChatColor.DARK_BLUE.toString(), ChatColor.DARK_PURPLE.toString(), ChatColor.DARK_RED.toString(), ChatColor.RED.toString(), ChatColor.GOLD.toString(), ChatColor.GREEN.toString(), ChatColor.DARK_GREEN.toString()};
+
+    private String getColor(int i) {
         int v = i;
         while (v > 8) {
             v -= 8;
         }
         return colorList[v];
     }
-    
-    public static String randomColor() {
-        int i = r.nextInt(9);
-        return getColor(i);
+    private final String[] allColors = new String[]{ChatColor.AQUA.toString(), ChatColor.BLACK.toString(), ChatColor.BLUE.toString(), ChatColor.DARK_AQUA.toString(), ChatColor.DARK_BLUE.toString(), ChatColor.DARK_GRAY.toString(), ChatColor.DARK_GREEN.toString(), ChatColor.DARK_PURPLE.toString(), ChatColor.DARK_RED.toString(), ChatColor.GOLD.toString(), ChatColor.GRAY.toString(), ChatColor.GREEN.toString(), ChatColor.LIGHT_PURPLE.toString(), ChatColor.RED.toString(), ChatColor.WHITE.toString(), ChatColor.YELLOW.toString()};
+
+    public String randomColor() {
+        return allColors[r.nextInt(allColors.length)];
     }
 }

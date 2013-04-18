@@ -10,12 +10,14 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author daboross
  */
 public final class UberChat extends JavaPlugin {
-
+    
     @Override
     public void onEnable() {
+        UberChatClassDatabase database = new UberChatClassDatabase();
         PluginManager pm = this.getServer().getPluginManager();
-        pm.registerEvents(new UberChatListener(), this);
-        UberChatCommandExecutor executor = new UberChatCommandExecutor(this);
+        pm.registerEvents(database.getPlayerColorzListener(), this);
+        pm.registerEvents(new UberChatListener(database), this);
+        UberChatCommandExecutor executor = new UberChatCommandExecutor(this, database);
         PluginCommand colorme = getCommand("colorme");
         PluginCommand toggleme = getCommand("toggleme");
         PluginCommand color = getCommand("color");
@@ -30,7 +32,7 @@ public final class UberChat extends JavaPlugin {
         }
         getLogger().info("UberChat Fully Enabled");
     }
-
+    
     @Override
     public void onDisable() {
         getLogger().info("UberChat Fully Disabled");
