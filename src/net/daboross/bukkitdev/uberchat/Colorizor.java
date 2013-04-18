@@ -1,5 +1,6 @@
 package net.daboross.bukkitdev.uberchat;
 
+import java.util.Random;
 import org.bukkit.ChatColor;
 
 /**
@@ -7,9 +8,10 @@ import org.bukkit.ChatColor;
  * @author Dabo Ross <Dabo.Ross at daboross.net>
  */
 public class Colorizor {
-
+    
+    private static Random r = new Random();
     private static int num = 0;
-
+    
     public static String colorize(String orig) {
         char[] list = ChatColor.stripColor(orig).toCharArray();
         if (list.length == 0) {
@@ -30,7 +32,7 @@ public class Colorizor {
         return colorizedString;
     }
     private static String[] colorList;
-
+    
     private static String getColor(int i) {
         if (colorList == null) {
             colorList = new String[9];
@@ -49,5 +51,10 @@ public class Colorizor {
             v -= 8;
         }
         return colorList[v];
+    }
+    
+    public static String randomColor() {
+        int i = r.nextInt(9);
+        return getColor(i);
     }
 }

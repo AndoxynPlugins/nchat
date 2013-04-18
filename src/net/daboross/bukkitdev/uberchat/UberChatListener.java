@@ -19,7 +19,7 @@ import org.bukkit.metadata.MetadataValue;
 public class UberChatListener implements Listener {
 
     private static final String capsMessage = ChatColor.RED + Colorizor.colorize("I'm sorry, but your chat message contains to many uppercase letters.");
-    private static final String chatFormat = ChatColor.YELLOW + "%s " + ChatColor.GRAY + "%s";
+    private static final String chatFormat = ChatColor.BLUE + "%s " + ChatColor.GRAY + "%s";
     private static final String longNick = Colorizor.colorize(UberChatHelpers.toggleCase("Your Name Is Very Long! use /nick to shorten it!"));
 
     public UberChatListener() {
@@ -43,7 +43,7 @@ public class UberChatListener implements Listener {
     }
 
     private void format(AsyncPlayerChatEvent evt) {
-        evt.setFormat(chatFormat);
+        evt.setFormat(RandomNumberz.randomNumber() + chatFormat);
     }
 
     private void colorCheck(AsyncPlayerChatEvent evt) {
