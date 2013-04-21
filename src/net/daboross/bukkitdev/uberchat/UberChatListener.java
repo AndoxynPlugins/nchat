@@ -31,7 +31,7 @@ public class UberChatListener implements Listener {
         capsMessage = ChatColor.RED + database.getColorizor().colorize("I'm sorry, but your chat message contains to many uppercase letters.");
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChatEvent(AsyncPlayerChatEvent evt) {
         if (evt.isCancelled()) {
             return;
@@ -88,7 +88,7 @@ public class UberChatListener implements Listener {
 
     private void nameCheck(AsyncPlayerChatEvent evt) {
         String name = ChatColor.stripColor(evt.getPlayer().getDisplayName());
-        if (name.length() > 22) {
+        if (name.length() > 16) {
             evt.getPlayer().sendMessage(longNick);
             evt.getPlayer().sendMessage(longNick);
             evt.getPlayer().sendMessage(longNick);
@@ -124,25 +124,25 @@ public class UberChatListener implements Listener {
     private Map<String, Boolean> swearWord = new HashMap<String, Boolean>();
 
     private void mapInit() {
-        swears.put("fuck", "barnacles");
+        swears.put("fuck", "****");
         swearWord.put("fuck", false);
-        swears.put("nigger", "happy");
+        swears.put("nigger", "******");
         swearWord.put("nigger", false);
-        swears.put("bitch", "lady");
+        swears.put("bitch", "*****");
         swearWord.put("bitch", false);
-        swears.put("shit", "feces");
+        swears.put("shit", "****");
         swearWord.put("shit", false);
-        swears.put("ass", "donkey");
+        swears.put("ass", "***");
         swearWord.put("ass", true);
         swears.put("wtf", "wth");
         swearWord.put("wtf", true);
-        swears.put("crap", "feces");
+        swears.put("crap", "****");
         swearWord.put("crap", false);
-        swears.put("fag", "apple");
+        swears.put("fag", "***");
         swearWord.put("fag", false);
-        swears.put("pimp", "thief");
+        swears.put("pimp", "****");
         swearWord.put("pimp", true);
-        swears.put("dick", "fruit");
+        swears.put("dick", "****");
         swearWord.put("dick", false);
     }
 
