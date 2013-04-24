@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author daboross
  */
 public final class UberChat extends JavaPlugin {
-    
+
     @Override
     public void onEnable() {
         UberChatClassDatabase database = new UberChatClassDatabase();
@@ -32,7 +32,7 @@ public final class UberChat extends JavaPlugin {
         }
         getLogger().info("UberChat Fully Enabled");
     }
-    
+
     @Override
     public void onDisable() {
         getLogger().info("UberChat Fully Disabled");

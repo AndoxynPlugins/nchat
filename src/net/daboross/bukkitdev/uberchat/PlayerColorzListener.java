@@ -13,25 +13,25 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * @author daboross
  */
 public class PlayerColorzListener implements Listener {
-    
+
     private final UberChatClassDatabase database;
-    
+
     public PlayerColorzListener(UberChatClassDatabase database) {
         this.database = database;
     }
-    
+
     public void initalLoad() {
         PlayerColorz pc = database.getPlayerColorz();
         for (Player p : Bukkit.getOnlinePlayers()) {
             pc.newSet(p.getName());
         }
     }
-    
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(final PlayerJoinEvent evt) {
         database.getPlayerColorz().newSet(evt.getPlayer().getName());
     }
-    
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerQuit(final PlayerQuitEvent evt) {
         database.getPlayerColorz().removeSet(evt.getPlayer().getName());
