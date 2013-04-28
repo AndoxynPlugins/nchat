@@ -1,5 +1,6 @@
 package net.daboross.bukkitdev.uberchat;
 
+import net.daboross.bukkitdev.uberchat.randomnumbers.PlayerColorStorage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,17 +19,17 @@ import org.bukkit.metadata.MetadataValue;
  */
 public class UberChatListener implements Listener {
 
-    private final UberChatClassDatabase database;
     private final String capsMessage;
     private final String chatFormat;
     private final String longNick;
+    private final PlayerColorStorage playerColorStorage;
 
-    public UberChatListener(UberChatClassDatabase database) {
+    public UberChatListener(PlayerColorStorage playerColorStorage) {
         mapInit();
-        this.database = database;
         chatFormat = ChatColor.BLUE + "%s " + ChatColor.GRAY + "%s";
-        longNick = database.getColorizor().colorize(UberChatHelpers.toggleCase("Your name is very long! use /nick to shorten it!"));
-        capsMessage = ChatColor.RED + database.getColorizor().colorize("I'm sorry, but your chat message contains to many uppercase letters.");
+        longNick = ChatColor.RED + ("Your name is very long! use /nick to shorten it!");
+        capsMessage = ChatColor.RED + ("I'm sorry, but your chat message contains to many uppercase letters.");
+        this.playerColorStorage = playerColorStorage;
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -48,7 +49,7 @@ public class UberChatListener implements Listener {
     }
 
     private void format(AsyncPlayerChatEvent evt) {
-        evt.setFormat(database.getPlayerColorz().getSymbol(evt.getPlayer().getName()) + chatFormat);
+        evt.setFormat(playerColorStorage.getSymbol(evt.getPlayer().getName()) + chatFormat);
     }
 
     private void colorCheck(AsyncPlayerChatEvent evt) {
@@ -57,7 +58,7 @@ public class UberChatListener implements Listener {
             List<MetadataValue> meta = p.getMetadata("isMessageColorOn");
             if (meta.size() >= 1) {
                 if (meta.get(0).asBoolean()) {
-                    evt.setMessage(database.getColorizor().colorize(evt.getMessage()));
+                    evt.setMessage(Colorizor.colorize(evt.getMessage()));
                 }
             }
         }
@@ -120,8 +121,8 @@ public class UberChatListener implements Listener {
             return false;
         }
     }
-    private Map<String, String> swears = new HashMap<String, String>();
-    private Map<String, Boolean> swearWord = new HashMap<String, Boolean>();
+    private final Map<String, String> swears = new HashMap<String, String>();
+    private final Map<String, Boolean> swearWord = new HashMap<String, Boolean>();
 
     private void mapInit() {
         swears.put("fuck", "****");

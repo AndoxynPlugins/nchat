@@ -17,11 +17,9 @@ import org.bukkit.metadata.MetadataValue;
 public class UberChatCommandExecutor implements CommandExecutor {
 
     private final UberChat main;
-    private final UberChatClassDatabase database;
 
-    public UberChatCommandExecutor(UberChat main, UberChatClassDatabase database) {
+    public UberChatCommandExecutor(UberChat main) {
         this.main = main;
-        this.database = database;
     }
 
     @Override
@@ -84,7 +82,7 @@ public class UberChatCommandExecutor implements CommandExecutor {
                 } else if (current.startsWith("\\")) {
                     result += current.substring(1, current.length());
                 } else {
-                    result += database.getColorizor().colorize(current);
+                    result += Colorizor.colorize(current);
                 }
             }
             if (sender instanceof Player) {
