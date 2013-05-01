@@ -1,6 +1,5 @@
 package net.daboross.bukkitdev.uberchat;
 
-import net.daboross.bukkitdev.uberchat.randomnumbers.PlayerColorStorage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,14 +21,12 @@ public class UberChatListener implements Listener {
     private final String capsMessage;
     private final String chatFormat;
     private final String longNick;
-    private final PlayerColorStorage playerColorStorage;
 
-    public UberChatListener(PlayerColorStorage playerColorStorage) {
+    public UberChatListener() {
         mapInit();
         chatFormat = ChatColor.BLUE + "%s " + ChatColor.GRAY + "%s";
         longNick = ChatColor.RED + ("Your name is very long! use /nick to shorten it!");
         capsMessage = ChatColor.RED + ("I'm sorry, but your chat message contains to many uppercase letters.");
-        this.playerColorStorage = playerColorStorage;
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -49,7 +46,7 @@ public class UberChatListener implements Listener {
     }
 
     private void format(AsyncPlayerChatEvent evt) {
-        evt.setFormat(playerColorStorage.getSymbol(evt.getPlayer().getName()) + chatFormat);
+        evt.setFormat(chatFormat);
     }
 
     private void colorCheck(AsyncPlayerChatEvent evt) {
