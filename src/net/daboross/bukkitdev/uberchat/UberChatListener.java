@@ -23,7 +23,7 @@ public class UberChatListener implements Listener {
 
     public UberChatListener() {
         mapInit();
-        chatFormat = ChatColor.BLACK + "#" + ChatColor.BLUE + "%s" + ChatColor.BLACK + " * " + ChatColor.GRAY + "%s";
+        chatFormat = ChatColor.BLACK + "#" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
         capsMessage = ChatColor.RED + ("I'm sorry, but your chat message contains to many uppercase letters.");
     }
 
@@ -48,11 +48,18 @@ public class UberChatListener implements Listener {
         if (p.getDisplayName().contains("_")) {
             p.setDisplayName(p.getDisplayName().replaceAll("_", " "));
         }
-        while (ChatColor.stripColor(p.getDisplayName()).startsWith(" ")) {
+        String noColor = ChatColor.stripColor(p.getDisplayName());
+        while (noColor.startsWith(" ")) {
             p.setDisplayName(p.getDisplayName().replaceFirst(" ", ""));
+            noColor = ChatColor.stripColor(p.getDisplayName());
         }
-        if (p.getDisplayName().length() > 16) {
-            p.setDisplayName(p.getDisplayName().substring(0, 15));
+        if (noColor.length() > 16) {
+            int lengthDiff = 15 + p.getDisplayName().length() - noColor.length();
+            String name = p.getDisplayName().substring(0, lengthDiff);
+            if (name.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
+                name = name.substring(0, name.length() - 1);
+            }
+            p.setDisplayName(name);
         }
     }
 
@@ -134,16 +141,14 @@ public class UberChatListener implements Listener {
         swearWord.put("shit", false);
         swears.put("ass", "***");
         swearWord.put("ass", true);
-        swears.put("wtf", "wth");
-        swearWord.put("wtf", true);
         swears.put("crap", "****");
         swearWord.put("crap", false);
         swears.put("fag", "***");
         swearWord.put("fag", false);
-        swears.put("pimp", "****");
-        swearWord.put("pimp", true);
         swears.put("dick", "****");
         swearWord.put("dick", false);
+        swears.put("cunt", "****");
+        swearWord.put("cunt", false);
     }
 
     private void swearCheck(AsyncPlayerChatEvent evt) {
