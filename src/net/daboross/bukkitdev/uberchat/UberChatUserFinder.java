@@ -69,6 +69,7 @@ public class UberChatUserFinder {
     }
 
     public static CommandSender findCommandSenderExact(String name) {
+
         if (name.equalsIgnoreCase("console")) {
             return Bukkit.getConsoleSender();
         } else {

@@ -1,5 +1,6 @@
 package net.daboross.bukkitdev.uberchat;
 
+import java.util.List;
 import java.util.Locale;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -71,6 +72,38 @@ public class UberChatHelpers {
             StringBuilder resultBuilder = new StringBuilder(array[start]);
             for (int i = start + 1; i < array.length; i++) {
                 resultBuilder.append(seperator).append(array[i]);
+            }
+            return resultBuilder.toString();
+        }
+    }
+
+    public static <T> String objectArrayToString(int start, T[] array, String seperator) {
+        if (array.length == 0) {
+            return "";
+        } else if (start >= array.length) {
+            return "";
+        } else if (array.length - 1 == start) {
+            return array[start].toString();
+        } else {
+            StringBuilder resultBuilder = new StringBuilder(array[start].toString());
+            for (int i = start + 1; i < array.length; i++) {
+                resultBuilder.append(seperator).append(array[i]);
+            }
+            return resultBuilder.toString();
+        }
+    }
+
+    public static String listToString(int start, List list, String seperator) {
+        if (list.isEmpty()) {
+            return "";
+        } else if (start >= list.size()) {
+            return "";
+        } else if (list.size() - 1 == start) {
+            return list.get(start).toString();
+        } else {
+            StringBuilder resultBuilder = new StringBuilder(list.get(start).toString());
+            for (int i = start + 1; i < list.size(); i++) {
+                resultBuilder.append(seperator).append(list.get(start));
             }
             return resultBuilder.toString();
         }

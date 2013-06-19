@@ -6,10 +6,8 @@
 package net.daboross.bukkitdev.uberchat.commandexecutors;
 
 import net.daboross.bukkitdev.uberchat.Colorizor;
-import net.daboross.bukkitdev.uberchat.UberChatHelpers;
 import net.daboross.bukkitdev.uberchat.UberChatStatics;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,8 +21,8 @@ public class ColorExecutor implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("Please type a message after /color");
-            sender.sendMessage("Example: `/color Hello world`");
+            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please type a message after /color");
+            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Example: `/color Hello world`");
             return true;
         }
         String result = "";
@@ -45,7 +43,7 @@ public class ColorExecutor implements CommandExecutor {
             Player player = (Player) sender;
             player.chat(result);
         } else {
-            Bukkit.getServer().broadcastMessage(String.format(UberChatStatics.ANNOUNCER_FORMAT, "Server", result));
+            Bukkit.getServer().broadcastMessage(String.format(UberChatStatics.FORMAT.ANNOUNCER, "Server", result));
         }
         return true;
     }

@@ -6,7 +6,7 @@
 package net.daboross.bukkitdev.uberchat.commandexecutors;
 
 import net.daboross.bukkitdev.uberchat.PlayerInfoTracker;
-import org.bukkit.ChatColor;
+import net.daboross.bukkitdev.uberchat.UberChatStatics;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,10 +26,10 @@ public class TogglemeExecutor implements CommandExecutor {
         Player p = (Player) sender;
         if (PlayerInfoTracker.getTogglemeEnabled(p.getName())) {
             PlayerInfoTracker.setTogglemeEnabled(p.getName(), false);
-            sender.sendMessage(ChatColor.GREEN + "Your chat messages are no longer being toggled.");
+            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Your chat messages are no longer being toggled.");
         } else {
             PlayerInfoTracker.setTogglemeEnabled(p.getName(), true);
-            sender.sendMessage(ChatColor.GREEN + "Your future chat messages will now be toggled.");
+            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Your future chat messages will now be toggled.");
         }
         return true;
     }
