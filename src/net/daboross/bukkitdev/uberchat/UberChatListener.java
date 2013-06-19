@@ -32,12 +32,12 @@ public class UberChatListener implements Listener {
     }
 
     private boolean checkForBack(AsyncPlayerChatEvent evt) {
-        String msg = evt.getMessage().replaceAll("(?i)" + String.valueOf(ChatColor.COLOR_CHAR) + "[0-9A-FK-OR]", "").trim().toLowerCase(Locale.ENGLISH);
+        String msg = evt.getMessage().replaceAll("(?i)&[0-9A-FLMO]", "").trim().toLowerCase(Locale.ENGLISH);
         if (msg.equals("back") || msg.equals("im back") || msg.equals("i'm back")) {
             String fullDisplay = evt.getPlayer().getDisplayName();
             String[] nameSplit = fullDisplay.split(" ");
             String name = nameSplit[nameSplit.length - 1];
-            Bukkit.getServer().broadcastMessage(String.format(UberChatStatics.FORMAT.ANNOUNCER, ChatColor.BLUE + name, "Is Back" + ChatColor.DARK_GRAY + "!"));
+            Bukkit.getServer().broadcastMessage(String.format(UberChatStatics.FORMAT.ANNOUNCER, "UC") + ChatColor.BLUE + name + ChatColor.GRAY + " Is Back" + ChatColor.DARK_GRAY + "!");
             evt.setCancelled(true);
             return true;
         } else {

@@ -6,9 +6,7 @@
 package net.daboross.bukkitdev.uberchat;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import org.bukkit.ChatColor;
 
@@ -18,90 +16,74 @@ import org.bukkit.ChatColor;
  */
 public class UberChatSwearChecker {
 
-    private static final Set<String> swearWords = new HashSet<String>();
-    private static final Map<String, Boolean> isWordMap = new HashMap<String, Boolean>();
+    private static final Set<String> anywhereSwearWords = new HashSet<String>();
+    private static final Set<String> wordOnlySwearWords = new HashSet<String>();
+    private static final String DIVIDER_REGEX = "[^a-zA-Z]";
+    private static final String REGEX_START = "^";
+    private static final String REGEX_END = "$";
 
     static {
-        swearWords.add("fuck");
-        isWordMap.put("fuck", false);
-        swearWords.add("nigger");
-        isWordMap.put("nigger", false);
-        swearWords.add("bitch");
-        isWordMap.put("bitch", false);
-        swearWords.add("shit");
-        isWordMap.put("shit", false);
-        swearWords.add("ass");
-        isWordMap.put("ass", true);
-        swearWords.add("crap");
-        isWordMap.put("crap", false);
-        swearWords.add("fag");
-        isWordMap.put("fag", false);
-        swearWords.add("dick");
-        isWordMap.put("dick", false);
-        swearWords.add("cunt");
-        isWordMap.put("cunt", false);
+        anywhereSwearWords.add("fuck");
+        anywhereSwearWords.add("nigger");
+        anywhereSwearWords.add("bitch");
+        anywhereSwearWords.add("shit");
+        anywhereSwearWords.add("crap");
+        anywhereSwearWords.add("fag");
+        anywhereSwearWords.add("dick");
+        anywhereSwearWords.add("cunt");
+        anywhereSwearWords.add("cock");
+        wordOnlySwearWords.add("ass");
     }
-    private static char[] dividerChars = {' ', ',', '.'};
 
-    public static String swearCheck(String input) {
+    public static String swearCheck(final String input) {
         String msg = input;
         boolean msgNonColor = false;
-        for (String rawSwear : swearWords) {
-            boolean swearIsWord = isWordMap.get(rawSwear);
-            String replacementWord = getReplacementWord(rawSwear.length());
-            if (swearIsWord) {
-                for (char divider : dividerChars) {
-                    String swearIsWordReplacement = (divider + replacementWord + divider);
-                    String swearRegex = "(?i)" + (swearIsWord ? (divider + rawSwear + divider) : rawSwear);
-                    msg = msg.replaceAll(swearRegex, swearIsWordReplacement);
-                }
-            } else {
-                String swearRegex = "(?i)" + (rawSwear);
-                msg = msg.replaceAll(swearRegex, replacementWord);
-            }
-            if (swearIsWord) {
-                if (msg.equals(rawSwear)) {
-                    msg = replacementWord;
-                } else {
-                    for (char divider : dividerChars) {
-                        if (msg.toLowerCase().endsWith(divider + rawSwear.toLowerCase())) {
-                            msg = msg.substring(0, msg.length() - rawSwear.length()).concat(replacementWord);
-                        }
-                        if (msg.toLowerCase().startsWith(rawSwear.toLowerCase() + divider)) {
-                            msg = replacementWord.concat(msg.substring(rawSwear.length(), msg.length()));
-                        }
-                    }
-                }
-            }
+        for (String rawSwear : anywhereSwearWords) {
+            String replacement = getReplacementWord(rawSwear.length());
+            String swearRegex = "(?i)" + rawSwear;
+            msg = msg.replaceAll(swearRegex, replacement);
             if (!msgNonColor) {
-                String noColorOrig = ChatColor.stripColor(msg);
+                final String noColorOrig = ChatColor.stripColor(msg);
                 String noColorMsg = noColorOrig;
                 if (noColorMsg.equals(msg)) {
                     msgNonColor = true;
                 } else {
-                    if (swearIsWord) {
-                        for (char divider : dividerChars) {
-                            String swearIsWordReplacement = (divider + replacementWord + divider);
-                            String swearRegex = "(?i)" + (swearIsWord ? (divider + rawSwear + divider) : rawSwear);
-                            noColorMsg = noColorMsg.replaceAll(swearRegex, swearIsWordReplacement);
-                        }
-                    } else {
-                        String swearRegex = "(?i)" + (rawSwear);
-                        noColorMsg = noColorMsg.replaceAll(swearRegex, replacementWord);
+                    noColorMsg = noColorMsg.replaceAll(swearRegex, replacement);
+                    if (!noColorOrig.equals(noColorMsg)) {
+                        msg = noColorMsg;
+                        msgNonColor = true;
                     }
-                    if (swearIsWord) {
-                        if (noColorMsg.equals(rawSwear)) {
-                            noColorMsg = replacementWord;
-                        } else {
-                            for (char divider : dividerChars) {
-                                if (noColorMsg.toLowerCase().endsWith(divider + rawSwear.toLowerCase())) {
-                                    noColorMsg = noColorMsg.substring(0, noColorMsg.length() - rawSwear.length()).concat(replacementWord);
-                                }
-                                if (noColorMsg.toLowerCase().startsWith(rawSwear.toLowerCase() + divider)) {
-                                    noColorMsg = replacementWord.concat(noColorMsg.substring(rawSwear.length(), noColorMsg.length()));
-                                }
-                            }
-                        }
+                }
+            }
+        }
+        for (String rawSwear : wordOnlySwearWords) {
+            String replacement = " " + getReplacementWord(rawSwear.length()) + " ";
+            String swearRegex = "(?i)" + DIVIDER_REGEX + rawSwear + DIVIDER_REGEX;
+            msg = msg.replaceAll(swearRegex, replacement);
+            if (msg.toLowerCase().contains(REGEX_START + rawSwear.toLowerCase() + DIVIDER_REGEX)) {
+                msg = replacement + msg.substring(rawSwear.length(), msg.length());
+            }
+            if (msg.toLowerCase().contains(DIVIDER_REGEX + rawSwear.toLowerCase() + REGEX_END)) {
+                msg = msg.substring(0, msg.length() - rawSwear.length()) + replacement;
+            }
+            if (msg.trim().equals(rawSwear)) {
+                msg = replacement;
+            }
+            if (!msgNonColor) {
+                final String noColorOrig = ChatColor.stripColor(msg);
+                String noColorMsg = noColorOrig;
+                if (noColorMsg.equals(msg)) {
+                    msgNonColor = true;
+                } else {
+                    noColorMsg = noColorMsg.replaceAll(swearRegex, replacement);
+                    if (noColorMsg.toLowerCase().contains(DIVIDER_REGEX + rawSwear.toLowerCase() + REGEX_END)) {
+                        noColorMsg = noColorMsg.substring(0, noColorMsg.length() - rawSwear.length()).concat(replacement);
+                    }
+                    if (noColorMsg.toLowerCase().startsWith(REGEX_START + rawSwear.toLowerCase() + DIVIDER_REGEX)) {
+                        noColorMsg = replacement.concat(noColorMsg.substring(rawSwear.length(), noColorMsg.length()));
+                    }
+                    if (noColorMsg.trim().equals(rawSwear)) {
+                        noColorMsg = replacement;
                     }
                     if (!noColorOrig.equals(noColorMsg)) {
                         msg = noColorMsg;

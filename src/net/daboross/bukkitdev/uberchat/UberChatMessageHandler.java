@@ -6,7 +6,9 @@
 package net.daboross.bukkitdev.uberchat;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -23,8 +25,8 @@ public class UberChatMessageHandler {
             UberChatHelpers.formatPlayerDisplayname((Player) receiver);
         }
         String sensoredMessage = UberChatSensor.getSensoredMessage(message, sender);
-        String senderName = sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName();
-        String receiverName = receiver instanceof Player ? ((Player) receiver).getDisplayName() : receiver.getName();
+        String senderName = sender instanceof Player ? ((Player) sender).getDisplayName() : (sender instanceof ConsoleCommandSender ? UberChatStatics.STRINGS.SERVER_NAME : sender.getName());
+        String receiverName = receiver instanceof Player ? ((Player) receiver).getDisplayName() : (receiver instanceof ConsoleCommandSender ? UberChatStatics.STRINGS.SERVER_NAME : receiver.getName());
         String messageForSender = String.format(UberChatStatics.FORMAT.MSG, UberChatStatics.STRINGS.MSG_YOU_REPRESENTATION, receiverName, sensoredMessage);
         String messageForReceiver = String.format(UberChatStatics.FORMAT.MSG, senderName, UberChatStatics.STRINGS.MSG_YOU_REPRESENTATION, sensoredMessage);
         String messageForSpy = String.format(UberChatStatics.FORMAT.MSG_SPY, senderName, receiverName, sensoredMessage);

@@ -6,6 +6,7 @@
 package net.daboross.bukkitdev.uberchat.commandexecutors;
 
 import net.daboross.bukkitdev.uberchat.UberChatHelpers;
+import net.daboross.bukkitdev.uberchat.UberChatSensor;
 import net.daboross.bukkitdev.uberchat.UberChatStatics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,7 +25,9 @@ public class MeExecutor implements CommandExecutor {
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify an action to describe.");
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /me <action> (publicly describes you doing <action>)");
         } else {
-            Bukkit.broadcastMessage(String.format(UberChatStatics.FORMAT.ME, sender instanceof Player ? ((Player) sender).getDisplayName() : "Server", UberChatHelpers.arrayToString(args, " ")));
+            Bukkit.broadcastMessage(String.format(UberChatStatics.FORMAT.ME,
+                    sender instanceof Player ? ((Player) sender).getDisplayName() : "Server",
+                    UberChatSensor.getSensoredMessage(UberChatHelpers.arrayToString(args, " "), sender)));
         }
         return true;
     }

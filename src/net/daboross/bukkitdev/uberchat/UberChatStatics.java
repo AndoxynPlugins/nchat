@@ -29,9 +29,9 @@ public class UberChatStatics {
          * FORMAT for /msg shown to spies. First %s is from player's name,
          * second %s is to player's name, third %s is message.
          */
-        public static final String MSG_SPY = ChatColor.RED + "[" + ChatColor.BLUE + "%s" + ChatColor.RED + " -> " + ChatColor.BLUE + "%s" + ChatColor.RED + "]" + ChatColor.WHITE + " %s";
+        public static final String MSG_SPY = ChatColor.DARK_RED + "[" + ChatColor.BLUE + "%s" + ChatColor.DARK_RED + " -> " + ChatColor.BLUE + "%s" + ChatColor.DARK_RED + "]" + ChatColor.AQUA + " %s";
         /**
-         * FORMAT for announcer messages. First %s is the announcer's name.
+         * FORMAT for announcer name. First %s is the announcer's name.
          */
         public static final String ANNOUNCER = ChatColor.DARK_GRAY + "[" + ChatColor.RED + "%s" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY;
         /**
@@ -51,6 +51,7 @@ public class UberChatStatics {
     public static class STRINGS {
 
         public static final String MSG_YOU_REPRESENTATION = ChatColor.GOLD + "You";
+        public static final String SERVER_NAME = ChatColor.GOLD + "Server";
     }
 
     public static class PERMISSION {
