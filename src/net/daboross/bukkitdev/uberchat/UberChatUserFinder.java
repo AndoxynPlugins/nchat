@@ -39,6 +39,10 @@ public class UberChatUserFinder {
         return result;
     }
 
+    public static Player findUserExact(String username) {
+        return Bukkit.getServer().getPlayerExact(username);
+    }
+
     public static List<CommandSender> findCommandSenders(String partialUser) {
         String search = partialUser.toLowerCase(Locale.ENGLISH);
         Player[] onlinePlayers = Bukkit.getOnlinePlayers();
@@ -62,5 +66,13 @@ public class UberChatUserFinder {
             }
         }
         return result;
+    }
+
+    public static CommandSender findCommandSenderExact(String name) {
+        if (name.equalsIgnoreCase("console")) {
+            return Bukkit.getConsoleSender();
+        } else {
+            return Bukkit.getServer().getPlayerExact(name);
+        }
     }
 }

@@ -35,23 +35,23 @@ public final class UberChat extends JavaPlugin {
     }
 
     private void assignCommands() {
-        PluginCommand colorme = getCommand("colorme");
+        PluginCommand colorme = getCommand("uberchat:colorme");
         if (colorme != null) {
-            colorme.setExecutor(new ColormeExecutor(this));
+            colorme.setExecutor(new ColormeExecutor());
         }
-        PluginCommand toggleme = getCommand("toggleme");
+        PluginCommand toggleme = getCommand("uberchat:toggleme");
         if (toggleme != null) {
-            toggleme.setExecutor(new TogglemeExecutor(this));
+            toggleme.setExecutor(new TogglemeExecutor());
         }
-        PluginCommand color = getCommand("color");
+        PluginCommand color = getCommand("uberchat:color");
         if (color != null) {
             color.setExecutor(new ColorExecutor());
         }
-        PluginCommand me = getCommand("me");
+        PluginCommand me = getCommand("uberchat:me");
         if (me != null) {
             me.setExecutor(new MeExecutor());
         }
-        PluginCommand msg = getCommand("msg");
+        PluginCommand msg = getCommand("uberchat:msg");
         if (msg != null) {
             msg.setExecutor(new MsgExecutor());
         }

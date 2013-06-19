@@ -22,5 +22,7 @@ public class UberChatMessageHandler {
         sender.sendMessage(messageForSender);
         receiver.sendMessage(messageForReceiver);
         Bukkit.broadcast(messageForSpy, UberChatStatics.Permission.MSG_SPY);
+        PlayerInfoTracker.setReplyto(receiver.getName(), sender.getName());
+        PlayerInfoTracker.setReplyto(sender.getName(), receiver.getName());
     }
 }

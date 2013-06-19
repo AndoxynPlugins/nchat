@@ -8,32 +8,26 @@ import org.bukkit.ChatColor;
  */
 public class Colorizor {
 
-    private static int num = 0;
+    private static int currentColorNum = 0;
 
     public static String getColorString(String input) {
         char[] list = ChatColor.stripColor(input).toCharArray();
         if (list.length == 0) {
             return "";
         }
-        String colorizedString = "";
-        for (int i = 0; i < list.length; i++, num++) {
+        StringBuilder resultBuilder = new StringBuilder();
+        for (int i = 0; i < list.length; i++) {
             if (list[i] != ' ') {
-                if (num > 8) {
-                    num = 0;
-                }
-                colorizedString += getColor(num);
+                resultBuilder.append(getNextColor());
             }
-            colorizedString += list[i];
+            resultBuilder.append(list[i]);
         }
-        return colorizedString;
+        return resultBuilder.toString();
     }
     private static final String[] colorList = {ChatColor.AQUA.toString(), ChatColor.BLUE.toString(), ChatColor.DARK_BLUE.toString(), ChatColor.DARK_PURPLE.toString(), ChatColor.DARK_RED.toString(), ChatColor.RED.toString(), ChatColor.GOLD.toString(), ChatColor.GREEN.toString(), ChatColor.DARK_GREEN.toString()};
 
-    private static String getColor(int i) {
-        int v = i;
-        while (v > 8) {
-            v -= 8;
-        }
-        return colorList[v];
+    private static String getNextColor() {
+        currentColorNum = (currentColorNum + 1) % 8;
+        return colorList[currentColorNum];
     }
 }

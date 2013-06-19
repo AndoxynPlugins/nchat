@@ -24,15 +24,15 @@ public class UberChatSensor {
         return output;
     }
 
-    public static String checkAndColors(String message) {
+    private static String checkAndColors(String message) {
         return UberChatHelpers.translateColor(message);
     }
 
-    public static String trimMessage(String message) {
+    private static String trimMessage(String message) {
         return message.trim();
     }
 
-    public static String checkToggleMessage(String message, CommandSender cs) {
+    private static String checkToggleMessage(String message, CommandSender cs) {
         if (PlayerInfoTracker.getTogglemeEnabled(cs.getName())) {
             return UberChatHelpers.toggleCase(message);
         } else {
@@ -40,7 +40,7 @@ public class UberChatSensor {
         }
     }
 
-    public static String replaceFullCaps(String message) {
+    private static String replaceFullCaps(String message) {
         String newMessage = ChatColor.stripColor(message);
         int totalChars = newMessage.length();
         int capChars = 0;
@@ -60,7 +60,7 @@ public class UberChatSensor {
         }
     }
 
-    public static String checkColorMessage(String message, CommandSender cs) {
+    private static String checkColorMessage(String message, CommandSender cs) {
         if (PlayerInfoTracker.getColormeEnabled(cs.getName())) {
             return Colorizor.getColorString(message);
         } else {

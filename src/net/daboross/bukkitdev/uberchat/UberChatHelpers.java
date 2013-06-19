@@ -2,16 +2,13 @@ package net.daboross.bukkitdev.uberchat;
 
 import java.util.Locale;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 /**
  *
  * @author daboross
  */
 public class UberChatHelpers {
-
-    public static String formatName(String name) {
-        return ChatColor.DARK_GRAY + "[" + ChatColor.RED + name + ChatColor.DARK_GRAY + "]" + ChatColor.GRAY;
-    }
 
     public static String toggleCase(String input) {
         StringBuilder outputBuilder = new StringBuilder(input.length());
@@ -76,6 +73,26 @@ public class UberChatHelpers {
                 resultBuilder.append(seperator).append(array[i]);
             }
             return resultBuilder.toString();
+        }
+    }
+
+    public static void formatPlayerDisplayname(Player p) {
+        String newDisplayName = p.getDisplayName();
+        if (newDisplayName.contains("_")) {
+            newDisplayName = newDisplayName.replaceAll("_", " ");
+        }
+        String noColor = ChatColor.stripColor(newDisplayName);
+        while (noColor.startsWith(" ")) {
+            newDisplayName = newDisplayName.replaceFirst(" ", "");
+            noColor = ChatColor.stripColor(newDisplayName);
+        }
+        if (noColor.length() > 16) {
+            int lengthDiff = 15 + newDisplayName.length() - noColor.length();
+            newDisplayName = newDisplayName.substring(0, lengthDiff);
+            if (newDisplayName.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
+                newDisplayName = newDisplayName.substring(0, newDisplayName.length() - 1);
+            }
+            p.setDisplayName(newDisplayName);
         }
     }
 }

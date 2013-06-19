@@ -2,34 +2,38 @@ name: UberChat
 main: net.daboross.bukkitdev.uberchat.UberChat
 version: 2.2
 author: Dabo Ross
-description: Newlanders's Chat Handler
+description: Smart Chat Handler
 commands:
-   colorme:
+   uberchat:colorme:
      description: Toggles the 'Chat Color' formatting option.
      usage: /<command>
      permission: uberchat.colorize
-   toggleme:
+     aliases: [colorme]
+   uberchat:toggleme:
      description: Toggles the 'Chat Toggle' formatting option.
      usage: /<command>
      permission: uberchat.toggleme
-   color:
+     aliases: [toggleme]
+   uberchat:color:
      description: Sends a colorized chat message or command.
      usage: /<command> </Command|Message>
      permission: uberchat.colorize
-   me:
+     aliases: [color]
+   uberchat:me:
      description: Describes an action in context of the player.
      usage: /<command> <action>
      permission: uberchat.me
-   msg:
+     aliases: [me]
+   uberchat:msg:
      description: Sends a private message to a player.
      usage: /<command> <playername> <message>
      permission: uberchat.msg
-     aliases: [m, tell, t]
-   reply:
+     aliases: [msg, m, uberchat:tell, tell, t]
+   uberchat:reply:
      description: Sends a message to the last person who messaged you
      usage: /<command> <message>
      permission: uberchat.reply
-     aliases: [r]
+     aliases: [reply, r]
 permissions:
   uberchat.colorize:
     description: Allows you to use /color and /colorme
@@ -46,3 +50,6 @@ permissions:
   uberchat.reply:
     description: Allows you to use /r
     default: true
+  uberchat.msgspy:
+    description: Allows you to spy on /msg messages
+    default: false

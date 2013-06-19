@@ -21,15 +21,15 @@ public class MsgExecutor implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("Please specify a username and a message.");
-            sender.sendMessage("Usage: /" + label + " <user> <message> (sends <message> to <user>)");
+            sender.sendMessage("Please specify a user and a message.");
+            sender.sendMessage("Usage: /" + label + " <user> <message> (sends a private <message> to <user>)");
         } else if (args.length == 1) {
             sender.sendMessage("Please specify a message.");
-            sender.sendMessage("Usage: /" + label + " <user> <message> (sends <message> to <user>)");
+            sender.sendMessage("Usage: /" + label + " <user> <message> (sends a private <message> to <user>)");
         } else {
             List<CommandSender> foundUsers = UberChatUserFinder.findCommandSenders(args[0]);
             if (foundUsers.isEmpty()) {
-                sender.sendMessage("User \"" + args[0] + "\" not found");
+                sender.sendMessage("User \"" + args[0] + "\" not found or not online.");
             } else if (foundUsers.size() == 1) {
                 String message = UberChatHelpers.arrayToString(1, args, " ");
                 UberChatMessageHandler.sendMessage(sender, foundUsers.get(0), message);
