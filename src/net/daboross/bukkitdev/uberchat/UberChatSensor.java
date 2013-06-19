@@ -21,6 +21,7 @@ public class UberChatSensor {
         output = checkToggleMessage(output, cs);
         output = replaceFullCaps(output);
         output = checkColorMessage(output, cs);
+        output = UberChatSwearChecker.swearCheck(output);
         return output;
     }
 

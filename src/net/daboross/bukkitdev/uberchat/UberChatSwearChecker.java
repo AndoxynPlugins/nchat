@@ -16,7 +16,7 @@ import org.bukkit.ChatColor;
  *
  * @author daboross
  */
-public class SwearChecker {
+public class UberChatSwearChecker {
 
     private static final Set<String> swearWords = new HashSet<String>();
     private static final Map<String, Boolean> isWordMap = new HashMap<String, Boolean>();
