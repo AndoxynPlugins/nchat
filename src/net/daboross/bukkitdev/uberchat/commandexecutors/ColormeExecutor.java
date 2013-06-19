@@ -6,6 +6,7 @@
 package net.daboross.bukkitdev.uberchat.commandexecutors;
 
 import java.util.List;
+import net.daboross.bukkitdev.uberchat.PlayerInfoTracker;
 import net.daboross.bukkitdev.uberchat.UberChat;
 import net.daboross.bukkitdev.uberchat.UberChatStatics;
 import org.bukkit.ChatColor;
@@ -34,18 +35,11 @@ public class ColormeExecutor implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
-        boolean on = false;
-        if (p.hasMetadata(UberChatStatics.COLOR_MESSAGE_ON_METADATA_KEY)) {
-            List<MetadataValue> meta = p.getMetadata(UberChatStatics.COLOR_MESSAGE_ON_METADATA_KEY);
-            if (meta.size() >= 1 && (meta.get(0).asBoolean())) {
-                on = true;
-            }
-        }
-        if (on) {
-            p.removeMetadata("isMessageColorOn", uberChatMain);
+        if (PlayerInfoTracker.getColormeEnabled(p.getName())) {
+            PlayerInfoTracker.setColormeEnabled(p.getName(), false);
             sender.sendMessage(ChatColor.GREEN + "Your chat messages are no longer being colorized.");
         } else {
-            p.setMetadata("isMessageColorOn", new FixedMetadataValue(uberChatMain, Boolean.TRUE));
+            PlayerInfoTracker.setColormeEnabled(p.getName(), true);
             sender.sendMessage(ChatColor.GREEN + "Your future chat messages will now be colorized.");
         }
         return true;

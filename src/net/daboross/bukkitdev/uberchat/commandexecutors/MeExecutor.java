@@ -22,7 +22,7 @@ public class MeExecutor implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
             sender.sendMessage("Please specify an action to describe.");
-            sender.sendMessage("Example: /me says hello");
+            sender.sendMessage("Example: /me does a dance");
         } else {
             Bukkit.broadcastMessage(String.format(UberChatStatics.ME_FORMAT, sender instanceof Player ? ((Player) sender).getDisplayName() : "Server", UberChatHelpers.arrayToString(args, " ")));
         }

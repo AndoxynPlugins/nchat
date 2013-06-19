@@ -13,9 +13,27 @@ import org.bukkit.ChatColor;
  */
 public class UberChatStatics {
 
-    public static final String CAPS_MESSAGE = ChatColor.RED + ("I'm sorry, but your chat message contains to many uppercase letters.");
+    /**
+     * Format for chat. First %s is the player's name, second %s is chat
+     * message.
+     */
     public static final String CHAT_FORMAT = ChatColor.BLACK + "#" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
-    public static final String TOGGLE_MESSAGE_ON_METADATA_KEY = "net.daboross.uberchat.togglemessageon";
-    public static final String COLOR_MESSAGE_ON_METADATA_KEY = "net.daboross.uberchat.colormessageon";
-    public static final String ME_FORMAT = ChatColor.DARK_PURPLE + " * " + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
+    /**
+     * Format for /me. First %s is player's name, second %s is action.
+     */
+    public static final String ME_FORMAT = UberChatHelpers.formatName("UC") + ChatColor.BLUE + " %s" + ChatColor.GRAY + " %s";
+    /**
+     * Format for /msg. First %s is from player's name, second %s is to player's
+     * name, third %s is message.s
+     */
+    public static final String MSG_FORMAT = ChatColor.DARK_BLUE + "[" + ChatColor.BLUE + "%s" + ChatColor.DARK_BLUE + " -> " + ChatColor.BLUE + "%s" + ChatColor.DARK_BLUE + "]" + ChatColor.AQUA + " %s";
+    /**
+     * Format for /msg. First %s is from player's name, second %s is to player's
+     * name, third %s is message.s
+     */
+    public static final String MSG_SPY_FORMAT = ChatColor.RED + "[" + ChatColor.BLUE + "%s" + ChatColor.RED + " -> " + ChatColor.BLUE + "%s" + ChatColor.RED + "]" + ChatColor.AQUA + " %s";
+
+    public static class Permission {
+        public static final String MSG_SPY = "uberchat.msgspy";
+    }
 }

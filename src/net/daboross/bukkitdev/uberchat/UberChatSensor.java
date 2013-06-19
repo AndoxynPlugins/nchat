@@ -5,10 +5,8 @@
  */
 package net.daboross.bukkitdev.uberchat;
 
-import java.util.List;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.metadata.MetadataValue;
+import org.bukkit.command.CommandSender;
 
 /**
  *
@@ -16,13 +14,13 @@ import org.bukkit.metadata.MetadataValue;
  */
 public class UberChatSensor {
 
-    public static String getSensoredMessage(String message, Player p) {
+    public static String getSensoredMessage(String message, CommandSender cs) {
         String output = message;
         output = checkAndColors(output);
         output = trimMessage(output);
-        output = checkToggleMessage(output, p);
-        output = replaceFullCaps(output, p);
-        output = checkColorMessage(output, p);
+        output = checkToggleMessage(output, cs);
+        output = replaceFullCaps(output);
+        output = checkColorMessage(output, cs);
         return output;
     }
 
@@ -34,19 +32,15 @@ public class UberChatSensor {
         return message.trim();
     }
 
-    public static String checkToggleMessage(String message, Player p) {
-        if (p.hasMetadata(UberChatStatics.TOGGLE_MESSAGE_ON_METADATA_KEY)) {
-            List<MetadataValue> meta = p.getMetadata(UberChatStatics.TOGGLE_MESSAGE_ON_METADATA_KEY);
-            if (meta.size() >= 1) {
-                if (meta.get(0).asBoolean()) {
-                    return UberChatHelpers.toggleCase(message);
-                }
-            }
+    public static String checkToggleMessage(String message, CommandSender cs) {
+        if (PlayerInfoTracker.getTogglemeEnabled(cs.getName())) {
+            return UberChatHelpers.toggleCase(message);
+        } else {
+            return message;
         }
-        return message;
     }
 
-    public static String replaceFullCaps(String message, Player p) {
+    public static String replaceFullCaps(String message) {
         String newMessage = ChatColor.stripColor(message);
         int totalChars = newMessage.length();
         int capChars = 0;
@@ -60,20 +54,17 @@ public class UberChatSensor {
             }
         }
         if ((capChars > (lowChars * 2)) && totalChars > 5 || (capChars > 9)) {
-            p.sendMessage(UberChatStatics.CAPS_MESSAGE);
             return UberChatHelpers.firstLetterCaps(message);
         } else {
             return message;
         }
     }
 
-    public static String checkColorMessage(String message, Player p) {
-        if (p.hasMetadata(UberChatStatics.COLOR_MESSAGE_ON_METADATA_KEY)) {
-            List<MetadataValue> meta = p.getMetadata(UberChatStatics.COLOR_MESSAGE_ON_METADATA_KEY);
-            if (meta.size() >= 1 && meta.get(0).asBoolean()) {
-                return Colorizor.getColorString(message);
-            }
+    public static String checkColorMessage(String message, CommandSender cs) {
+        if (PlayerInfoTracker.getColormeEnabled(cs.getName())) {
+            return Colorizor.getColorString(message);
+        } else {
+            return message;
         }
-        return message;
     }
 }

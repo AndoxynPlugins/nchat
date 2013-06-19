@@ -24,6 +24,12 @@ commands:
      description: Sends a private message to a player.
      usage: /<command> <playername> <message>
      permission: uberchat.msg
+     aliases: [m, tell, t]
+   reply:
+     description: Sends a message to the last person who messaged you
+     usage: /<command> <message>
+     permission: uberchat.reply
+     aliases: [r]
 permissions:
   uberchat.colorize:
     description: Allows you to use /color and /colorme
@@ -36,4 +42,7 @@ permissions:
     default: true
   uberchat.msg:
     description: Allows you to use /msg
+    default: true
+  uberchat.reply:
+    description: Allows you to use /r
     default: true

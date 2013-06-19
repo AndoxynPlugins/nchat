@@ -15,22 +15,26 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author daboross
  */
 public final class UberChat extends JavaPlugin {
-    
+
     @Override
     public void onEnable() {
-        PluginManager pm = this.getServer().getPluginManager();
-        UberChatListener uberChatListener = new UberChatListener();
-        pm.registerEvents(uberChatListener, this);
-        registerCommands();
+        registerEvents();
+        assignCommands();
         getLogger().info("UberChat Fully Enabled");
     }
-    
+
     @Override
     public void onDisable() {
         getLogger().info("UberChat Fully Disabled");
     }
-    
-    private void registerCommands() {
+
+    private void registerEvents() {
+        PluginManager pm = this.getServer().getPluginManager();
+        UberChatListener uberChatListener = new UberChatListener();
+        pm.registerEvents(uberChatListener, this);
+    }
+
+    private void assignCommands() {
         PluginCommand colorme = getCommand("colorme");
         if (colorme != null) {
             colorme.setExecutor(new ColormeExecutor(this));
@@ -49,7 +53,7 @@ public final class UberChat extends JavaPlugin {
         }
         PluginCommand msg = getCommand("msg");
         if (msg != null) {
-            msg.setExecutor(new MsgExecutor(this));
+            msg.setExecutor(new MsgExecutor());
         }
     }
 }

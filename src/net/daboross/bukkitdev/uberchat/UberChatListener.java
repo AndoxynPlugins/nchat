@@ -1,5 +1,6 @@
 package net.daboross.bukkitdev.uberchat;
 
+import java.util.Locale;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -52,12 +53,12 @@ public class UberChatListener implements Listener {
     }
 
     private boolean checkForBack(AsyncPlayerChatEvent evt) {
-        String msg = evt.getMessage().replaceAll("(?i)" + String.valueOf(ChatColor.COLOR_CHAR) + "[0-9A-FK-OR]", "").trim();
+        String msg = evt.getMessage().replaceAll("(?i)" + String.valueOf(ChatColor.COLOR_CHAR) + "[0-9A-FK-OR]", "").trim().toLowerCase(Locale.ENGLISH);
         if (msg.equals("back") || msg.equals("im back") || msg.equals("i'm back")) {
             String fullDisplay = evt.getPlayer().getDisplayName();
             String[] nameSplit = fullDisplay.split(" ");
             String name = nameSplit[nameSplit.length - 1];
-            Bukkit.getServer().broadcastMessage(UberChatHelpers.formatName("Announcer") + " " + name + ChatColor.GRAY + " Is Back" + ChatColor.DARK_GRAY + "!");
+            Bukkit.getServer().broadcastMessage(UberChatHelpers.formatName("UC") + " " + name + ChatColor.GRAY + " Is Back" + ChatColor.DARK_GRAY + "!");
             evt.setCancelled(true);
             return true;
         } else {

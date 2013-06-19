@@ -62,4 +62,20 @@ public class UberChatHelpers {
             return resultBuilder.toString();
         }
     }
+
+    public static String arrayToString(int start, String[] array, String seperator) {
+        if (array.length == 0) {
+            return "";
+        } else if (start >= array.length) {
+            return "";
+        } else if (array.length - 1 == start) {
+            return array[start];
+        } else {
+            StringBuilder resultBuilder = new StringBuilder(array[start]);
+            for (int i = start + 1; i < array.length; i++) {
+                resultBuilder.append(seperator).append(array[i]);
+            }
+            return resultBuilder.toString();
+        }
+    }
 }
