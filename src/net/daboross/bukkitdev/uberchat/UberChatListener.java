@@ -37,7 +37,7 @@ public class UberChatListener implements Listener {
             String fullDisplay = evt.getPlayer().getDisplayName();
             String[] nameSplit = fullDisplay.split(" ");
             String name = nameSplit[nameSplit.length - 1];
-            Bukkit.getServer().broadcastMessage(String.format(UberChatStatics.FORMAT.ANNOUNCER, ChatColor.BLUE + name + ChatColor.GRAY + " Is Back" + ChatColor.DARK_GRAY + "!"));
+            Bukkit.getServer().broadcastMessage(String.format(UberChatStatics.FORMAT.ANNOUNCER, ChatColor.BLUE + name, "Is Back" + ChatColor.DARK_GRAY + "!"));
             evt.setCancelled(true);
             return true;
         } else {

@@ -125,7 +125,7 @@ public class UberChatHelpers {
             if (newDisplayName.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
                 newDisplayName = newDisplayName.substring(0, newDisplayName.length() - 1);
             }
-            p.setDisplayName(newDisplayName);
         }
+        p.setDisplayName(newDisplayName);
     }
 }

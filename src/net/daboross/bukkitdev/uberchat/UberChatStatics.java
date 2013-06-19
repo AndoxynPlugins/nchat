@@ -48,6 +48,11 @@ public class UberChatStatics {
         public static final String MAIN = ChatColor.AQUA.toString();
     }
 
+    public static class STRINGS {
+
+        public static final String MSG_YOU_REPRESENTATION = ChatColor.GOLD + "You";
+    }
+
     public static class PERMISSION {
 
         public static final String MSG_SPY = "uberchat.msgspy";
