@@ -1,35 +1,39 @@
 name: UberChat
 main: net.daboross.bukkitdev.uberchat.UberChat
-version: 2.0.1
+version: 2.2
 author: Dabo Ross
-prefix: UC
-description: UberChat - Chat Formatter and Augmentor
+description: Newlanders's Chat Handler
 commands:
    colorme:
-     description: This command toggles on/off UberChat's Colorizor feature
+     description: Toggles the 'Chat Color' formatting option.
      usage: /<command>
      permission: uberchat.colorize
    toggleme:
-     description: This command toggles on/off UberChat's Toggler feature
+     description: Toggles the 'Chat Toggle' formatting option.
      usage: /<command>
      permission: uberchat.toggleme
    color:
-     description: This command sends a chat message/command that is 'colorized'
+     description: Sends a colorized chat message or command.
      usage: /<command> </Command|Message>
      permission: uberchat.colorize
+   me:
+     description: Describes an action in context of the player.
+     usage: /<command> <action>
+     permission: uberchat.me
+   msg:
+     description: Sends a private message to a player.
+     usage: /<command> <playername> <message>
+     permission: uberchat.msg
 permissions:
-  uberchat.*:
-    description: Gives access to all UberChat commands
-    children:
-      uberchat.ignorecaps: true
-      uberchat.colorize: true
-    default: false
-  uberchat.ignorecaps:
-    description: Allows you to do all caps messages.
-    default: false
   uberchat.colorize:
     description: Allows you to use /color and /colorme
     default: true
   uberchat.toggleme:
     description: Allows you to use /toggleme
+    default: true
+  uberchat.me:
+    description: Allows you to use /me
+    default: true
+  uberchat.msg:
+    description: Allows you to use /msg
     default: true

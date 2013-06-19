@@ -1,5 +1,6 @@
 package net.daboross.bukkitdev.uberchat;
 
+import java.util.Locale;
 import org.bukkit.ChatColor;
 
 /**
@@ -28,32 +29,37 @@ public class UberChatHelpers {
             outputBuilder.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1, word.length()).toLowerCase());
         }
         return outputBuilder.toString();
-//        String output = "";
-//        char[] in = input.toCharArray();
-//        int state = 1;//0 for in word, 1 for new word.
-//        for (int i = 0; i < in.length; i++) {
-//            char c = in[i];
-//            if (c == ' ') {
-//                state = 1;
-//                output += c;
-//            } else if (Character.isUpperCase(c) || Character.isLowerCase(c)) {
-//                if (state == 1) {
-//                    output += Character.toUpperCase(c);
-//                    state = 0;
-//                } else {
-//                    if (i + 1 < in.length && in[i + 1] == ' ') {
-//                        output += c;
-//                    } else {
-//                        output += Character.toLowerCase(c);
-//                    }
-//                }
-//            } else if (c == ChatColor.COLOR_CHAR) {
-//                output += c;
-//            } else {
-//                state = 1;
-//                output += c;
-//            }
-//        }
-//        return output;
+    }
+
+    public static String firstLetterCaps(String input) {
+        if (input.length() == 0) {
+            return input;
+        }
+        return new StringBuilder(String.valueOf(input.charAt(0)).toUpperCase(Locale.ENGLISH)).append(input.substring(1).toLowerCase(Locale.ENGLISH)).toString();
+    }
+
+    public static String translateColor(String input) {
+        char[] array = input.toCharArray();
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] == '&' && "0123456789AaBbCcDdEeFfLlMmOo".indexOf(array[i + 1]) > -1) {
+                array[i] = ChatColor.COLOR_CHAR;
+                array[i + 1] = Character.toLowerCase(array[i + 1]);
+            }
+        }
+        return String.valueOf(array);
+    }
+
+    public static String arrayToString(String[] array, String seperator) {
+        if (array.length == 0) {
+            return "";
+        } else if (array.length == 1) {
+            return array[0];
+        } else {
+            StringBuilder resultBuilder = new StringBuilder(array[0]);
+            for (int i = 1; i < array.length; i++) {
+                resultBuilder.append(seperator).append(array[i]);
+            }
+            return resultBuilder.toString();
+        }
     }
 }
