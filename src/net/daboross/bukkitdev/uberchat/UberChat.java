@@ -16,25 +16,25 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author daboross
  */
 public final class UberChat extends JavaPlugin {
-    
+
     @Override
     public void onEnable() {
         registerEvents();
         assignCommands();
         getLogger().info("UberChat Fully Enabled");
     }
-    
+
     @Override
     public void onDisable() {
         getLogger().info("UberChat Fully Disabled");
     }
-    
+
     private void registerEvents() {
         PluginManager pm = this.getServer().getPluginManager();
         UberChatListener uberChatListener = new UberChatListener();
         pm.registerEvents(uberChatListener, this);
     }
-    
+
     private void assignCommands() {
         PluginCommand colorme = getCommand("uberchat:colorme");
         if (colorme != null) {
