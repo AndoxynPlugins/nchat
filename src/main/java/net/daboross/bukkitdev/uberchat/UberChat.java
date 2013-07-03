@@ -35,9 +35,9 @@ public final class UberChat extends JavaPlugin {
     }
 
     private void assignCommands() {
-        PluginCommand colorizor = getCommand("colorizor");
-        if (colorizor != null) {
-            colorizor.setExecutor(new ColorizorExecutor());
+        PluginCommand colorize = getCommand("colorize");
+        if (colorize != null) {
+            colorize.setExecutor(new ColorizorExecutor());
         }
         PluginCommand me = getCommand("me");
         if (me != null) {

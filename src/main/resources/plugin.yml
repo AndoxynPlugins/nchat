@@ -4,17 +4,9 @@ version: 2.4
 author: Dabo Ross
 description: Smart Chat Handler
 commands:
-   colorme:
-     description: Toggles the 'Chat Color' formatting option.
+   colorize:
+     description: Toggles colorizing all messages.
      usage: /<command>
-     permission: uberchat.colorize
-   toggleme:
-     description: Toggles the 'Chat Toggle' formatting option.
-     usage: /<command>
-     permission: uberchat.toggleme
-   color:
-     description: Sends a colorized chat message or command.
-     usage: /<command> </Command|Message>
      permission: uberchat.colorize
    me:
      description: Describes an action in context of the player.
@@ -37,10 +29,7 @@ commands:
      aliases: [sh, bc]
 permissions:
   uberchat.colorize:
-    description: Allows you to use /color and /colorme
-    default: true
-  uberchat.toggleme:
-    description: Allows you to use /toggleme
+    description: Allows you to use /colorize
     default: true
   uberchat.me:
     description: Allows you to use /me
@@ -52,7 +41,7 @@ permissions:
     description: Allows you to use /r
     default: true
   uberchat.msgspy:
-    description: Allows you to spy on /msg messages
+    description: Allows you to spy on private messages
     default: false
   uberchat.shout:
     description: Allows you to use /shout
