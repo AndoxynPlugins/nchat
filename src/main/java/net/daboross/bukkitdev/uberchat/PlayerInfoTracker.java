@@ -17,7 +17,6 @@ import java.util.Set;
 public class PlayerInfoTracker {
 
     private static final Set<String> colormeEnabled = new HashSet<String>();
-    private static final Set<String> togglemeEnabled = new HashSet<String>();
     private static final Map<String, String> replytoMap = new HashMap<String, String>();
 
     public static void setColormeEnabled(String username, boolean enabled) {
@@ -30,18 +29,6 @@ public class PlayerInfoTracker {
 
     public static boolean getColormeEnabled(String username) {
         return colormeEnabled.contains(username);
-    }
-
-    public static void setTogglemeEnabled(String username, boolean enabled) {
-        if (enabled) {
-            togglemeEnabled.add(username);
-        } else {
-            togglemeEnabled.remove(username);
-        }
-    }
-
-    public static boolean getTogglemeEnabled(String username) {
-        return togglemeEnabled.contains(username);
     }
 
     public static void setReplyto(String username, String replyto) {

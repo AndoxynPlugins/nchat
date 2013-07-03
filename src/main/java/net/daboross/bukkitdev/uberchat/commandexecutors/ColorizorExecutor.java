@@ -16,8 +16,9 @@ import org.bukkit.entity.Player;
  *
  * @author daboross
  */
-public class ColormeExecutor implements CommandExecutor {
+public class ColorizorExecutor implements CommandExecutor {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "Sorry, Players Only");

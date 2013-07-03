@@ -20,6 +20,7 @@ import org.bukkit.command.CommandSender;
  */
 public class ReplyExecutor implements CommandExecutor {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify a message to send.");

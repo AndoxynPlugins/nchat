@@ -18,15 +18,15 @@ import org.bukkit.entity.Player;
  *
  * @author daboross
  */
-public class MeExecutor implements CommandExecutor {
+public class ShoutExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify an action to describe.");
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /" + label + " <action> (publicly describes you doing <action>)");
+            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify a message");
+            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /" + label + " <message> (shouts <message>)");
         } else {
-            Bukkit.broadcastMessage(String.format(UberChatStatics.FORMAT.ME,
+            Bukkit.broadcastMessage(String.format(UberChatStatics.FORMAT.SHOUT,
                     sender instanceof Player ? ((Player) sender).getDisplayName() : "Server",
                     UberChatSensor.getSensoredMessage(UberChatHelpers.arrayToString(args, " "), sender)));
         }

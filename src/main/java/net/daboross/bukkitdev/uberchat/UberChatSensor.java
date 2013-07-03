@@ -18,7 +18,6 @@ public class UberChatSensor {
         String output = message;
         output = checkAndColors(output);
         output = trimMessage(output);
-        output = checkToggleMessage(output, cs);
         output = replaceFullCaps(output);
         output = checkColorMessage(output, cs);
         output = UberChatSwearChecker.swearCheck(output);
@@ -31,14 +30,6 @@ public class UberChatSensor {
 
     private static String trimMessage(String message) {
         return message.trim();
-    }
-
-    private static String checkToggleMessage(String message, CommandSender cs) {
-        if (PlayerInfoTracker.getTogglemeEnabled(cs.getName())) {
-            return UberChatHelpers.toggleCase(message);
-        } else {
-            return message;
-        }
     }
 
     private static String replaceFullCaps(String message) {

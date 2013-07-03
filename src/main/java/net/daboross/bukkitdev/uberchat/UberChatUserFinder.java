@@ -47,7 +47,7 @@ public class UberChatUserFinder {
         String search = partialUser.toLowerCase(Locale.ENGLISH);
         Player[] onlinePlayers = Bukkit.getOnlinePlayers();
         List<CommandSender> result = new ArrayList<CommandSender>();
-        if ("console".contains(search)) {
+        if ("console".contains(search) || "server".contains(search)) {
             result.add(Bukkit.getConsoleSender());
         }
         for (Player p : onlinePlayers) {
@@ -69,8 +69,7 @@ public class UberChatUserFinder {
     }
 
     public static CommandSender findCommandSenderExact(String name) {
-
-        if (name.equalsIgnoreCase("console")) {
+        if (name.equalsIgnoreCase("console") || name.equalsIgnoreCase("server")) {
             return Bukkit.getConsoleSender();
         } else {
             return Bukkit.getServer().getPlayerExact(name);

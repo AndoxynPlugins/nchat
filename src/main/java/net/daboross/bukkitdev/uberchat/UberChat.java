@@ -1,11 +1,10 @@
 package net.daboross.bukkitdev.uberchat;
 
-import net.daboross.bukkitdev.uberchat.commandexecutors.ColorExecutor;
-import net.daboross.bukkitdev.uberchat.commandexecutors.ColormeExecutor;
+import net.daboross.bukkitdev.uberchat.commandexecutors.ColorizorExecutor;
 import net.daboross.bukkitdev.uberchat.commandexecutors.MeExecutor;
 import net.daboross.bukkitdev.uberchat.commandexecutors.MsgExecutor;
 import net.daboross.bukkitdev.uberchat.commandexecutors.ReplyExecutor;
-import net.daboross.bukkitdev.uberchat.commandexecutors.TogglemeExecutor;
+import net.daboross.bukkitdev.uberchat.commandexecutors.ShoutExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,29 +35,25 @@ public final class UberChat extends JavaPlugin {
     }
 
     private void assignCommands() {
-        PluginCommand colorme = getCommand("uberchat:colorme");
-        if (colorme != null) {
-            colorme.setExecutor(new ColormeExecutor());
+        PluginCommand colorizor = getCommand("colorizor");
+        if (colorizor != null) {
+            colorizor.setExecutor(new ColorizorExecutor());
         }
-        PluginCommand toggleme = getCommand("uberchat:toggleme");
-        if (toggleme != null) {
-            toggleme.setExecutor(new TogglemeExecutor());
-        }
-        PluginCommand color = getCommand("uberchat:color");
-        if (color != null) {
-            color.setExecutor(new ColorExecutor());
-        }
-        PluginCommand me = getCommand("uberchat:me");
+        PluginCommand me = getCommand("me");
         if (me != null) {
             me.setExecutor(new MeExecutor());
         }
-        PluginCommand msg = getCommand("uberchat:msg");
+        PluginCommand msg = getCommand("msg");
         if (msg != null) {
             msg.setExecutor(new MsgExecutor());
         }
-        PluginCommand reply = getCommand("uberchat:reply");
+        PluginCommand reply = getCommand("reply");
         if (reply != null) {
             reply.setExecutor(new ReplyExecutor());
+        }
+        PluginCommand shout = getCommand("shout");
+        if (shout != null) {
+            shout.setExecutor(new ShoutExecutor());
         }
     }
 }

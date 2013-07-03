@@ -38,6 +38,7 @@ public class UberChatStatics {
          * FORMAT for /me. First %s is player's name, second %s is action.
          */
         public static final String ME = ChatColor.BLACK + " * " + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
+        public static final String SHOUT = ChatColor.DARK_GRAY + "[" + ChatColor.BLUE + "%s" + ChatColor.DARK_GRAY + "]" + ChatColor.GREEN + " %s";
     }
 
     public static class COLOR {
