@@ -27,6 +27,11 @@ commands:
      usage: /<command> <message>
      permission: uberchat.shout
      aliases: [sh, bc]
+   mail:
+     description: Mail base command
+     usage: |
+       To see usage use:
+       /<command> ?
 permissions:
   uberchat.colorize:
     description: Allows you to use /colorize
@@ -45,4 +50,10 @@ permissions:
     default: false
   uberchat.shout:
     description: Allows you to use /shout
+    default: false
+  uberchat.msglater:
+    description: Allows you to use /mail
+    default: true
+  uberchat.mailother:
+    description: Allows you to use /mailother
     default: false
