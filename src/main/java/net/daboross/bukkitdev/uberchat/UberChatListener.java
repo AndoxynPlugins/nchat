@@ -1,12 +1,11 @@
 package net.daboross.bukkitdev.uberchat;
 
-import java.util.Locale;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import com.google.common.eventbus.Subscribe;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.event.ChatEvent;
+import net.md_5.bungee.api.plugin.Listener;
 
 /**
  *
@@ -14,34 +13,17 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public class UberChatListener implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onPlayerChatEvent(AsyncPlayerChatEvent apce) {
-        format(apce);
-        if (!checkForBack(apce)) {
-            apce.setMessage(UberChatSensor.getSensoredMessage(apce.getMessage(), apce.getPlayer()));
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onPlayerChatEventHigh(AsyncPlayerChatEvent apce) {
-        UberChatHelpers.formatPlayerDisplayname(apce.getPlayer());
-    }
-
-    private void format(AsyncPlayerChatEvent evt) {
-        evt.setFormat(UberChatStatics.FORMAT.CHAT);
-    }
-
-    private boolean checkForBack(AsyncPlayerChatEvent evt) {
-        String msg = evt.getMessage().replaceAll("(?i)&[0-9A-FLMO]", "").trim().toLowerCase(Locale.ENGLISH);
-        if (msg.equals("back") || msg.equals("im back") || msg.equals("i'm back")) {
-            String fullDisplay = evt.getPlayer().getDisplayName();
-            String[] nameSplit = fullDisplay.split(" ");
-            String name = nameSplit[nameSplit.length - 1];
-            Bukkit.getServer().broadcastMessage(String.format(UberChatStatics.FORMAT.ANNOUNCER, "UC") + ChatColor.BLUE + name + ChatColor.GRAY + " Is Back" + ChatColor.DARK_GRAY + "!");
-            evt.setCancelled(true);
-            return true;
-        } else {
-            return false;
+    @Subscribe
+    public void onChat(ChatEvent e) {
+        e.setMessage(UberChatSensor.getSensoredMessage(e.getMessage()));
+        String m = e.getMessage();
+        if (e.getSender() instanceof ProxiedPlayer) {
+            ProxiedPlayer pl = (ProxiedPlayer) e.getSender();
+            for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
+                if (!p.getServer().getInfo().getName().equals(pl.getServer().getInfo().getName())) {
+                    p.sendMessage(String.format(UberChatStatics.FORMAT.CHAT, pl.getDisplayName(), m));
+                }
+            }
         }
     }
 }

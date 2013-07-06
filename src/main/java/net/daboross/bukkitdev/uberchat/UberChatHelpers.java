@@ -2,8 +2,8 @@ package net.daboross.bukkitdev.uberchat;
 
 import java.util.List;
 import java.util.Locale;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**
  *
@@ -39,7 +39,7 @@ public class UberChatHelpers {
     public static String translateColor(String input) {
         char[] array = input.toCharArray();
         for (int i = 0; i < array.length - 1; i++) {
-            if (array[i] == '&' && "0123456789AaBbCcDdEeFfLlMmOo".indexOf(array[i + 1]) > -1) {
+            if (array[i] == '&' && "0123456789abcdeflmo".indexOf(array[i + 1]) > -1) {
                 array[i] = ChatColor.COLOR_CHAR;
                 array[i + 1] = Character.toLowerCase(array[i + 1]);
             }
@@ -109,7 +109,7 @@ public class UberChatHelpers {
         }
     }
 
-    public static void formatPlayerDisplayname(Player p) {
+    public static void formatPlayerDisplayname(ProxiedPlayer p) {
         String newDisplayName = p.getDisplayName();
         if (newDisplayName.contains("_")) {
             newDisplayName = newDisplayName.replaceAll("_", " ");

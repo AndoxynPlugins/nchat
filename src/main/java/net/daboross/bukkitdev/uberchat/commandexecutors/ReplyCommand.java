@@ -10,24 +10,28 @@ import net.daboross.bukkitdev.uberchat.UberChatHelpers;
 import net.daboross.bukkitdev.uberchat.UberChatMessageHandler;
 import net.daboross.bukkitdev.uberchat.UberChatStatics;
 import net.daboross.bukkitdev.uberchat.UberChatUserFinder;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.plugin.Command;
 
 /**
  *
  * @author daboross
  */
-public class ReplyExecutor implements CommandExecutor {
+public class ReplyCommand extends Command {
+
+    public ReplyCommand() {
+        super("reply", null, "r");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify a message to send.");
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /" + label + " <message> (Sends <message> to the last person who messaged you.)");
+            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
         } else {
             String replyToName = PlayerInfoTracker.getReplyto(sender.getName());
-            CommandSender replyTo = replyToName == null ? null : UberChatUserFinder.findCommandSenderExact(replyToName);
+            CommandSender replyTo = replyToName == null ? null : ProxyServer.getInstance().getPlayer(replyToName);
             if (replyTo == null) {
                 sender.sendMessage(UberChatStatics.COLOR.MAIN + "No user found to reply to.");
             } else {
@@ -35,6 +39,5 @@ public class ReplyExecutor implements CommandExecutor {
                 UberChatMessageHandler.sendMessage(sender, replyTo, message);
             }
         }
-        return true;
     }
 }

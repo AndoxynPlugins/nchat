@@ -8,7 +8,7 @@ package net.daboross.bukkitdev.uberchat;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  *

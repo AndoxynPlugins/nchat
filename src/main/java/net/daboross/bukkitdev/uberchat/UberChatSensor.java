@@ -5,8 +5,7 @@
  */
 package net.daboross.bukkitdev.uberchat;
 
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  *
@@ -14,12 +13,11 @@ import org.bukkit.command.CommandSender;
  */
 public class UberChatSensor {
 
-    public static String getSensoredMessage(String message, CommandSender cs) {
+    public static String getSensoredMessage(String message) {
         String output = message;
         output = checkAndColors(output);
         output = trimMessage(output);
         output = replaceFullCaps(output);
-        output = checkColorMessage(output, cs);
         output = UberChatSwearChecker.swearCheck(output);
         return output;
     }
@@ -47,14 +45,6 @@ public class UberChatSensor {
         }
         if ((capChars > (lowChars * 2)) && totalChars > 5 || (capChars > 9)) {
             return UberChatHelpers.firstLetterCaps(message);
-        } else {
-            return message;
-        }
-    }
-
-    private static String checkColorMessage(String message, CommandSender cs) {
-        if (PlayerInfoTracker.getColormeEnabled(cs.getName())) {
-            return Colorizor.getColorString(message);
         } else {
             return message;
         }

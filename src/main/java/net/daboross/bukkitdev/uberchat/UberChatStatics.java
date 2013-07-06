@@ -5,7 +5,8 @@
  */
 package net.daboross.bukkitdev.uberchat;
 
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
+
 
 /**
  *

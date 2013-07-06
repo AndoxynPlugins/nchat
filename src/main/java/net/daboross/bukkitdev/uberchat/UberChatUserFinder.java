@@ -6,12 +6,13 @@
 package net.daboross.bukkitdev.uberchat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**
  *
@@ -19,10 +20,10 @@ import org.bukkit.entity.Player;
  */
 public class UberChatUserFinder {
 
-    public static List<Player> findUsers(String partialUser) {
-        Player[] onlinePlayers = Bukkit.getOnlinePlayers();
-        List<Player> result = new ArrayList<Player>();
-        for (Player p : onlinePlayers) {
+    public static List<ProxiedPlayer> findUsers(String partialUser) {
+        Collection<ProxiedPlayer> online = ProxyServer.getInstance().getPlayers();
+        List<ProxiedPlayer> result = new ArrayList<ProxiedPlayer>();
+        for (ProxiedPlayer p : online) {
             if (p.getName().equals(partialUser)) {
                 result.clear();
                 result.add(p);
@@ -37,42 +38,5 @@ public class UberChatUserFinder {
             }
         }
         return result;
-    }
-
-    public static Player findUserExact(String username) {
-        return Bukkit.getServer().getPlayerExact(username);
-    }
-
-    public static List<CommandSender> findCommandSenders(String partialUser) {
-        String search = partialUser.toLowerCase(Locale.ENGLISH);
-        Player[] onlinePlayers = Bukkit.getOnlinePlayers();
-        List<CommandSender> result = new ArrayList<CommandSender>();
-        if ("console".contains(search) || "server".contains(search)) {
-            result.add(Bukkit.getConsoleSender());
-        }
-        for (Player p : onlinePlayers) {
-            String username = p.getName().toLowerCase(Locale.ENGLISH);
-            if (username.equals(search)) {
-                result = new ArrayList<CommandSender>();
-                result.add(p);
-                return result;
-            } else if (username.contains(search)) {
-                result.add(p);
-            } else {
-                String displayname = ChatColor.stripColor(p.getDisplayName()).toLowerCase(Locale.ENGLISH);
-                if (displayname.contains(search)) {
-                    result.add(p);
-                }
-            }
-        }
-        return result;
-    }
-
-    public static CommandSender findCommandSenderExact(String name) {
-        if (name.equalsIgnoreCase("console") || name.equalsIgnoreCase("server")) {
-            return Bukkit.getConsoleSender();
-        } else {
-            return Bukkit.getServer().getPlayerExact(name);
-        }
     }
 }
