@@ -5,7 +5,7 @@ import net.md_5.bungee.api.ChatColor;
 
 /**
  *
- * @author Dabo Ross <Dabo.Ross at daboross.net>
+ * @author Dabo Ross
  */
 public class Colorizor {
 
