@@ -3,11 +3,11 @@
  * Website: www.daboross.net
  * Email: daboross@daboross.net
  */
-package net.daboross.bukkitdev.uberchat.commandexecutors;
+package net.daboross.bungeedev.uberchat.commandexecutors;
 
-import net.daboross.bukkitdev.uberchat.UberChatHelpers;
-import net.daboross.bukkitdev.uberchat.UberChatSensor;
-import net.daboross.bukkitdev.uberchat.UberChatStatics;
+import net.daboross.bungeedev.uberchat.UberChatHelpers;
+import net.daboross.bungeedev.uberchat.UberChatSensor;
+import net.daboross.bungeedev.uberchat.UberChatStatics;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

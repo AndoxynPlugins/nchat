@@ -3,7 +3,7 @@
  * Website: www.daboross.net
  * Email: daboross@daboross.net
  */
-package net.daboross.bukkitdev.uberchat;
+package net.daboross.bungeedev.uberchat;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package net.daboross.bukkitdev.uberchat;
+package net.daboross.bungeedev.uberchat;
 
 import com.google.common.eventbus.Subscribe;
 import net.md_5.bungee.api.ChatColor;

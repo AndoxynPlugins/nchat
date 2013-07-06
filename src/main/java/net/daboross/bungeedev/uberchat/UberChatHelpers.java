@@ -1,4 +1,4 @@
-package net.daboross.bukkitdev.uberchat;
+package net.daboross.bungeedev.uberchat;
 
 import java.util.List;
 import java.util.Locale;

@@ -1,9 +1,9 @@
-package net.daboross.bukkitdev.uberchat;
+package net.daboross.bungeedev.uberchat;
 
-import net.daboross.bukkitdev.uberchat.commandexecutors.MeCommand;
-import net.daboross.bukkitdev.uberchat.commandexecutors.MsgCommand;
-import net.daboross.bukkitdev.uberchat.commandexecutors.ReplyCommand;
-import net.daboross.bukkitdev.uberchat.commandexecutors.ShoutCommand;
+import net.daboross.bungeedev.uberchat.commandexecutors.MeCommand;
+import net.daboross.bungeedev.uberchat.commandexecutors.MsgCommand;
+import net.daboross.bungeedev.uberchat.commandexecutors.ReplyCommand;
+import net.daboross.bungeedev.uberchat.commandexecutors.ShoutCommand;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
