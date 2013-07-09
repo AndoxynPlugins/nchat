@@ -3,7 +3,7 @@
  * Website: www.daboross.net
  * Email: daboross@daboross.net
  */
-package net.daboross.bungeedev.uberchat;
+package net.daboross.bungeedev.uberchat.data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +12,9 @@ import java.util.Map;
  *
  * @author daboross
  */
-public class PlayerInfoTracker {
+public class PlayerReplyTracker {
 
-    private static final Map<String, String> replytoMap = new HashMap<String, String>();
+    private static final Map<String, String> replytoMap = new HashMap<>();
 
     public static void setReplyto(String username, String replyto) {
         replytoMap.put(username, replyto);

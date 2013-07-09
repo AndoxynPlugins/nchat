@@ -7,7 +7,6 @@ package net.daboross.bungeedev.uberchat;
 
 import net.md_5.bungee.api.ChatColor;
 
-
 /**
  *
  * @author daboross

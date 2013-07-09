@@ -5,6 +5,7 @@
  */
 package net.daboross.bungeedev.uberchat;
 
+import net.daboross.bungeedev.uberchat.data.PlayerReplyTracker;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -35,7 +36,7 @@ public class UberChatMessageHandler {
                 p.sendMessage(messageForSpy);
             }
         }
-        PlayerInfoTracker.setReplyto(receiver.getName(), sender.getName());
-        PlayerInfoTracker.setReplyto(sender.getName(), receiver.getName());
+        PlayerReplyTracker.setReplyto(receiver.getName(), sender.getName());
+        PlayerReplyTracker.setReplyto(sender.getName(), receiver.getName());
     }
 }

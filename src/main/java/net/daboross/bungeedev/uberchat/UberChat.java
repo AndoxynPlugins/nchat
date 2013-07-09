@@ -4,6 +4,7 @@ import net.daboross.bungeedev.uberchat.commandexecutors.MeCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.MsgCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ReplyCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ShoutCommand;
+import net.daboross.bungeedev.uberchat.data.PlayerDatabaseImpl;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -16,10 +17,13 @@ import net.md_5.bungee.api.plugin.PluginManager;
  */
 public final class UberChat extends Plugin {
 
+    private PlayerDatabaseImpl playerDatabase;
+
     @Override
     public void onEnable() {
         UberChatListener uberChatListener = new UberChatListener();
         ProxyServer.getInstance().getPluginManager().registerListener(this, uberChatListener);
+        assignCommands();
         getLogger().info("UberChat Fully Enabled");
     }
 
@@ -38,5 +42,9 @@ public final class UberChat extends Plugin {
         pm.registerCommand(this, reply);
         Command shout = new ShoutCommand();
         pm.registerCommand(this, shout);
+    }
+
+    public PlayerDatabaseImpl getPlayerDatabase() {
+        return playerDatabase;
     }
 }

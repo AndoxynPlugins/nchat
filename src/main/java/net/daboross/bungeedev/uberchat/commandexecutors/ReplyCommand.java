@@ -5,7 +5,7 @@
  */
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.PlayerInfoTracker;
+import net.daboross.bungeedev.uberchat.data.PlayerReplyTracker;
 import net.daboross.bungeedev.uberchat.UberChatHelpers;
 import net.daboross.bungeedev.uberchat.UberChatMessageHandler;
 import net.daboross.bungeedev.uberchat.UberChatStatics;
@@ -30,7 +30,7 @@ public class ReplyCommand extends Command {
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify a message to send.");
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
         } else {
-            String replyToName = PlayerInfoTracker.getReplyto(sender.getName());
+            String replyToName = PlayerReplyTracker.getReplyto(sender.getName());
             CommandSender replyTo = replyToName == null ? null : ProxyServer.getInstance().getPlayer(replyToName);
             if (replyTo == null) {
                 sender.sendMessage(UberChatStatics.COLOR.MAIN + "No user found to reply to.");

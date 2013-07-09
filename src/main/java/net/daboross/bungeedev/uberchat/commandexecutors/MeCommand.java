@@ -26,8 +26,8 @@ public class MeCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify an action to describe.");
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /me <action> (publicly describes you doing <action>)");
+            sender.sendMessages(UberChatStatics.COLOR.MAIN + "Please specify an action to describe.",
+                    UberChatStatics.COLOR.MAIN + "Usage: /me <action> (publicly describes you doing <action>)");
         } else {
             ProxyServer.getInstance().broadcast(String.format(UberChatStatics.FORMAT.ME,
                     sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server",
