@@ -27,17 +27,17 @@ import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.PluginManager;
 
 /**
- * UberChat Plugin Made By DaboRoss
+ * UberChatPlugin Plugin Made By DaboRoss
  *
  * @author daboross
  */
-public final class UberChat extends Plugin {
+public final class UberChatPlugin extends Plugin {
 
     private PlayerDatabaseImpl playerDatabase;
 
     @Override
     public void onEnable() {
-        UberChatListener uberChatListener = new UberChatListener();
+        UberChatListener uberChatListener = new UberChatListener(this);
         ProxyServer.getInstance().getPluginManager().registerListener(this, uberChatListener);
         assignCommands();
         getLogger().info("UberChat Fully Enabled");

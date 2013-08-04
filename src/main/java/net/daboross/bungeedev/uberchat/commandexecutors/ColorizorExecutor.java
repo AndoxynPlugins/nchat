@@ -16,7 +16,7 @@
  */
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.UberChat;
+import net.daboross.bungeedev.uberchat.UberChatPlugin;
 import net.daboross.bungeedev.uberchat.UberChatStatics;
 import net.daboross.bungeedev.uberchat.data.PlayerDatabaseImpl;
 import net.md_5.bungee.api.CommandSender;
@@ -29,9 +29,9 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class ColorizorExecutor extends Command {
 
-    private final UberChat uberChat;
+    private final UberChatPlugin uberChat;
 
-    public ColorizorExecutor(UberChat uberChat) {
+    public ColorizorExecutor(UberChatPlugin uberChat) {
         super("colorize");
         this.uberChat = uberChat;
     }

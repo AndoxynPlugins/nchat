@@ -1,4 +1,4 @@
-name: UberChat
-main: net.daboross.bungeedev.uberchat.UberChat
-version: 1.0
+name: ${project.name}
+main: net.daboross.bungeedev.uberchat.UberChatPlugin
+version: ${project.version}
 author: Dabo Ross

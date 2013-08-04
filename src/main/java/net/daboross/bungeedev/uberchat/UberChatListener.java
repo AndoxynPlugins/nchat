@@ -16,7 +16,14 @@
  */
 package net.daboross.bungeedev.uberchat;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.config.ServerInfo;
+import net.md_5.bungee.api.connection.Connection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -28,17 +35,47 @@ import net.md_5.bungee.event.EventHandler;
  */
 public class UberChatListener implements Listener {
 
+    private final UberChatPlugin plugin;
+
+    public UberChatListener(UberChatPlugin plugin) {
+        this.plugin = plugin;
+    }
+
     @EventHandler
     public void onChat(ChatEvent e) {
-        e.setMessage(UberChatSensor.getSensoredMessage(e.getMessage()));
-        String m = e.getMessage();
+        Connection connectionSender = e.getSender();
         if (e.getSender() instanceof ProxiedPlayer) {
-            ProxiedPlayer pl = (ProxiedPlayer) e.getSender();
-            for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
-                if (!p.getServer().getInfo().getName().equals(pl.getServer().getInfo().getName())) {
-                    p.sendMessage(String.format(UberChatStatics.FORMAT.CHAT, pl.getDisplayName(), m));
+            ProxiedPlayer sender = (ProxiedPlayer) connectionSender;
+            String m = e.getMessage();
+            if (m.length() == 0) {
+                e.setCancelled(true);
+                sender.sendMessage("That message is empty.");
+            } else if (m.charAt(0) != '/') {
+                String broadcast = String.format(UberChatStatics.FORMAT.CHAT, sender.getDisplayName(), UberChatSensor.getSensoredMessage(m));
+                ProxyServer.getInstance().broadcast(broadcast);
+                plugin.getLogger().log(Level.INFO, broadcast);
+                try {
+                    sendPluginMessage(broadcast);
+                } catch (IOException ex) {
+                    plugin.getLogger().log(Level.SEVERE, "Error sending plugin message", ex);
                 }
+                e.setCancelled(true);
             }
+        } else {
+            plugin.getLogger().log(Level.WARNING, "Connection {0} tried to chat while not being a ProxiedPlayer.", connectionSender);
+        }
+    }
+
+    private void sendPluginMessage(String broadcast) throws IOException {
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        try (DataOutputStream out = new DataOutputStream(b)) {
+            out.writeUTF("ConsoleMessage");
+            out.writeUTF(broadcast);
+        }
+        byte[] data = b.toByteArray();
+        for (Map.Entry<String, ServerInfo> server : ProxyServer.getInstance().getServers().entrySet()) {
+            server.getValue().sendData("UberChat", data);
+            System.out.println("Sending data " + data + " to server " + server.getKey());
         }
     }
 }
