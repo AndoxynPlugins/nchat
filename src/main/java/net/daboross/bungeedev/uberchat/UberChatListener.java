@@ -73,9 +73,10 @@ public class UberChatListener implements Listener {
             out.writeUTF(broadcast);
         }
         byte[] data = b.toByteArray();
+        System.out.println("Looping through servers.");
         for (Map.Entry<String, ServerInfo> server : ProxyServer.getInstance().getServers().entrySet()) {
             server.getValue().sendData("UberChat", data);
-            System.out.println("Sending data " + data + " to server " + server.getKey());
+            System.out.println("Sending message to " + server.getKey());
         }
     }
 }
