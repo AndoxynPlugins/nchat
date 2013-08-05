@@ -22,7 +22,6 @@ import net.daboross.bungeedev.uberchat.commandexecutors.ReplyCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ShoutCommand;
 import net.daboross.bungeedev.uberchat.data.PlayerDatabaseImpl;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.PluginManager;
 
@@ -38,8 +37,9 @@ public final class UberChatPlugin extends Plugin {
     @Override
     public void onEnable() {
         UberChatListener uberChatListener = new UberChatListener(this);
-        ProxyServer.getInstance().getPluginManager().registerListener(this, uberChatListener);
+        getProxy().getPluginManager().registerListener(this, uberChatListener);
         assignCommands();
+        getProxy().registerChannel("UberChat");
         getLogger().info("UberChat Fully Enabled");
     }
 
