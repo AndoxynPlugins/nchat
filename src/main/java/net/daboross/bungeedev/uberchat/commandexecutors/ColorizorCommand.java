@@ -27,11 +27,11 @@ import net.md_5.bungee.api.plugin.Command;
  *
  * @author daboross
  */
-public class ColorizorExecutor extends Command {
+public class ColorizorCommand extends Command {
 
     private final UberChatPlugin uberChat;
 
-    public ColorizorExecutor(UberChatPlugin uberChat) {
+    public ColorizorCommand(UberChatPlugin uberChat) {
         super("colorize");
         this.uberChat = uberChat;
     }

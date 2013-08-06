@@ -36,8 +36,26 @@ public class ConnectorUtils {
     }
 
     public void sendWithPermission(String permission, String message, String... excludes) {
-        String[] newString = UCStringUtils.copyAndInclude(new String[]{"SendWithPermission", permission, message}, excludes);
-        sendMessage(newString);
+        byte[] data;
+        try {
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            try (DataOutputStream out = new DataOutputStream(b)) {
+                out.writeUTF("SendWithPermission");
+                out.writeUTF(permission);
+                out.writeUTF(message);
+                out.writeInt(excludes.length);
+                for (String str : excludes) {
+                    out.writeUTF(str);
+                }
+            }
+            data = b.toByteArray();
+        } catch (IOException ex) {
+            plugin.getLogger().log(Level.SEVERE, "Error writing data to byte array", ex);
+            return;
+        }
+        for (Map.Entry<String, ServerInfo> server : ProxyServer.getInstance().getServers().entrySet()) {
+            server.getValue().sendData("UberChat", data);
+        }
     }
 
     private void sendMessage(String... message) {
@@ -55,7 +73,6 @@ public class ConnectorUtils {
             return;
         }
         for (Map.Entry<String, ServerInfo> server : ProxyServer.getInstance().getServers().entrySet()) {
-            System.out.println("Sending data '" + Arrays.toString(message) + "' to server '" + server.getValue().getName() + "'.");
             server.getValue().sendData("UberChat", data);
         }
     }
@@ -74,7 +91,6 @@ public class ConnectorUtils {
             plugin.getLogger().log(Level.SEVERE, "Error writing data to byte array", ex);
             return;
         }
-        System.out.println("Sending data '" + Arrays.toString(message) + "' to server '" + server.getInfo().getName() + "'.");
         server.sendData("UberChat", data);
     }
 }

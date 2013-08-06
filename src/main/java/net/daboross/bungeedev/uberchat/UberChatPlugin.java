@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.uberchat;
 
+import net.daboross.bungeedev.uberchat.commandexecutors.ColorizorCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.MeCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.MsgCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ReplyCommand;
@@ -62,6 +63,8 @@ public final class UberChatPlugin extends Plugin {
         pm.registerCommand(this, reply);
         Command shout = new ShoutCommand(this);
         pm.registerCommand(this, shout);
+        Command colorize = new ColorizorCommand(this);
+        pm.registerCommand(this, colorize);
     }
 
     public PlayerDatabaseImpl getPlayerDatabase() {
