@@ -25,7 +25,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  *
  * @author daboross
  */
-public class UberChatHelpers {
+public class UCStringUtils {
 
     public static String toggleCase(String input) {
         StringBuilder outputBuilder = new StringBuilder(input.length());
@@ -143,5 +143,12 @@ public class UberChatHelpers {
             }
         }
         p.setDisplayName(newDisplayName);
+    }
+
+    public static String[] copyAndInclude(String[] array, String... include) {
+        String[] value = new String[array.length + include.length];
+        System.arraycopy(array, 0, value, 0, array.length);
+        System.arraycopy(include, 0, value, array.length, include.length);
+        return value;
     }
 }

@@ -16,7 +16,8 @@
  */
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.UberChatHelpers;
+import net.daboross.bungeedev.uberchat.UCStringUtils;
+import net.daboross.bungeedev.uberchat.UberChatPlugin;
 import net.daboross.bungeedev.uberchat.UberChatSensor;
 import net.daboross.bungeedev.uberchat.UberChatStatics;
 import net.md_5.bungee.api.CommandSender;
@@ -30,8 +31,11 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class MeCommand extends Command {
 
-    public MeCommand() {
+    private final UberChatPlugin plugin;
+
+    public MeCommand(UberChatPlugin plugin) {
         super("me");
+        this.plugin = plugin;
     }
 
     @Override
@@ -40,9 +44,11 @@ public class MeCommand extends Command {
             sender.sendMessages(UberChatStatics.COLOR.MAIN + "Please specify an action to describe.",
                     UberChatStatics.COLOR.MAIN + "Usage: /me <action> (publicly describes you doing <action>)");
         } else {
-            ProxyServer.getInstance().broadcast(String.format(UberChatStatics.FORMAT.ME,
+            String message = String.format(UberChatStatics.FORMAT.ME,
                     sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server",
-                    UberChatSensor.getSensoredMessage(UberChatHelpers.arrayToString(args, " "))));
+                    UberChatSensor.getSensoredMessage(UCStringUtils.arrayToString(args, " ")));
+            ProxyServer.getInstance().broadcast(message);
+            plugin.getUtils().consoleMessage(message);
         }
     }
 }

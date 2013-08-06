@@ -27,12 +27,18 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  */
 public class UberChatMessageHandler {
 
-    public static void sendMessage(CommandSender sender, CommandSender receiver, String message) {
+    private final UberChatPlugin plugin;
+
+    public UberChatMessageHandler(UberChatPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    public void sendMessage(CommandSender sender, CommandSender receiver, String message) {
         if (sender instanceof ProxiedPlayer) {
-            UberChatHelpers.formatPlayerDisplayname((ProxiedPlayer) sender);
+            UCStringUtils.formatPlayerDisplayname((ProxiedPlayer) sender);
         }
         if (receiver instanceof ProxiedPlayer) {
-            UberChatHelpers.formatPlayerDisplayname((ProxiedPlayer) receiver);
+            UCStringUtils.formatPlayerDisplayname((ProxiedPlayer) receiver);
         }
         String sensoredMessage = UberChatSensor.getSensoredMessage(message);
         String senderName = sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : sender.getName();
@@ -42,6 +48,19 @@ public class UberChatMessageHandler {
         String messageForSpy = String.format(UberChatStatics.FORMAT.MSG_SPY, senderName, receiverName, sensoredMessage);
         sender.sendMessage(messageForSender);
         receiver.sendMessage(messageForReceiver);
+        if (sender instanceof ProxiedPlayer) {
+            if (receiver instanceof ProxiedPlayer) {
+                plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy, sender.getName(), receiver.getName());
+            } else {
+                plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy, sender.getName());
+            }
+        } else if (receiver instanceof ProxiedPlayer) {
+            plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy, receiver.getName());
+
+        } else {
+            plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy);
+        }
+        plugin.getUtils().consoleMessage(messageForSpy);
         for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
             if (p.hasPermission(UberChatStatics.PERMISSION.MSG_SPY) && p != sender && p != receiver) {
                 p.sendMessage(messageForSpy);

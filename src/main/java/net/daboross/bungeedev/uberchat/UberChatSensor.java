@@ -34,7 +34,7 @@ public class UberChatSensor {
     }
 
     private static String checkAndColors(String message) {
-        return UberChatHelpers.translateColor(message);
+        return UCStringUtils.translateColor(message);
     }
 
     private static String trimMessage(String message) {
@@ -55,7 +55,7 @@ public class UberChatSensor {
             }
         }
         if ((capChars > (lowChars * 2)) && totalChars > 5 || (capChars > 9)) {
-            return UberChatHelpers.firstLetterCaps(message);
+            return UCStringUtils.firstLetterCaps(message);
         } else {
             return message;
         }

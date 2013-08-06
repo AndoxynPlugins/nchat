@@ -16,13 +16,8 @@
  */
 package net.daboross.bungeedev.uberchat;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.Map;
 import java.util.logging.Level;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.Connection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
@@ -54,29 +49,11 @@ public class UberChatListener implements Listener {
                 String broadcast = String.format(UberChatStatics.FORMAT.CHAT, sender.getDisplayName(), UberChatSensor.getSensoredMessage(m));
                 ProxyServer.getInstance().broadcast(broadcast);
                 plugin.getLogger().log(Level.INFO, broadcast);
-                try {
-                    sendPluginMessage(broadcast);
-                } catch (IOException ex) {
-                    plugin.getLogger().log(Level.SEVERE, "Error sending plugin message", ex);
-                }
+                plugin.getUtils().consoleMessage(broadcast);
                 e.setCancelled(true);
             }
         } else {
             plugin.getLogger().log(Level.WARNING, "Connection {0} tried to chat while not being a ProxiedPlayer.", connectionSender);
-        }
-    }
-
-    private void sendPluginMessage(String broadcast) throws IOException {
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
-        try (DataOutputStream out = new DataOutputStream(b)) {
-            out.writeUTF("ConsoleMessage");
-            out.writeUTF(broadcast);
-        }
-        byte[] data = b.toByteArray();
-        System.out.println("Looping through servers.");
-        for (Map.Entry<String, ServerInfo> server : ProxyServer.getInstance().getServers().entrySet()) {
-            server.getValue().sendData("UberChat", data);
-            System.out.println("Sending message to " + server.getKey());
         }
     }
 }

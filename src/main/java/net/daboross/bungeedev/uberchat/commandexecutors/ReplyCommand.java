@@ -17,8 +17,9 @@
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
 import net.daboross.bungeedev.uberchat.data.PlayerReplyTracker;
-import net.daboross.bungeedev.uberchat.UberChatHelpers;
+import net.daboross.bungeedev.uberchat.UCStringUtils;
 import net.daboross.bungeedev.uberchat.UberChatMessageHandler;
+import net.daboross.bungeedev.uberchat.UberChatPlugin;
 import net.daboross.bungeedev.uberchat.UberChatStatics;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -30,8 +31,11 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class ReplyCommand extends Command {
 
-    public ReplyCommand() {
+    private final UberChatPlugin plugin;
+
+    public ReplyCommand(UberChatPlugin plugin) {
         super("reply", null, "r");
+        this.plugin = plugin;
     }
 
     @Override
@@ -45,8 +49,8 @@ public class ReplyCommand extends Command {
             if (replyTo == null) {
                 sender.sendMessage(UberChatStatics.COLOR.MAIN + "No user found to reply to.");
             } else {
-                String message = UberChatHelpers.arrayToString(args, " ");
-                UberChatMessageHandler.sendMessage(sender, replyTo, message);
+                String message = UCStringUtils.arrayToString(args, " ");
+                plugin.getMessageHandler().sendMessage(sender, replyTo, message);
             }
         }
     }

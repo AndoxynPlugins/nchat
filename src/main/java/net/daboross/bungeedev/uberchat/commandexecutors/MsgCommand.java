@@ -17,8 +17,9 @@
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
 import java.util.List;
-import net.daboross.bungeedev.uberchat.UberChatHelpers;
+import net.daboross.bungeedev.uberchat.UCStringUtils;
 import net.daboross.bungeedev.uberchat.UberChatMessageHandler;
+import net.daboross.bungeedev.uberchat.UberChatPlugin;
 import net.daboross.bungeedev.uberchat.UberChatStatics;
 import net.daboross.bungeedev.uberchat.UberChatUserFinder;
 import net.md_5.bungee.api.ChatColor;
@@ -32,8 +33,11 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class MsgCommand extends Command {
 
-    public MsgCommand() {
+    private final UberChatPlugin plugin;
+
+    public MsgCommand(UberChatPlugin plugin) {
         super("msg", null, "m", "tell", "t");
+        this.plugin = plugin;
     }
 
     @Override
@@ -49,8 +53,8 @@ public class MsgCommand extends Command {
             if (foundUsers.isEmpty()) {
                 sender.sendMessage(UberChatStatics.COLOR.MAIN + "User \"" + ChatColor.RED + args[0] + UberChatStatics.COLOR.MAIN + "\" not found or not online.");
             } else if (foundUsers.size() == 1) {
-                String message = UberChatHelpers.arrayToString(1, args, " ");
-                UberChatMessageHandler.sendMessage(sender, foundUsers.get(0), message);
+                String message = UCStringUtils.arrayToString(1, args, " ");
+                plugin.getMessageHandler().sendMessage(sender, foundUsers.get(0), message);
             } else {
                 sender.sendMessage(UberChatStatics.COLOR.MAIN + "Multiple users matching \"" + args[0] + "\":");
                 sender.sendMessage(getNameString(foundUsers));

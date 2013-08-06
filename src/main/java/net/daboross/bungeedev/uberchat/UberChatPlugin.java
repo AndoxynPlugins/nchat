@@ -33,9 +33,13 @@ import net.md_5.bungee.api.plugin.PluginManager;
 public final class UberChatPlugin extends Plugin {
 
     private PlayerDatabaseImpl playerDatabase;
+    private ConnectorUtils utils;
+    private UberChatMessageHandler messageHandler;
 
     @Override
     public void onEnable() {
+        utils = new ConnectorUtils(this);
+        messageHandler = new UberChatMessageHandler(this);
         UberChatListener uberChatListener = new UberChatListener(this);
         getProxy().getPluginManager().registerListener(this, uberChatListener);
         assignCommands();
@@ -50,17 +54,25 @@ public final class UberChatPlugin extends Plugin {
 
     private void assignCommands() {
         PluginManager pm = getProxy().getPluginManager();
-        Command me = new MeCommand();
+        Command me = new MeCommand(this);
         pm.registerCommand(this, me);
-        Command msg = new MsgCommand();
+        Command msg = new MsgCommand(this);
         pm.registerCommand(this, msg);
-        Command reply = new ReplyCommand();
+        Command reply = new ReplyCommand(this);
         pm.registerCommand(this, reply);
-        Command shout = new ShoutCommand();
+        Command shout = new ShoutCommand(this);
         pm.registerCommand(this, shout);
     }
 
     public PlayerDatabaseImpl getPlayerDatabase() {
         return playerDatabase;
+    }
+
+    public ConnectorUtils getUtils() {
+        return utils;
+    }
+
+    public UberChatMessageHandler getMessageHandler() {
+        return messageHandler;
     }
 }
