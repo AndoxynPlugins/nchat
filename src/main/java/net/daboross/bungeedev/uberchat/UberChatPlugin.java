@@ -21,6 +21,7 @@ import net.daboross.bungeedev.uberchat.commandexecutors.MeCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.MsgCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ReplyCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ShoutCommand;
+import net.daboross.bungeedev.uberchat.data.DisplayNameDatabase;
 import net.daboross.bungeedev.uberchat.data.PlayerDatabaseImpl;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.Command;
@@ -36,9 +37,11 @@ public final class UberChatPlugin extends Plugin {
     private PlayerDatabaseImpl playerDatabase;
     private ConnectorUtils utils;
     private UberChatMessageHandler messageHandler;
+    private DisplayNameDatabase displayNameDatabase;
 
     @Override
     public void onEnable() {
+        displayNameDatabase = new DisplayNameDatabase(this);
         utils = new ConnectorUtils(this);
         messageHandler = new UberChatMessageHandler(this);
         UberChatListener uberChatListener = new UberChatListener(this);
@@ -65,6 +68,10 @@ public final class UberChatPlugin extends Plugin {
         pm.registerCommand(this, shout);
         Command colorize = new ColorizorCommand(this);
         pm.registerCommand(this, colorize);
+    }
+
+    public DisplayNameDatabase getDisplayNameDatabase() {
+        return displayNameDatabase;
     }
 
     public PlayerDatabaseImpl getPlayerDatabase() {

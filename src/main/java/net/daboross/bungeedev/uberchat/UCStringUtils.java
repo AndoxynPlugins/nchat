@@ -19,7 +19,6 @@ package net.daboross.bungeedev.uberchat;
 import java.util.List;
 import java.util.Locale;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**
  *
@@ -125,24 +124,23 @@ public class UCStringUtils {
         }
     }
 
-    public static void formatPlayerDisplayname(ProxiedPlayer p) {
-        String newDisplayName = p.getDisplayName();
-        if (newDisplayName.contains("_")) {
-            newDisplayName = newDisplayName.replaceAll("_", " ");
+    public static String formatPlayerDisplayname(String name) {
+        if (name.contains("_")) {
+            name = name.replaceAll("_", " ");
         }
-        String noColor = ChatColor.stripColor(newDisplayName);
+        String noColor = ChatColor.stripColor(name);
         while (noColor.startsWith(" ")) {
-            newDisplayName = newDisplayName.replaceFirst(" ", "");
-            noColor = ChatColor.stripColor(newDisplayName);
+            name = name.replaceFirst(" ", "");
+            noColor = ChatColor.stripColor(name);
         }
         if (noColor.length() > 16) {
-            int lengthDiff = 15 + newDisplayName.length() - noColor.length();
-            newDisplayName = newDisplayName.substring(0, lengthDiff);
-            if (newDisplayName.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
-                newDisplayName = newDisplayName.substring(0, newDisplayName.length() - 1);
+            int lengthDiff = 15 + name.length() - noColor.length();
+            name = name.substring(0, lengthDiff);
+            if (name.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
+                name = name.substring(0, name.length() - 1);
             }
         }
-        p.setDisplayName(newDisplayName);
+        return name;
     }
 
     public static String[] copyAndInclude(String[] array, String... include) {

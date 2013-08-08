@@ -34,12 +34,6 @@ public class UberChatMessageHandler {
     }
 
     public void sendMessage(CommandSender sender, CommandSender receiver, String message) {
-        if (sender instanceof ProxiedPlayer) {
-            UCStringUtils.formatPlayerDisplayname((ProxiedPlayer) sender);
-        }
-        if (receiver instanceof ProxiedPlayer) {
-            UCStringUtils.formatPlayerDisplayname((ProxiedPlayer) receiver);
-        }
         String sensoredMessage = UberChatSensor.getSensoredMessage(message);
         String senderName = sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : sender.getName();
         String receiverName = receiver instanceof ProxiedPlayer ? ((ProxiedPlayer) receiver).getDisplayName() : receiver.getName();
