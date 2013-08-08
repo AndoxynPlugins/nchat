@@ -24,6 +24,23 @@ import net.md_5.bungee.api.ChatColor;
  */
 public class UberChatSensor {
 
+    public static String formatPlayerDisplayname(String name) {
+        name = ChatColor.BLUE + getSensoredMessage(name);
+        String noColor = ChatColor.stripColor(name);
+        while (noColor.startsWith(" ")) {
+            name = name.replaceFirst(" ", "");
+            noColor = ChatColor.stripColor(name);
+        }
+        if (noColor.length() > 16) {
+            int lengthDiff = 15 + name.length() - noColor.length();
+            name = name.substring(0, lengthDiff);
+            if (name.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
+                name = name.substring(0, name.length() - 1);
+            }
+        }
+        return name;
+    }
+
     public static String getSensoredMessage(String message) {
         String output = message;
         output = checkAndColors(output);

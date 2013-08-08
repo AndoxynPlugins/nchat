@@ -28,13 +28,13 @@ public class DisplayNameDatabase {
             databaseFile = new File(plugin.getDataFolder(), "display-names-database");
         }
         if (databaseFile.exists()) {
-            database = new SimpleDatabase();
-        } else {
             try {
                 database = new SimpleDatabase(databaseFile);
             } catch (IOException ex) {
                 plugin.getLogger().log(Level.SEVERE, "Error reading database file.", ex);
             }
+        } else {
+            database = new SimpleDatabase();
         }
     }
 

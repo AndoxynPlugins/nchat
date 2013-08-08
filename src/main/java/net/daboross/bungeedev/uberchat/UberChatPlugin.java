@@ -19,6 +19,7 @@ package net.daboross.bungeedev.uberchat;
 import net.daboross.bungeedev.uberchat.commandexecutors.ColorizorCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.MeCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.MsgCommand;
+import net.daboross.bungeedev.uberchat.commandexecutors.NickCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ReplyCommand;
 import net.daboross.bungeedev.uberchat.commandexecutors.ShoutCommand;
 import net.daboross.bungeedev.uberchat.data.DisplayNameDatabase;
@@ -53,6 +54,7 @@ public final class UberChatPlugin extends Plugin {
 
     @Override
     public void onDisable() {
+        displayNameDatabase.save();
         getLogger().info("UberChat Fully Disabled");
     }
 
@@ -68,6 +70,9 @@ public final class UberChatPlugin extends Plugin {
         pm.registerCommand(this, shout);
         Command colorize = new ColorizorCommand(this);
         pm.registerCommand(this, colorize);
+        Command nick = new NickCommand(this);
+        pm.registerCommand(this, nick);
+        pm.registerListener(this, new JoinListener(this));
     }
 
     public DisplayNameDatabase getDisplayNameDatabase() {

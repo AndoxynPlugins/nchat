@@ -38,9 +38,9 @@ public class SimpleDatabase {
             throw new NullPointerException();
         }
         if (value == null) {
-            values.remove(key);
+            values.remove(key.toLowerCase());
         } else {
-            values.put(key, value);
+            values.put(key.toLowerCase(), value);
         }
     }
 
@@ -64,6 +64,7 @@ public class SimpleDatabase {
         for (Map.Entry<String, String> entry : values.entrySet()) {
             lines.add(entry.getKey() + "|" + entry.getValue());
         }
+        System.out.println("Lines " + lines);
         FileUtils.writeFile(file, lines);
     }
 }

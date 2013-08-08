@@ -3,9 +3,10 @@
  */
 package net.daboross.bungeedev.uberchat;
 
+import java.util.concurrent.TimeUnit;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.PostLoginEvent;
+import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
@@ -22,13 +23,18 @@ public class JoinListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PostLoginEvent evt) {
-        ProxiedPlayer p = evt.getPlayer();
-        String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
-        if (name == null) {
-            name = ChatColor.BLUE + p.getName();
-            p.setDisplayName(name);
-        }
-        plugin.getUtils().setDisplayName(p, name);
+    public void onJoin(ServerConnectedEvent evt) {
+        final ProxiedPlayer p = evt.getPlayer();
+        plugin.getProxy().getScheduler().schedule(plugin, new Runnable() {
+            @Override
+            public void run() {
+                String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
+                if (name == null) {
+                    name = ChatColor.BLUE + p.getName();
+                    p.setDisplayName(name);
+                }
+                plugin.getUtils().setDisplayName(p, name);
+            }
+        }, 1, TimeUnit.MILLISECONDS);
     }
 }

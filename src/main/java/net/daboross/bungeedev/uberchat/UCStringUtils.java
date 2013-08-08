@@ -124,24 +124,6 @@ public class UCStringUtils {
         }
     }
 
-    public static String formatPlayerDisplayname(String name) {
-        if (name.contains("_")) {
-            name = name.replaceAll("_", " ");
-        }
-        String noColor = ChatColor.stripColor(name);
-        while (noColor.startsWith(" ")) {
-            name = name.replaceFirst(" ", "");
-            noColor = ChatColor.stripColor(name);
-        }
-        if (noColor.length() > 16) {
-            int lengthDiff = 15 + name.length() - noColor.length();
-            name = name.substring(0, lengthDiff);
-            if (name.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
-                name = name.substring(0, name.length() - 1);
-            }
-        }
-        return name;
-    }
 
     public static String[] copyAndInclude(String[] array, String... include) {
         String[] value = new String[array.length + include.length];

@@ -6,7 +6,6 @@ package net.daboross.bungeedev.uberchat;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.logging.Level;
 import net.md_5.bungee.api.ProxyServer;
@@ -28,7 +27,11 @@ public class ConnectorUtils {
 
     public void setDisplayName(ProxiedPlayer p, String name) {
         p.setDisplayName(name);
-        sendMessageServer(p.getServer(), "SetDisplayName", name);
+        Server server = p.getServer();
+        if (server == null) {
+            throw new IllegalArgumentException("ProxiedPlayer.getServer() == null");
+        }
+        sendMessageServer(server, "SetDisplayName", name);
     }
 
     public void consoleMessage(String message) {

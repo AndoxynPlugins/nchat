@@ -5,6 +5,7 @@ package net.daboross.bungeedev.uberchat.commandexecutors;
 
 import net.daboross.bungeedev.uberchat.UCStringUtils;
 import net.daboross.bungeedev.uberchat.UberChatPlugin;
+import net.daboross.bungeedev.uberchat.UberChatSensor;
 import net.daboross.bungeedev.uberchat.UberChatStatics;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
@@ -30,14 +31,16 @@ public class NickCommand extends Command {
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "You aren't a player.");
             return;
         }
+        ProxiedPlayer p = (ProxiedPlayer) sender;
         if (args.length == 0) {
             sender.sendMessages(UberChatStatics.COLOR.MAIN + "Please specify a new nickname.",
                     UberChatStatics.COLOR.MAIN + "Usage: /nick <Nick name you want>");
         } else {
-            String newNick = UCStringUtils.formatPlayerDisplayname(UCStringUtils.arrayToString(args, " "));
+            String newNick = UberChatSensor.formatPlayerDisplayname(UCStringUtils.arrayToString(args, " "));
             sender.sendMessage(UberChatStatics.COLOR.MAIN + "You're nickname is now " + ChatColor.BLUE + newNick);
-            ((ProxiedPlayer) sender).setDisplayName(newNick);
-            plugin.getUtils().setDisplayName((ProxiedPlayer) sender, newNick);
+            p.setDisplayName(newNick);
+            plugin.getDisplayNameDatabase().setDisplayName(p.getName(), newNick);
+            plugin.getUtils().setDisplayName(p, newNick);
         }
     }
 }
