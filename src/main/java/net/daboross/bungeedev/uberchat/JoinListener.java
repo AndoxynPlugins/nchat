@@ -30,6 +30,6 @@ public class JoinListener implements Listener {
             name = ChatColor.BLUE + p.getName();
             p.setDisplayName(name);
         }
-        plugin.getUtils().setDisplayName(p, name);
+        plugin.getUtils().setDisplayName(evt.getServer(), name);
     }
 }

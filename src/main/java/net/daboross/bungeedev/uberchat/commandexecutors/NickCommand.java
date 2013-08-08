@@ -40,7 +40,7 @@ public class NickCommand extends Command {
             sender.sendMessage(Statics.COLOR.MAIN + "You're nickname is now " + ChatColor.BLUE + newNick);
             p.setDisplayName(newNick);
             plugin.getDisplayNameDatabase().setDisplayName(p.getName(), newNick);
-            plugin.getUtils().setDisplayName(p, newNick);
+            plugin.getUtils().setDisplayName(p.getServer(), newNick);
         }
     }
 }

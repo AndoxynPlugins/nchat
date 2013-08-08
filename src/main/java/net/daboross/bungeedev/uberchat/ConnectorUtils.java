@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
 
 /**
@@ -25,11 +24,9 @@ public class ConnectorUtils {
         this.plugin = plugin;
     }
 
-    public void setDisplayName(ProxiedPlayer p, String name) {
-        p.setDisplayName(name);
-        Server server = p.getServer();
+    public void setDisplayName(Server server, String name) {
         if (server == null) {
-            throw new IllegalArgumentException("ProxiedPlayer.getServer() == null");
+            throw new IllegalArgumentException("server == null");
         }
         sendMessageServer(server, "SetDisplayName", name);
     }
