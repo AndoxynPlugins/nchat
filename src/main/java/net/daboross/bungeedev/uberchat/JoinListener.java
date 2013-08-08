@@ -25,16 +25,11 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoin(ServerConnectedEvent evt) {
         final ProxiedPlayer p = evt.getPlayer();
-        plugin.getProxy().getScheduler().schedule(plugin, new Runnable() {
-            @Override
-            public void run() {
-                String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
-                if (name == null) {
-                    name = ChatColor.BLUE + p.getName();
-                    p.setDisplayName(name);
-                }
-                plugin.getUtils().setDisplayName(p, name);
-            }
-        }, 1, TimeUnit.MILLISECONDS);
+        String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
+        if (name == null) {
+            name = ChatColor.BLUE + p.getName();
+            p.setDisplayName(name);
+        }
+        plugin.getUtils().setDisplayName(p, name);
     }
 }

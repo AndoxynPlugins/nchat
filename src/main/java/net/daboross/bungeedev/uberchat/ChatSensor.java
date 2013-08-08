@@ -22,7 +22,7 @@ import net.md_5.bungee.api.ChatColor;
  *
  * @author daboross
  */
-public class UberChatSensor {
+public class ChatSensor {
 
     public static String formatPlayerDisplayname(String name) {
         name = ChatColor.BLUE + getSensoredMessage(name);
@@ -46,12 +46,12 @@ public class UberChatSensor {
         output = checkAndColors(output);
         output = trimMessage(output);
         output = replaceFullCaps(output);
-        output = UberChatSwearChecker.swearCheck(output);
+        output = SwearChecker.swearCheck(output);
         return output;
     }
 
     private static String checkAndColors(String message) {
-        return UCStringUtils.translateColor(message);
+        return StringUtils.translateColor(message);
     }
 
     private static String trimMessage(String message) {
@@ -72,7 +72,7 @@ public class UberChatSensor {
             }
         }
         if ((capChars > (lowChars * 2)) && totalChars > 5 || (capChars > 9)) {
-            return UCStringUtils.firstLetterCaps(message);
+            return StringUtils.firstLetterCaps(message);
         } else {
             return message;
         }

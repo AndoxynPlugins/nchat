@@ -28,11 +28,11 @@ import net.md_5.bungee.event.EventHandler;
  *
  * @author Dabo Ross
  */
-public class UberChatListener implements Listener {
+public class ChatListener implements Listener {
 
     private final UberChatPlugin plugin;
 
-    public UberChatListener(UberChatPlugin plugin) {
+    public ChatListener(UberChatPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -46,7 +46,7 @@ public class UberChatListener implements Listener {
                 e.setCancelled(true);
                 sender.sendMessage("That message is empty.");
             } else if (m.charAt(0) != '/') {
-                String broadcast = String.format(UberChatStatics.FORMAT.CHAT, sender.getDisplayName(), UberChatSensor.getSensoredMessage(m));
+                String broadcast = String.format(Statics.FORMAT.CHAT, sender.getDisplayName(), ChatSensor.getSensoredMessage(m));
                 ProxyServer.getInstance().broadcast(broadcast);
                 plugin.getLogger().log(Level.INFO, broadcast);
                 plugin.getUtils().consoleMessage(broadcast);

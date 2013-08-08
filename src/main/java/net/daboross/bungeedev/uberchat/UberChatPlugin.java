@@ -37,15 +37,15 @@ public final class UberChatPlugin extends Plugin {
 
     private PlayerDatabaseImpl playerDatabase;
     private ConnectorUtils utils;
-    private UberChatMessageHandler messageHandler;
+    private MessageHandler messageHandler;
     private DisplayNameDatabase displayNameDatabase;
 
     @Override
     public void onEnable() {
         displayNameDatabase = new DisplayNameDatabase(this);
         utils = new ConnectorUtils(this);
-        messageHandler = new UberChatMessageHandler(this);
-        UberChatListener uberChatListener = new UberChatListener(this);
+        messageHandler = new MessageHandler(this);
+        ChatListener uberChatListener = new ChatListener(this);
         getProxy().getPluginManager().registerListener(this, uberChatListener);
         assignCommands();
         getProxy().registerChannel("UberChat");
@@ -87,7 +87,7 @@ public final class UberChatPlugin extends Plugin {
         return utils;
     }
 
-    public UberChatMessageHandler getMessageHandler() {
+    public MessageHandler getMessageHandler() {
         return messageHandler;
     }
 }

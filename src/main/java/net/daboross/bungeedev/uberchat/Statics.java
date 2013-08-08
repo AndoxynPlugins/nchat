@@ -22,7 +22,7 @@ import net.md_5.bungee.api.ChatColor;
  *
  * @author daboross
  */
-public class UberChatStatics {
+public class Statics {
 
     public static class FORMAT {
 

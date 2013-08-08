@@ -27,7 +27,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  *
  * @author daboross
  */
-public class UberChatUserFinder {
+public class UserFinder {
 
     public static List<ProxiedPlayer> findUsers(String partialUser) {
         Collection<ProxiedPlayer> online = ProxyServer.getInstance().getPlayers();

@@ -24,7 +24,7 @@ import net.md_5.bungee.api.ChatColor;
  *
  * @author daboross
  */
-public class UCStringUtils {
+public class StringUtils {
 
     public static String toggleCase(String input) {
         StringBuilder outputBuilder = new StringBuilder(input.length());

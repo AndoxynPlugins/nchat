@@ -17,10 +17,10 @@
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
 import net.daboross.bungeedev.uberchat.data.PlayerReplyTracker;
-import net.daboross.bungeedev.uberchat.UCStringUtils;
-import net.daboross.bungeedev.uberchat.UberChatMessageHandler;
+import net.daboross.bungeedev.uberchat.StringUtils;
+import net.daboross.bungeedev.uberchat.MessageHandler;
 import net.daboross.bungeedev.uberchat.UberChatPlugin;
-import net.daboross.bungeedev.uberchat.UberChatStatics;
+import net.daboross.bungeedev.uberchat.Statics;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -41,15 +41,15 @@ public class ReplyCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify a message to send.");
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
+            sender.sendMessage(Statics.COLOR.MAIN + "Please specify a message to send.");
+            sender.sendMessage(Statics.COLOR.MAIN + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
         } else {
             String replyToName = PlayerReplyTracker.getReplyto(sender.getName());
             CommandSender replyTo = replyToName == null ? null : ProxyServer.getInstance().getPlayer(replyToName);
             if (replyTo == null) {
-                sender.sendMessage(UberChatStatics.COLOR.MAIN + "No user found to reply to.");
+                sender.sendMessage(Statics.COLOR.MAIN + "No user found to reply to.");
             } else {
-                String message = UCStringUtils.arrayToString(args, " ");
+                String message = StringUtils.arrayToString(args, " ");
                 plugin.getMessageHandler().sendMessage(sender, replyTo, message);
             }
         }

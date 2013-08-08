@@ -16,7 +16,7 @@
  */
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.UberChatStatics.COLOR;
+import net.daboross.bungeedev.uberchat.Statics.COLOR;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 

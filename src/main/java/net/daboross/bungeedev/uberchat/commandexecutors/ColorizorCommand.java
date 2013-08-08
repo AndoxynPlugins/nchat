@@ -17,7 +17,7 @@
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
 import net.daboross.bungeedev.uberchat.UberChatPlugin;
-import net.daboross.bungeedev.uberchat.UberChatStatics;
+import net.daboross.bungeedev.uberchat.Statics;
 import net.daboross.bungeedev.uberchat.data.PlayerDatabaseImpl;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -39,16 +39,16 @@ public class ColorizorCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) {
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Sorry, Players Only");
+            sender.sendMessage(Statics.COLOR.MAIN + "Sorry, Players Only");
         }
         ProxiedPlayer p = (ProxiedPlayer) sender;
         PlayerDatabaseImpl database = uberChat.getPlayerDatabase();
         if (database.isColorizorEnabled(p.getName())) {
             database.setColorizorEnabled(p.getName(), false);
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Colorizor Enabled");
+            sender.sendMessage(Statics.COLOR.MAIN + "Colorizor Enabled");
         } else {
             database.setColorizorEnabled(p.getName(), true);
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Colorizor Disabled");
+            sender.sendMessage(Statics.COLOR.MAIN + "Colorizor Disabled");
         }
     }
 }

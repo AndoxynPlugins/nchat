@@ -17,11 +17,11 @@
 package net.daboross.bungeedev.uberchat.commandexecutors;
 
 import java.util.List;
-import net.daboross.bungeedev.uberchat.UCStringUtils;
-import net.daboross.bungeedev.uberchat.UberChatMessageHandler;
+import net.daboross.bungeedev.uberchat.StringUtils;
+import net.daboross.bungeedev.uberchat.MessageHandler;
 import net.daboross.bungeedev.uberchat.UberChatPlugin;
-import net.daboross.bungeedev.uberchat.UberChatStatics;
-import net.daboross.bungeedev.uberchat.UberChatUserFinder;
+import net.daboross.bungeedev.uberchat.Statics;
+import net.daboross.bungeedev.uberchat.UserFinder;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -43,20 +43,20 @@ public class MsgCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify a user and a message.");
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
+            sender.sendMessage(Statics.COLOR.MAIN + "Please specify a user and a message.");
+            sender.sendMessage(Statics.COLOR.MAIN + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
         } else if (args.length == 1) {
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Please specify a message.");
-            sender.sendMessage(UberChatStatics.COLOR.MAIN + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
+            sender.sendMessage(Statics.COLOR.MAIN + "Please specify a message.");
+            sender.sendMessage(Statics.COLOR.MAIN + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
         } else {
-            List<ProxiedPlayer> foundUsers = UberChatUserFinder.findUsers(args[0]);
+            List<ProxiedPlayer> foundUsers = UserFinder.findUsers(args[0]);
             if (foundUsers.isEmpty()) {
-                sender.sendMessage(UberChatStatics.COLOR.MAIN + "User \"" + ChatColor.RED + args[0] + UberChatStatics.COLOR.MAIN + "\" not found or not online.");
+                sender.sendMessage(Statics.COLOR.MAIN + "User \"" + ChatColor.RED + args[0] + Statics.COLOR.MAIN + "\" not found or not online.");
             } else if (foundUsers.size() == 1) {
-                String message = UCStringUtils.arrayToString(1, args, " ");
+                String message = StringUtils.arrayToString(1, args, " ");
                 plugin.getMessageHandler().sendMessage(sender, foundUsers.get(0), message);
             } else {
-                sender.sendMessage(UberChatStatics.COLOR.MAIN + "Multiple users matching \"" + args[0] + "\":");
+                sender.sendMessage(Statics.COLOR.MAIN + "Multiple users matching \"" + args[0] + "\":");
                 sender.sendMessage(getNameString(foundUsers));
             }
         }

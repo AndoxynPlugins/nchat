@@ -25,38 +25,38 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  *
  * @author daboross
  */
-public class UberChatMessageHandler {
+public class MessageHandler {
 
     private final UberChatPlugin plugin;
 
-    public UberChatMessageHandler(UberChatPlugin plugin) {
+    public MessageHandler(UberChatPlugin plugin) {
         this.plugin = plugin;
     }
 
     public void sendMessage(CommandSender sender, CommandSender receiver, String message) {
-        String sensoredMessage = UberChatSensor.getSensoredMessage(message);
+        String sensoredMessage = ChatSensor.getSensoredMessage(message);
         String senderName = sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : sender.getName();
         String receiverName = receiver instanceof ProxiedPlayer ? ((ProxiedPlayer) receiver).getDisplayName() : receiver.getName();
-        String messageForSender = String.format(UberChatStatics.FORMAT.MSG, UberChatStatics.STRINGS.MSG_YOU_REPRESENTATION, receiverName, sensoredMessage);
-        String messageForReceiver = String.format(UberChatStatics.FORMAT.MSG, senderName, UberChatStatics.STRINGS.MSG_YOU_REPRESENTATION, sensoredMessage);
-        String messageForSpy = String.format(UberChatStatics.FORMAT.MSG_SPY, senderName, receiverName, sensoredMessage);
+        String messageForSender = String.format(Statics.FORMAT.MSG, Statics.STRINGS.MSG_YOU_REPRESENTATION, receiverName, sensoredMessage);
+        String messageForReceiver = String.format(Statics.FORMAT.MSG, senderName, Statics.STRINGS.MSG_YOU_REPRESENTATION, sensoredMessage);
+        String messageForSpy = String.format(Statics.FORMAT.MSG_SPY, senderName, receiverName, sensoredMessage);
         sender.sendMessage(messageForSender);
         receiver.sendMessage(messageForReceiver);
         if (sender instanceof ProxiedPlayer) {
             if (receiver instanceof ProxiedPlayer) {
-                plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy, sender.getName(), receiver.getName());
+                plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, sender.getName(), receiver.getName());
             } else {
-                plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy, sender.getName());
+                plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, sender.getName());
             }
         } else if (receiver instanceof ProxiedPlayer) {
-            plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy, receiver.getName());
+            plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, receiver.getName());
 
         } else {
-            plugin.getUtils().sendWithPermission(UberChatStatics.PERMISSION.MSG_SPY, messageForSpy);
+            plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy);
         }
         plugin.getUtils().consoleMessage(messageForSpy);
         for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
-            if (p.hasPermission(UberChatStatics.PERMISSION.MSG_SPY) && p != sender && p != receiver) {
+            if (p.hasPermission(Statics.PERMISSION.MSG_SPY) && p != sender && p != receiver) {
                 p.sendMessage(messageForSpy);
             }
         }
