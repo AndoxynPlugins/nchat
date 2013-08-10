@@ -54,7 +54,9 @@ public class ConnectorUtils {
             return;
         }
         for (Map.Entry<String, ServerInfo> server : ProxyServer.getInstance().getServers().entrySet()) {
-            server.getValue().sendData("UberChat", data);
+            if (!server.getValue().getPlayers().isEmpty()) {
+                server.getValue().sendData("UberChat", data);
+            }
         }
     }
 

@@ -30,7 +30,7 @@ public class Statics {
          * FORMAT for chat. First %s is the player's name, second %s is chat
          * message.
          */
-        public static final String CHAT = ChatColor.BLACK + "#" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
+        public static final String CHAT = ChatColor.DARK_GRAY + "#" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
         /**
          * FORMAT for /msg. First %s is from player's name, second %s is to
          * player's name, third %s is message.s
@@ -48,8 +48,9 @@ public class Statics {
         /**
          * FORMAT for /me. First %s is player's name, second %s is action.
          */
-        public static final String ME = ChatColor.BLACK + " * " + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
+        public static final String ME = ChatColor.DARK_GRAY + "*" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
         public static final String SHOUT = ChatColor.DARK_GRAY + "[" + ChatColor.BLUE + "%s" + ChatColor.DARK_GRAY + "]" + ChatColor.GREEN + " %s";
+        public static final String STAFFCHAT = ChatColor.DARK_GRAY + "%" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
     }
 
     public static class COLOR {
