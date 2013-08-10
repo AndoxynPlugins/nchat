@@ -31,11 +31,10 @@ public class ChatSensor {
             name = name.replaceFirst(" ", "");
             noColor = ChatColor.stripColor(name);
         }
-        if (noColor.length() > 16) {
-            int lengthDiff = 15 + name.length() - noColor.length();
-            name = name.substring(0, lengthDiff);
+        if (name.length() > 16) {
+            name = name.substring(0, 16);
             if (name.endsWith(String.valueOf(ChatColor.COLOR_CHAR))) {
-                name = name.substring(0, name.length() - 1);
+                name = name.substring(0, 15);
             }
         }
         return name;
