@@ -47,7 +47,7 @@ public class DisplayNameDatabase {
     }
 
     public void setDisplayName(String playerName, String displayName) {
-        database.set(playerName, displayName.toLowerCase());
+        database.set(playerName.toLowerCase(), displayName);
     }
 
     public void save() {
