@@ -7,6 +7,7 @@ import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -40,7 +41,7 @@ public class NickCommand extends Command {
             sender.sendMessage(Statics.COLOR.MAIN + "You're nickname is now " + ChatColor.BLUE + newNick);
             p.setDisplayName(newNick);
             plugin.getDisplayNameDatabase().setDisplayName(p.getName(), newNick);
-            plugin.getUtils().setDisplayName(p.getServer(), newNick);
+            ConnectorUtils.setDisplayName(p.getServer(), newNick);
         }
     }
 }

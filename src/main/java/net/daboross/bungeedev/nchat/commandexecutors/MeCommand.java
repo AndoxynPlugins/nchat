@@ -20,6 +20,7 @@ import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -48,7 +49,7 @@ public class MeCommand extends Command {
                     sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server",
                     ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
             ProxyServer.getInstance().broadcast(message);
-            plugin.getUtils().consoleMessage(message);
+            ConnectorUtils.consoleMessage(message);
         }
     }
 }

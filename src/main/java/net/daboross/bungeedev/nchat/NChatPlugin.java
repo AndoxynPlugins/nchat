@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat;
 
+import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.daboross.bungeedev.nchat.commandexecutors.ColorizorCommand;
 import net.daboross.bungeedev.nchat.commandexecutors.MeCommand;
 import net.daboross.bungeedev.nchat.commandexecutors.MsgCommand;
@@ -36,14 +37,12 @@ import net.md_5.bungee.api.plugin.PluginManager;
 public final class NChatPlugin extends Plugin {
 
     private PlayerDatabaseImpl playerDatabase;
-    private ConnectorUtils utils;
     private MessageHandler messageHandler;
     private DisplayNameDatabase displayNameDatabase;
 
     @Override
     public void onEnable() {
         displayNameDatabase = new DisplayNameDatabase(this);
-        utils = new ConnectorUtils(this);
         messageHandler = new MessageHandler(this);
         ChatListener uberChatListener = new ChatListener(this);
         getProxy().getPluginManager().registerListener(this, uberChatListener);
@@ -81,10 +80,6 @@ public final class NChatPlugin extends Plugin {
 
     public PlayerDatabaseImpl getPlayerDatabase() {
         return playerDatabase;
-    }
-
-    public ConnectorUtils getUtils() {
-        return utils;
     }
 
     public MessageHandler getMessageHandler() {

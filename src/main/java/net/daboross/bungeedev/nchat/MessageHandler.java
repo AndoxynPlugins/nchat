@@ -17,6 +17,7 @@
 package net.daboross.bungeedev.nchat;
 
 import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
+import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -44,17 +45,17 @@ public class MessageHandler {
         receiver.sendMessage(messageForReceiver);
         if (sender instanceof ProxiedPlayer) {
             if (receiver instanceof ProxiedPlayer) {
-                plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, sender.getName(), receiver.getName());
+                ConnectorUtils.sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, sender.getName(), receiver.getName());
             } else {
-                plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, sender.getName());
+                ConnectorUtils.sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, sender.getName());
             }
         } else if (receiver instanceof ProxiedPlayer) {
-            plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, receiver.getName());
+            ConnectorUtils.sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, receiver.getName());
 
         } else {
-            plugin.getUtils().sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy);
+            ConnectorUtils.sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy);
         }
-        plugin.getUtils().consoleMessage(messageForSpy);
+       ConnectorUtils.consoleMessage(messageForSpy);
         for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
             if (p.hasPermission(Statics.PERMISSION.MSG_SPY) && p != sender && p != receiver) {
                 p.sendMessage(messageForSpy);

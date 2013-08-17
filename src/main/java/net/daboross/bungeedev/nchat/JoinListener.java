@@ -3,6 +3,7 @@
  */
 package net.daboross.bungeedev.nchat;
 
+import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
@@ -29,6 +30,6 @@ public class JoinListener implements Listener {
             name = ChatColor.BLUE + p.getName();
         }
         p.setDisplayName(name);
-        plugin.getUtils().setDisplayName(evt.getServer(), name);
+        ConnectorUtils.setDisplayName(evt.getServer(), name);
     }
 }

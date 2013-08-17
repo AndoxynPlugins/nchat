@@ -17,6 +17,7 @@
 package net.daboross.bungeedev.nchat;
 
 import java.util.logging.Level;
+import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.Connection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -49,7 +50,7 @@ public class ChatListener implements Listener {
                 String broadcast = String.format(Statics.FORMAT.CHAT, plugin.getDisplayNameDatabase().getDisplayName(sender.getName()), ChatSensor.getSensoredMessage(m));
                 ProxyServer.getInstance().broadcast(broadcast);
                 plugin.getLogger().log(Level.INFO, broadcast);
-                plugin.getUtils().consoleMessage(broadcast);
+                ConnectorUtils.consoleMessage(broadcast);
                 e.setCancelled(true);
             }
         } else {
