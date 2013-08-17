@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2013 Dabo Ross <www.daboross.net>
  */
-package net.daboross.bungeedev.uberchat.commandexecutors;
+package net.daboross.bungeedev.nchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.ChatSensor;
-import net.daboross.bungeedev.uberchat.Statics;
-import net.daboross.bungeedev.uberchat.StringUtils;
-import net.daboross.bungeedev.uberchat.UberChatPlugin;
+import net.daboross.bungeedev.nchat.ChatSensor;
+import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.nchat.StringUtils;
+import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -18,9 +18,9 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class StaffChatCommand extends Command {
 
-    private final UberChatPlugin plugin;
+    private final NChatPlugin plugin;
 
-    public StaffChatCommand(UberChatPlugin plugin) {
+    public StaffChatCommand(NChatPlugin plugin) {
         super("staffchat", null, "sc", "a");
         this.plugin = plugin;
     }

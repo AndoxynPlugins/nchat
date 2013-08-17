@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat;
+package net.daboross.bungeedev.nchat;
 
-import net.daboross.bungeedev.uberchat.data.PlayerReplyTracker;
+import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -27,9 +27,9 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  */
 public class MessageHandler {
 
-    private final UberChatPlugin plugin;
+    private final NChatPlugin plugin;
 
-    public MessageHandler(UberChatPlugin plugin) {
+    public MessageHandler(NChatPlugin plugin) {
         this.plugin = plugin;
     }
 

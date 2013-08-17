@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat;
+package net.daboross.bungeedev.nchat;
 
 import java.util.logging.Level;
 import net.md_5.bungee.api.ProxyServer;
@@ -30,9 +30,9 @@ import net.md_5.bungee.event.EventHandler;
  */
 public class ChatListener implements Listener {
 
-    private final UberChatPlugin plugin;
+    private final NChatPlugin plugin;
 
-    public ChatListener(UberChatPlugin plugin) {
+    public ChatListener(NChatPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -46,7 +46,7 @@ public class ChatListener implements Listener {
                 e.setCancelled(true);
                 sender.sendMessage("That message is empty.");
             } else if (m.charAt(0) != '/') {
-                String broadcast = String.format(Statics.FORMAT.CHAT, sender.getDisplayName(), ChatSensor.getSensoredMessage(m));
+                String broadcast = String.format(Statics.FORMAT.CHAT, plugin.getDisplayNameDatabase().getDisplayName(sender.getName()), ChatSensor.getSensoredMessage(m));
                 ProxyServer.getInstance().broadcast(broadcast);
                 plugin.getLogger().log(Level.INFO, broadcast);
                 plugin.getUtils().consoleMessage(broadcast);

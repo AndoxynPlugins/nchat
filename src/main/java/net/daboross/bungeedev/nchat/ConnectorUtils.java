@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 Dabo Ross <www.daboross.net>
  */
-package net.daboross.bungeedev.uberchat;
+package net.daboross.bungeedev.nchat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -18,9 +18,9 @@ import net.md_5.bungee.api.connection.Server;
  */
 public class ConnectorUtils {
 
-    private final UberChatPlugin plugin;
+    private final NChatPlugin plugin;
 
-    public ConnectorUtils(UberChatPlugin plugin) {
+    public ConnectorUtils(NChatPlugin plugin) {
         this.plugin = plugin;
     }
 

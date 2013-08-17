@@ -14,28 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat.data;
+package net.daboross.bungeedev.nchat.data;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  *
  * @author daboross
  */
-public class PlayerReplyTracker {
+public interface PlayerDatabase {
 
-    private static final Map<String, String> replytoMap = new HashMap<>();
+    public boolean isColorizorEnabled(String username);
 
-    public static void setReplyto(String username, String replyto) {
-        replytoMap.put(username, replyto);
-    }
+    public boolean setColorizorEnabled(String username, boolean enabled);
 
-    public static void removeReplyTo(String username) {
-        replytoMap.remove(username);
-    }
+    public List<MailData> getMails(String username);
 
-    public static String getReplyto(String username) {
-        return replytoMap.get(username);
-    }
+    public void addMail(String username, MailDataImpl mail);
+
+    public void clearMails(String username);
+
+    public String getNick(String username);
+
+    public void setNick(String username, String nickname);
+
+    public List<String> getFullNames(String partialName);
 }

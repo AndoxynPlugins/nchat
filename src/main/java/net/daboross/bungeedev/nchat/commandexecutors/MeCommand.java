@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat.commandexecutors;
+package net.daboross.bungeedev.nchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.StringUtils;
-import net.daboross.bungeedev.uberchat.UberChatPlugin;
-import net.daboross.bungeedev.uberchat.ChatSensor;
-import net.daboross.bungeedev.uberchat.Statics;
+import net.daboross.bungeedev.nchat.StringUtils;
+import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.daboross.bungeedev.nchat.ChatSensor;
+import net.daboross.bungeedev.nchat.Statics;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -31,9 +31,9 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class MeCommand extends Command {
 
-    private final UberChatPlugin plugin;
+    private final NChatPlugin plugin;
 
-    public MeCommand(UberChatPlugin plugin) {
+    public MeCommand(NChatPlugin plugin) {
         super("me");
         this.plugin = plugin;
     }

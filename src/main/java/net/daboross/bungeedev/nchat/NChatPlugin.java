@@ -14,26 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat;
+package net.daboross.bungeedev.nchat;
 
-import net.daboross.bungeedev.uberchat.commandexecutors.ColorizorCommand;
-import net.daboross.bungeedev.uberchat.commandexecutors.MeCommand;
-import net.daboross.bungeedev.uberchat.commandexecutors.MsgCommand;
-import net.daboross.bungeedev.uberchat.commandexecutors.NickCommand;
-import net.daboross.bungeedev.uberchat.commandexecutors.ReplyCommand;
-import net.daboross.bungeedev.uberchat.commandexecutors.ShoutCommand;
-import net.daboross.bungeedev.uberchat.data.DisplayNameDatabase;
-import net.daboross.bungeedev.uberchat.data.PlayerDatabaseImpl;
+import net.daboross.bungeedev.nchat.commandexecutors.ColorizorCommand;
+import net.daboross.bungeedev.nchat.commandexecutors.MeCommand;
+import net.daboross.bungeedev.nchat.commandexecutors.MsgCommand;
+import net.daboross.bungeedev.nchat.commandexecutors.NickCommand;
+import net.daboross.bungeedev.nchat.commandexecutors.ReplyCommand;
+import net.daboross.bungeedev.nchat.commandexecutors.ShoutCommand;
+import net.daboross.bungeedev.nchat.data.DisplayNameDatabase;
+import net.daboross.bungeedev.nchat.data.PlayerDatabaseImpl;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.PluginManager;
 
 /**
- * UberChatPlugin Plugin Made By DaboRoss
+ * NChatPlugin Plugin Made By DaboRoss
  *
  * @author daboross
  */
-public final class UberChatPlugin extends Plugin {
+public final class NChatPlugin extends Plugin {
 
     private PlayerDatabaseImpl playerDatabase;
     private ConnectorUtils utils;

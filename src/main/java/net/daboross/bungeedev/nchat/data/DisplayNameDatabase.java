@@ -1,12 +1,13 @@
 /*
  * Copyright (C) 2013 Dabo Ross <www.daboross.net>
  */
-package net.daboross.bungeedev.uberchat.data;
+package net.daboross.bungeedev.nchat.data;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
-import net.daboross.bungeedev.uberchat.UberChatPlugin;
+import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  *
@@ -14,11 +15,11 @@ import net.daboross.bungeedev.uberchat.UberChatPlugin;
  */
 public class DisplayNameDatabase {
 
-    private final UberChatPlugin plugin;
+    private final NChatPlugin plugin;
     private File databaseFile;
     private SimpleDatabase database;
 
-    public DisplayNameDatabase(UberChatPlugin plugin) {
+    public DisplayNameDatabase(NChatPlugin plugin) {
         this.plugin = plugin;
         load0();
     }
@@ -43,7 +44,8 @@ public class DisplayNameDatabase {
     }
 
     public String getDisplayName(String playerName) {
-        return database.get(playerName.toLowerCase());
+        String name = database.get(playerName.toLowerCase());
+        return name == null ? ChatColor.BLUE + playerName : name;
     }
 
     public void setDisplayName(String playerName, String displayName) {

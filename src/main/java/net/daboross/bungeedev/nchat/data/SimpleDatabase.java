@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 Dabo Ross <www.daboross.net>
  */
-package net.daboross.bungeedev.uberchat.data;
+package net.daboross.bungeedev.nchat.data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -51,7 +51,7 @@ public class SimpleDatabase {
     private void load0(File file) throws FileNotFoundException, IOException {
         List<String> lines = FileUtils.readFile(file);
         for (String line : lines) {
-            String[] split = line.split("|", 2);
+            String[] split = line.split("\\|", 2);
             if (split.length != 2) {
                 System.out.println("Error reading database file " + file.getAbsolutePath() + ". Invalid line " + line);
             }

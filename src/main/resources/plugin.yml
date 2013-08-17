@@ -1,4 +1,4 @@
 name: ${project.name}
-main: net.daboross.bungeedev.uberchat.UberChatPlugin
+main: net.daboross.bungeedev.nchat.NChatPlugin
 version: ${project.version}
 author: Dabo Ross

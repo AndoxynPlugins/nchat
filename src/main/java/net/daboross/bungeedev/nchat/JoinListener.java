@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 Dabo Ross <www.daboross.net>
  */
-package net.daboross.bungeedev.uberchat;
+package net.daboross.bungeedev.nchat;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -15,9 +15,9 @@ import net.md_5.bungee.event.EventHandler;
  */
 public class JoinListener implements Listener {
 
-    private final UberChatPlugin plugin;
+    private final NChatPlugin plugin;
 
-    public JoinListener(UberChatPlugin plugin) {
+    public JoinListener(NChatPlugin plugin) {
         this.plugin = plugin;
     }
 

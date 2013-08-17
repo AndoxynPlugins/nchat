@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat.commandexecutors;
+package net.daboross.bungeedev.nchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.UberChatPlugin;
-import net.daboross.bungeedev.uberchat.Statics;
-import net.daboross.bungeedev.uberchat.data.PlayerDatabaseImpl;
+import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.nchat.data.PlayerDatabaseImpl;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -29,9 +29,9 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class ColorizorCommand extends Command {
 
-    private final UberChatPlugin uberChat;
+    private final NChatPlugin uberChat;
 
-    public ColorizorCommand(UberChatPlugin uberChat) {
+    public ColorizorCommand(NChatPlugin uberChat) {
         super("colorize");
         this.uberChat = uberChat;
     }

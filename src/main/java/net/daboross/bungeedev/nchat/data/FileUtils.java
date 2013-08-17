@@ -1,4 +1,4 @@
-package net.daboross.bungeedev.uberchat.data;
+package net.daboross.bungeedev.nchat.data;
 
 import java.util.List;
 import java.io.BufferedReader;

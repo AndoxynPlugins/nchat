@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat;
+package net.daboross.bungeedev.nchat;
 
 import java.util.List;
 import java.util.Locale;
@@ -123,7 +123,6 @@ public class StringUtils {
             return resultBuilder.toString();
         }
     }
-
 
     public static String[] copyAndInclude(String[] array, String... include) {
         String[] value = new String[array.length + include.length];

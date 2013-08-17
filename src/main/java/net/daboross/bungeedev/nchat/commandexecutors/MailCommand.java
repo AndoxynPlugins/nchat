@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.uberchat.commandexecutors;
+package net.daboross.bungeedev.nchat.commandexecutors;
 
-import net.daboross.bungeedev.uberchat.Statics.COLOR;
+import net.daboross.bungeedev.nchat.Statics.COLOR;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
