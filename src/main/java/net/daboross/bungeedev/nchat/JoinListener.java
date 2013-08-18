@@ -27,7 +27,7 @@ public class JoinListener implements Listener {
         final ProxiedPlayer p = evt.getPlayer();
         String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
         if (name == null) {
-            name = ChatColor.BLUE + p.getName();
+            name = ChatSensor.formatPlayerDisplayname(name);
         }
         p.setDisplayName(name);
         ConnectorUtils.setDisplayName(evt.getServer(), name);
