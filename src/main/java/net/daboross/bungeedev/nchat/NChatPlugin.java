@@ -16,7 +16,6 @@
  */
 package net.daboross.bungeedev.nchat;
 
-import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.daboross.bungeedev.nchat.commandexecutors.ColorizorCommand;
 import net.daboross.bungeedev.nchat.commandexecutors.MeCommand;
 import net.daboross.bungeedev.nchat.commandexecutors.MsgCommand;
