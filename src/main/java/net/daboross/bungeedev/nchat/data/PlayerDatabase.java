@@ -26,7 +26,7 @@ public interface PlayerDatabase {
 
     public boolean isColorizorEnabled(String username);
 
-    public boolean setColorizorEnabled(String username, boolean enabled);
+    public void setColorizorEnabled(String username, boolean enabled);
 
     public List<MailData> getMails(String username);
 
@@ -39,4 +39,8 @@ public interface PlayerDatabase {
     public void setNick(String username, String nickname);
 
     public List<String> getFullNames(String partialName);
+
+    public boolean isStaffChatEnabled(String username);
+
+    public void setStaffChatEnabled(String username, boolean enabled);
 }

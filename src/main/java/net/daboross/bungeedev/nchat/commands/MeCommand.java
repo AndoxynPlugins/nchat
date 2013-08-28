@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.nchat.commandexecutors;
+package net.daboross.bungeedev.nchat.commands;
 
-import net.daboross.bungeedev.nchat.ChatSensor;
-import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.daboross.bungeedev.nchat.ChatSensor;
+import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -30,20 +30,20 @@ import net.md_5.bungee.api.plugin.Command;
  *
  * @author daboross
  */
-public class StaffChatCommand extends Command {
+public class MeCommand extends Command {
 
     private final NChatPlugin plugin;
 
-    public StaffChatCommand(NChatPlugin plugin) {
-        super("staffchat", null, "sc", "a");
+    public MeCommand(NChatPlugin plugin) {
+        super("me");
         this.plugin = plugin;
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (args.length != 0) {
-            sender.sendMessages(Statics.COLOR.MAIN + "Too many arguments",
-                    Statics.COLOR.MAIN + "Usage: /sc");
+        if (args.length == 0) {
+            sender.sendMessages(Statics.COLOR.MAIN + "Please specify an action to describe.",
+                    Statics.COLOR.MAIN + "Usage: /me <action> (publicly describes you doing <action>)");
         } else {
             String message = String.format(Statics.FORMAT.ME,
                     sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server",

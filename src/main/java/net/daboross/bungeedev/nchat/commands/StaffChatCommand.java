@@ -14,15 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.nchat.commandexecutors;
+package net.daboross.bungeedev.nchat.commands;
 
-import net.daboross.bungeedev.nchat.StringUtils;
-import net.daboross.bungeedev.nchat.NChatPlugin;
-import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.Statics;
-import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
+import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.daboross.bungeedev.nchat.data.PlayerDatabase;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -30,26 +27,31 @@ import net.md_5.bungee.api.plugin.Command;
  *
  * @author daboross
  */
-public class MeCommand extends Command {
+public class StaffChatCommand extends Command {
 
     private final NChatPlugin plugin;
 
-    public MeCommand(NChatPlugin plugin) {
-        super("me");
+    public StaffChatCommand(NChatPlugin plugin) {
+        super("staffchat", null, "sc", "a");
         this.plugin = plugin;
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (args.length == 0) {
-            sender.sendMessages(Statics.COLOR.MAIN + "Please specify an action to describe.",
-                    Statics.COLOR.MAIN + "Usage: /me <action> (publicly describes you doing <action>)");
+        if (!(sender instanceof ProxiedPlayer)) {
+            sender.sendMessage(Statics.COLOR.MAIN + "Sorry, Players Only");
+        }
+        if (args.length != 0) {
+            sender.sendMessages(Statics.COLOR.MAIN + "Too many arguments", Statics.COLOR.MAIN + "Usage: /sc");
+            return;
+        }
+        PlayerDatabase database = plugin.getPlayerDatabase();
+        if (database.isStaffChatEnabled(sender.getName())) {
+            database.setStaffChatEnabled(sender.getName(), false);
+            sender.sendMessage(Statics.COLOR.MAIN + "StaffChat Disabled");
         } else {
-            String message = String.format(Statics.FORMAT.ME,
-                    sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server",
-                    ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
-            ProxyServer.getInstance().broadcast(message);
-            ConnectorUtils.consoleMessage(message);
+            database.setStaffChatEnabled(sender.getName(), true);
+            sender.sendMessage(Statics.COLOR.MAIN + "StaffChat Enabled");
         }
     }
 }

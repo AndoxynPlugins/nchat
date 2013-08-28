@@ -32,14 +32,24 @@ public class PlayerDatabaseImpl implements PlayerDatabase {
     public void readData() {
     }
 
-    @Override
-    public boolean isColorizorEnabled(String username) {
-        return false;
+    public void clearPlayer(String username) {
+        dataMap.remove(username);
     }
 
     @Override
-    public boolean setColorizorEnabled(String username, boolean enabled) {
-        return false;
+    public boolean isColorizorEnabled(String username) {
+        UserData data = dataMap.get(username);
+        return data != null && data.isColorizorEnabled();
+    }
+
+    @Override
+    public void setColorizorEnabled(String username, boolean enabled) {
+        UserData data = dataMap.get(username);
+        if (data == null) {
+            data = new UserData();
+            dataMap.put(username, data);
+        }
+        data.setColorizorEnabled(enabled);
     }
 
     @Override
@@ -76,16 +86,44 @@ public class PlayerDatabaseImpl implements PlayerDatabase {
         return fullNames;
     }
 
+    @Override
+    public boolean isStaffChatEnabled(String username) {
+        UserData data = dataMap.get(username);
+        return data != null && data.isStaffChatEnabled();
+    }
+
+    @Override
+    public void setStaffChatEnabled(String username, boolean enabled) {
+        UserData data = dataMap.get(username);
+        if (data == null) {
+            data = new UserData();
+            dataMap.put(username, data);
+        }
+        data.setStaffChatEnabled(enabled);
+    }
+
     private static class UserData {
 
         private boolean colorizorEnabled;
-        private List<MailDataImpl> mails;
-        private String nick;
+        private boolean staffChatEnabled;
 
-        private UserData(boolean colorizorEnabled, List<MailDataImpl> mails, String nick) {
+        public UserData() {
+        }
+
+        public void setColorizorEnabled(boolean colorizorEnabled) {
             this.colorizorEnabled = colorizorEnabled;
-            this.mails = mails;
-            this.nick = nick;
+        }
+
+        public void setStaffChatEnabled(boolean staffChatEnabled) {
+            this.staffChatEnabled = staffChatEnabled;
+        }
+
+        public boolean isColorizorEnabled() {
+            return colorizorEnabled;
+        }
+
+        public boolean isStaffChatEnabled() {
+            return staffChatEnabled;
         }
     }
 }

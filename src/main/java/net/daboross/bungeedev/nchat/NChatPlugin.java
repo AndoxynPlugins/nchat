@@ -16,16 +16,21 @@
  */
 package net.daboross.bungeedev.nchat;
 
-import net.daboross.bungeedev.nchat.commandexecutors.ColorizorCommand;
-import net.daboross.bungeedev.nchat.commandexecutors.MeCommand;
-import net.daboross.bungeedev.nchat.commandexecutors.MsgCommand;
-import net.daboross.bungeedev.nchat.commandexecutors.NickCommand;
-import net.daboross.bungeedev.nchat.commandexecutors.ReplyCommand;
-import net.daboross.bungeedev.nchat.commandexecutors.ShoutCommand;
+import net.daboross.bungeedev.nchat.listeners.JoinListener;
+import net.daboross.bungeedev.nchat.listeners.ChatListener;
+import net.daboross.bungeedev.nchat.commands.ColorizorCommand;
+import net.daboross.bungeedev.nchat.commands.MeCommand;
+import net.daboross.bungeedev.nchat.commands.MsgCommand;
+import net.daboross.bungeedev.nchat.commands.NickCommand;
+import net.daboross.bungeedev.nchat.commands.ReplyCommand;
+import net.daboross.bungeedev.nchat.commands.ShoutCommand;
+import net.daboross.bungeedev.nchat.commands.StaffChatCommand;
 import net.daboross.bungeedev.nchat.data.DisplayNameDatabase;
 import net.daboross.bungeedev.nchat.data.PlayerDatabaseImpl;
+import net.daboross.bungeedev.nchat.listeners.QuitListener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.PluginManager;
 
 /**
@@ -43,9 +48,7 @@ public final class NChatPlugin extends Plugin {
     public void onEnable() {
         displayNameDatabase = new DisplayNameDatabase(this);
         messageHandler = new MessageHandler(this);
-        ChatListener uberChatListener = new ChatListener(this);
-        getProxy().getPluginManager().registerListener(this, uberChatListener);
-        assignCommands();
+        registerStuff();
         getProxy().registerChannel("UberChat");
         getLogger().info("UberChat Fully Enabled");
     }
@@ -56,21 +59,26 @@ public final class NChatPlugin extends Plugin {
         getLogger().info("UberChat Fully Disabled");
     }
 
-    private void assignCommands() {
+    private void registerStuff() {
         PluginManager pm = getProxy().getPluginManager();
-        Command me = new MeCommand(this);
-        pm.registerCommand(this, me);
-        Command msg = new MsgCommand(this);
-        pm.registerCommand(this, msg);
-        Command reply = new ReplyCommand(this);
-        pm.registerCommand(this, reply);
-        Command shout = new ShoutCommand(this);
-        pm.registerCommand(this, shout);
-        Command colorize = new ColorizorCommand(this);
-        pm.registerCommand(this, colorize);
-        Command nick = new NickCommand(this);
-        pm.registerCommand(this, nick);
-        pm.registerListener(this, new JoinListener(this));
+        registerListeners(pm, new ChatListener(this), new JoinListener(this),
+                new QuitListener(this));
+        registerCommands(pm, new MeCommand(this), new MsgCommand(this),
+                new ReplyCommand(this), new ShoutCommand(this),
+                new ColorizorCommand(this), new NickCommand(this),
+                new StaffChatCommand(this));
+    }
+
+    private void registerListeners(PluginManager pm, Listener... listeners) {
+        for (Listener listener : listeners) {
+            pm.registerListener(this, listener);
+        }
+    }
+
+    private void registerCommands(PluginManager pm, Command... commands) {
+        for (Command command : commands) {
+            pm.registerCommand(this, command);
+        }
     }
 
     public DisplayNameDatabase getDisplayNameDatabase() {

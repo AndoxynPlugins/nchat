@@ -14,9 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.daboross.bungeedev.nchat;
+package net.daboross.bungeedev.nchat.listeners;
 
 import java.util.logging.Level;
+import net.daboross.bungeedev.nchat.ChatSensor;
+import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.Connection;
@@ -47,10 +50,17 @@ public class ChatListener implements Listener {
                 e.setCancelled(true);
                 sender.sendMessage("That message is empty.");
             } else if (m.charAt(0) != '/') {
-                String broadcast = String.format(Statics.FORMAT.CHAT, plugin.getDisplayNameDatabase().getDisplayName(sender.getName()), ChatSensor.getSensoredMessage(m));
-                ProxyServer.getInstance().broadcast(broadcast);
-                plugin.getLogger().log(Level.INFO, broadcast);
-                ConnectorUtils.consoleMessage(broadcast);
+                if (plugin.getPlayerDatabase().isStaffChatEnabled(sender.getName())) {
+                    String message = String.format(Statics.FORMAT.STAFFCHAT, sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server", ChatSensor.getSensoredMessage(m));
+                    ConnectorUtils.sendWithPermission("nchat.staffchat", message);
+                    plugin.getProxy().getLogger().log(Level.INFO, message);
+                    ConnectorUtils.consoleMessage(message);
+                } else {
+                    String broadcast = String.format(Statics.FORMAT.CHAT, plugin.getDisplayNameDatabase().getDisplayName(sender.getName()), ChatSensor.getSensoredMessage(m));
+                    ProxyServer.getInstance().broadcast(broadcast);
+                    plugin.getLogger().log(Level.INFO, broadcast);
+                    ConnectorUtils.consoleMessage(broadcast);
+                }
                 e.setCancelled(true);
             }
         } else {
