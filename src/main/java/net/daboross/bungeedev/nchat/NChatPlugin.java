@@ -48,6 +48,7 @@ public final class NChatPlugin extends Plugin {
     public void onEnable() {
         displayNameDatabase = new DisplayNameDatabase(this);
         messageHandler = new MessageHandler(this);
+        playerDatabase = new PlayerDatabaseImpl();
         registerStuff();
         getProxy().registerChannel("UberChat");
         getLogger().info("UberChat Fully Enabled");
