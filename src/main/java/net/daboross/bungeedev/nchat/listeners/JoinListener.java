@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat.listeners;
 
+import java.util.logging.Level;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
@@ -41,7 +42,7 @@ public class JoinListener implements Listener {
         final ProxiedPlayer p = evt.getPlayer();
         String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
         if (name == null) {
-            name = ChatSensor.formatPlayerDisplayname(name);
+            name = ChatSensor.formatPlayerDisplayname(p.getName());
         }
         p.setDisplayName(name);
         ConnectorUtils.setDisplayName(evt.getServer(), name);
