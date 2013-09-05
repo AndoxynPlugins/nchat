@@ -58,7 +58,6 @@ public class ChatListener implements Listener {
                 } else {
                     String broadcast = String.format(Statics.FORMAT.CHAT, plugin.getDisplayNameDatabase().getDisplayName(sender.getName()), ChatSensor.getSensoredMessage(m));
                     ProxyServer.getInstance().broadcast(broadcast);
-                    plugin.getLogger().log(Level.INFO, broadcast);
                     ConnectorUtils.consoleMessage(broadcast);
                 }
                 e.setCancelled(true);
