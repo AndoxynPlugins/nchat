@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
+import lombok.NonNull;
 import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
 import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
@@ -32,7 +33,7 @@ public class ReplyCommand extends Command {
 
     private final NChatPlugin plugin;
 
-    public ReplyCommand(NChatPlugin plugin) {
+    public ReplyCommand(@NonNull NChatPlugin plugin) {
         super("reply", null, "r");
         this.plugin = plugin;
     }

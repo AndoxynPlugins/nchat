@@ -16,11 +16,15 @@
  */
 package net.daboross.bungeedev.nchat.listeners;
 
-import java.util.logging.Level;
+import lombok.NonNull;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.daboross.bungeedev.ncommon.ColorList;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.event.LoginEvent;
+import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -40,11 +44,17 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoin(ServerConnectedEvent evt) {
         final ProxiedPlayer p = evt.getPlayer();
+        ConnectorUtils.setDisplayName(evt.getServer(), p.getDisplayName());
+    }
+
+    @EventHandler
+    public void onJoinServer(PostLoginEvent evt) {
+        final ProxiedPlayer p = evt.getPlayer();
         String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
         if (name == null) {
             name = ChatSensor.formatPlayerDisplayname(p.getName());
         }
         p.setDisplayName(name);
-        ConnectorUtils.setDisplayName(evt.getServer(), name);
+        plugin.getProxy().broadcast(String.format(ColorList.BROADCAST_NAME_FORMAT, "NC") + ChatColor.BLUE + p.getName() + ChatColor.GREEN + " -> " + name);
     }
 }

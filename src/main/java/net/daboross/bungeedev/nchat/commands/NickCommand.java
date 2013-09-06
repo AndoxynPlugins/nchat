@@ -16,10 +16,12 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
+import lombok.NonNull;
 import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.ncommon.ColorList;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
@@ -34,7 +36,7 @@ public class NickCommand extends Command {
 
     private final NChatPlugin plugin;
 
-    public NickCommand(NChatPlugin plugin) {
+    public NickCommand(@NonNull NChatPlugin plugin) {
         super("nick");
         this.plugin = plugin;
     }
@@ -50,11 +52,12 @@ public class NickCommand extends Command {
             sender.sendMessages(Statics.COLOR.MAIN + "Please specify a new nickname.",
                     Statics.COLOR.MAIN + "Usage: /nick <Nick name you want>");
         } else {
+            String oldNick = p.getDisplayName();
             String newNick = ChatSensor.formatPlayerDisplayname(StringUtils.arrayToString(args, " "));
-            sender.sendMessage(Statics.COLOR.MAIN + "You're nickname is now " + ChatColor.BLUE + newNick);
             p.setDisplayName(newNick);
             plugin.getDisplayNameDatabase().setDisplayName(p.getName(), newNick);
             ConnectorUtils.setDisplayName(p.getServer(), newNick);
+            plugin.getProxy().broadcast(String.format(ColorList.BROADCAST_NAME_FORMAT, "NC") + ChatColor.BLUE + oldNick + ChatColor.GREEN + " -> " + newNick);
         }
     }
 }

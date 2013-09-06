@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
+import lombok.NonNull;
 import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.ChatSensor;
@@ -34,7 +35,7 @@ public class MeCommand extends Command {
 
     private final NChatPlugin plugin;
 
-    public MeCommand(NChatPlugin plugin) {
+    public MeCommand(@NonNull NChatPlugin plugin) {
         super("me");
         this.plugin = plugin;
     }

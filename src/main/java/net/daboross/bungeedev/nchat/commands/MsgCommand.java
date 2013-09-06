@@ -17,8 +17,8 @@
 package net.daboross.bungeedev.nchat.commands;
 
 import java.util.List;
+import lombok.NonNull;
 import net.daboross.bungeedev.nchat.StringUtils;
-import net.daboross.bungeedev.nchat.MessageHandler;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.nchat.UserFinder;
@@ -35,7 +35,7 @@ public class MsgCommand extends Command {
 
     private final NChatPlugin plugin;
 
-    public MsgCommand(NChatPlugin plugin) {
+    public MsgCommand(@NonNull NChatPlugin plugin) {
         super("msg", null, "m", "tell", "t");
         this.plugin = plugin;
     }

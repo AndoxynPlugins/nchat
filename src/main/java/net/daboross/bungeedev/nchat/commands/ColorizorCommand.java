@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
+import lombok.NonNull;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.nchat.data.PlayerDatabase;
@@ -31,7 +32,7 @@ public class ColorizorCommand extends Command {
 
     private final NChatPlugin plugin;
 
-    public ColorizorCommand(NChatPlugin uberChat) {
+    public ColorizorCommand(@NonNull NChatPlugin uberChat) {
         super("colorize");
         this.plugin = uberChat;
     }
