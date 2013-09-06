@@ -36,7 +36,9 @@ public class SimpleDatabase {
     }
 
     public SimpleDatabase(File file) throws FileNotFoundException, IOException {
-        load0(file);
+        if (file != null) {
+            load0(file);
+        }
     }
 
     public String get(String key) {
@@ -58,6 +60,9 @@ public class SimpleDatabase {
     }
 
     public void load(File file) throws FileNotFoundException, IOException {
+        if (file == null) {
+            throw new IllegalArgumentException("Null file");
+        }
         load0(file);
     }
 
@@ -77,7 +82,6 @@ public class SimpleDatabase {
         for (Map.Entry<String, String> entry : values.entrySet()) {
             lines.add(entry.getKey() + "|" + entry.getValue());
         }
-        System.out.println("Lines " + lines);
         FileUtils.writeFile(file, lines);
     }
 }
