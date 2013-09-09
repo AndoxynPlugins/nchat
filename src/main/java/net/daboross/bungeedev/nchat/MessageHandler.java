@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat;
 
+import java.util.logging.Level;
 import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
@@ -51,11 +52,11 @@ public class MessageHandler {
             }
         } else if (receiver instanceof ProxiedPlayer) {
             ConnectorUtils.sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy, receiver.getName());
-
         } else {
             ConnectorUtils.sendWithPermission(Statics.PERMISSION.MSG_SPY, messageForSpy);
         }
-       ConnectorUtils.consoleMessage(messageForSpy);
+        ConnectorUtils.consoleMessage(messageForSpy);
+        ProxyServer.getInstance().getLogger().log(Level.INFO, messageForSpy);
         for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
             if (p.hasPermission(Statics.PERMISSION.MSG_SPY) && p != sender && p != receiver) {
                 p.sendMessage(messageForSpy);
