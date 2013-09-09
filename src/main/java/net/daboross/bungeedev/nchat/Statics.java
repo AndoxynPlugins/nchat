@@ -49,8 +49,8 @@ public class Statics {
          * FORMAT for /me. First %s is player's name, second %s is action.
          */
         public static final String ME = ChatColor.DARK_GRAY + "*" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
-        public static final String SHOUT = ChatColor.DARK_GRAY + "[-" + ChatColor.BLUE + "%s" + ChatColor.DARK_GRAY + "-]" + ChatColor.GREEN + " %s";
-        public static final String STAFFCHAT = ChatColor.DARK_GRAY + "%%" + ChatColor.BLUE + "%s" + ChatColor.AQUA + " %s";
+        public static final String SHOUT = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "!" + ChatColor.BLUE + "%s" + ChatColor.DARK_GRAY + "]" + ChatColor.GREEN + " %s";
+        public static final String STAFFCHAT = ChatColor.AQUA + "%%" + ChatColor.BLUE + "%s" + ChatColor.AQUA + " %s";
     }
 
     public static class COLOR {
@@ -69,6 +69,7 @@ public class Statics {
 
     public static class PERMISSION {
 
-        public static final String MSG_SPY = "uberchat.msgspy";
+        public static final String MSG_SPY = "nchat.msgspy";
+        public static final String STAFF_CHAT = "nchat.staffchat";
     }
 }
