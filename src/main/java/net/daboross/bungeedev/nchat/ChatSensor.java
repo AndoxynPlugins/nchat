@@ -25,7 +25,7 @@ import net.md_5.bungee.api.ChatColor;
 public class ChatSensor {
 
     public static String formatPlayerDisplayname(String name) {
-        name = ChatColor.BLUE + getSensoredMessage(name);
+        name = ChatColor.GRAY + getSensoredMessage(name);
         String noColor = ChatColor.stripColor(name);
         while (noColor.startsWith(" ")) {
             name = name.replaceFirst(" ", "");

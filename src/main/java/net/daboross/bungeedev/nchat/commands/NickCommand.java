@@ -57,7 +57,7 @@ public class NickCommand extends Command {
             p.setDisplayName(newNick);
             plugin.getDisplayNameDatabase().setDisplayName(p.getName(), newNick);
             ConnectorUtils.setDisplayName(p.getServer(), newNick);
-            plugin.getProxy().broadcast(String.format(ColorList.BROADCAST_NAME_FORMAT, "NC") + ChatColor.BLUE + oldNick + ChatColor.GREEN + " -> " + newNick);
+            plugin.getProxy().broadcast(ColorList.PREFIX_Q + oldNick + ChatColor.GRAY + " > " + newNick);
         }
     }
 }
