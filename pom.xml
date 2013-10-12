@@ -36,11 +36,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>repo-daboross-net</id>
+            <url>http://repo.daboross.net/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.6.2-SNAPSHOT</version>
+            <version>1.6.4-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -62,19 +72,10 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-        <repository>
-            <id>repo-daboross-net</id>
-            <url>http://repo.daboross.net/</url>
-        </repository>
-    </repositories>
 
     <build>
         <finalName>${project.artifactId}</finalName>
+        <defaultGoal>clean package</defaultGoal>
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
@@ -95,25 +96,10 @@
                 </configuration>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>2.4</version>
-            </extension>
-        </extensions>
     </build>
 
     <issueManagement>
         <url>https://github.com/daboross/nchat.git</url>
         <system>Github Issues</system>
     </issueManagement>
-    <distributionManagement>
-        <repository>
-            <id>repo-daboross-net</id>
-            <name>repo.daboross.net</name>
-            <uniqueVersion>false</uniqueVersion>
-            <url>scp://repo.daboross.net/repo/</url>
-        </repository>
-    </distributionManagement>
 </project>

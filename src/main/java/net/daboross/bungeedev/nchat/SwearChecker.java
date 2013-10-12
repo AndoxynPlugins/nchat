@@ -43,6 +43,7 @@ public class SwearChecker {
         anywhereSwearWords.add("dick");
         anywhereSwearWords.add("cunt");
         anywhereSwearWords.add("cock");
+        anywhereSwearWords.add("vagina");
         wordOnlySwearWords.add("ass");
     }
 
