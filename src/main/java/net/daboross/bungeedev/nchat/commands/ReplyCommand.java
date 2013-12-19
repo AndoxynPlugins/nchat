@@ -20,7 +20,6 @@ import lombok.NonNull;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.nchat.StringUtils;
-import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -40,7 +39,7 @@ public class ReplyCommand extends Command {
             sender.sendMessage(Statics.COLOR.MAIN + "Please specify a message to send.");
             sender.sendMessage(Statics.COLOR.MAIN + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
         } else {
-            String replyToName = PlayerReplyTracker.getReplyto(sender.getName());
+            String replyToName = plugin.getReplyTracker().getReplyto(sender.getName());
             CommandSender replyTo = replyToName == null ? null : ProxyServer.getInstance().getPlayer(replyToName);
             if (replyTo == null) {
                 sender.sendMessage(Statics.COLOR.MAIN + "No user found to reply to.");

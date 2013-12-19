@@ -60,7 +60,6 @@ public class Statics {
     public static class STRINGS {
 
         public static final String MSG_YOU_REPRESENTATION = ChatColor.GOLD + "You";
-        public static final String SERVER_NAME = ChatColor.GOLD + "Server";
     }
 
     public static class PERMISSION {

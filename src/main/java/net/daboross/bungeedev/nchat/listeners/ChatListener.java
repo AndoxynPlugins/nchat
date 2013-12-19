@@ -47,8 +47,8 @@ public class ChatListener implements Listener {
                 sender.sendMessage("That message is empty.");
             } else if (m.charAt(0) != '/') {
                 if (plugin.getPlayerDatabase().isStaffChatEnabled(sender.getName())) {
-                    String message = String.format(Statics.FORMAT.STAFFCHAT, sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server", ChatSensor.getSensoredMessage(m));
-                    ConnectorUtils.sendWithPermission("nchat.staffchat", message);
+                    String message = String.format(Statics.FORMAT.STAFFCHAT, sender instanceof ProxiedPlayer ? sender.getDisplayName() : "Server", ChatSensor.getSensoredMessage(m));
+                    ConnectorUtils.sendWithPermission(Statics.PERMISSION.STAFF_CHAT, message);
                     plugin.getProxy().getLogger().log(Level.INFO, message);
                     ConnectorUtils.consoleMessage(message);
                 } else {

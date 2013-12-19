@@ -17,7 +17,6 @@
 package net.daboross.bungeedev.nchat;
 
 import java.util.logging.Level;
-import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -58,7 +57,7 @@ public class MessageHandler {
                 p.sendMessage(messageForSpy);
             }
         }
-        PlayerReplyTracker.setReplyto(receiver.getName(), sender.getName());
-        PlayerReplyTracker.setReplyto(sender.getName(), receiver.getName());
+        plugin.getReplyTracker().setReplyto(receiver.getName(), sender.getName());
+        plugin.getReplyTracker().setReplyto(sender.getName(), receiver.getName());
     }
 }

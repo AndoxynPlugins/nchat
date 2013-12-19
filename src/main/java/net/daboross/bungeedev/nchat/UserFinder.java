@@ -28,15 +28,17 @@ public class UserFinder {
     public static List<ProxiedPlayer> findUsers(String partialUser) {
         Collection<ProxiedPlayer> online = ProxyServer.getInstance().getPlayers();
         List<ProxiedPlayer> result = new ArrayList<>();
+        partialUser = partialUser.toLowerCase();
         for (ProxiedPlayer p : online) {
-            if (p.getName().equals(partialUser)) {
+            String name = p.getName().toLowerCase();
+            if (name.equalsIgnoreCase(partialUser)) {
                 result.clear();
                 result.add(p);
                 return result;
-            } else if (p.getName().contains(partialUser)) {
+            } else if (name.contains(partialUser)) {
                 result.add(p);
             } else {
-                String display = ChatColor.stripColor(p.getDisplayName());
+                String display = ChatColor.stripColor(p.getDisplayName()).toLowerCase();
                 if (display.contains(partialUser)) {
                     result.add(p);
                 }

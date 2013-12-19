@@ -45,8 +45,7 @@ public class NickCommand extends Command {
         }
         ProxiedPlayer p = (ProxiedPlayer) sender;
         if (args.length == 0) {
-            sender.sendMessages(Statics.COLOR.MAIN + "Please specify a new nickname.",
-                    Statics.COLOR.MAIN + "Usage: /nick <Nick name you want>");
+            sender.sendMessages(Statics.COLOR.MAIN + "Please specify a new nickname.", Statics.COLOR.MAIN + "Usage: /nick <Nick name you want>");
         } else {
             String oldNick = p.getDisplayName();
             String newNick = ChatSensor.formatPlayerDisplayname(StringUtils.arrayToString(args, " "));

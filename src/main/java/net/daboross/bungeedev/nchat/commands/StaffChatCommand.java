@@ -18,7 +18,6 @@ package net.daboross.bungeedev.nchat.commands;
 
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
-import net.daboross.bungeedev.nchat.data.PlayerDatabase;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;

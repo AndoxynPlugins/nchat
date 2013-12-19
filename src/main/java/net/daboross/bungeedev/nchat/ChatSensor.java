@@ -22,7 +22,7 @@ public class ChatSensor {
 
     public static String formatPlayerDisplayname(String name) {
         name = ChatColor.GRAY + getSensoredMessage(name);
-        String noColor = ChatColor.stripColor(name);
+        String noColor = ChatColor.stripColor(name).trim();
         while (noColor.startsWith(" ")) {
             name = name.replaceFirst(" ", "");
             noColor = ChatColor.stripColor(name);
