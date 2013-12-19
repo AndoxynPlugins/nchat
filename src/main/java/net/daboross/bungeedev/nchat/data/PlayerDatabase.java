@@ -19,7 +19,7 @@ package net.daboross.bungeedev.nchat.data;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlayerDatabase implements PlayerDatabase {
+public class PlayerDatabase {
 
     private final Map<String, UserData> dataMap = new HashMap<>();
 
@@ -27,13 +27,11 @@ public class PlayerDatabase implements PlayerDatabase {
         dataMap.remove(username);
     }
 
-    @Override
     public boolean isStaffChatEnabled(String username) {
         UserData data = dataMap.get(username);
         return data != null && data.isStaffChatEnabled();
     }
 
-    @Override
     public void setStaffChatEnabled(String username, boolean enabled) {
         UserData data = dataMap.get(username);
         if (data == null) {
