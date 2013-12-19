@@ -19,10 +19,6 @@ package net.daboross.bungeedev.nchat.data;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author daboross
- */
 public class PlayerReplyTracker {
 
     private static final Map<String, String> replytoMap = new HashMap<>();

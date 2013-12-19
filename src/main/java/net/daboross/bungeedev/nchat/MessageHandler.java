@@ -23,10 +23,6 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-/**
- *
- * @author daboross
- */
 public class MessageHandler {
 
     private final NChatPlugin plugin;

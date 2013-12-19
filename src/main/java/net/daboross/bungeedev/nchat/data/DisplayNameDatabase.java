@@ -22,10 +22,6 @@ import java.util.logging.Level;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author daboross
- */
 public class DisplayNameDatabase {
 
     private final NChatPlugin plugin;

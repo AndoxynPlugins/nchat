@@ -18,10 +18,6 @@ package net.daboross.bungeedev.nchat.data;
 
 import java.util.List;
 
-/**
- *
- * @author daboross
- */
 public interface PlayerDatabase {
 
     public boolean isColorizorEnabled(String username);

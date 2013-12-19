@@ -23,13 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.Getter;
 
-/**
- *
- * @author daboross
- */
 public class SimpleDatabase {
 
+    @Getter
     private final Map<String, String> values = new HashMap<>();
 
     public SimpleDatabase() {

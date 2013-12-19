@@ -21,10 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author daboross
- */
 public class SwearChecker {
 
     private static final Set<String> anywhereSwearWords = new HashSet<String>();

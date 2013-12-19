@@ -20,10 +20,6 @@ import net.daboross.bungeedev.nchat.Statics.COLOR;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
-/**
- *
- * @author daboross
- */
 public class MailCommand extends Command {
 
     public MailCommand() {

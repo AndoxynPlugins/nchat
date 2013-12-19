@@ -18,10 +18,6 @@ package net.daboross.bungeedev.nchat;
 
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author Dabo Ross
- */
 public class Colorizor {
 
     private static int currentColorNum = 0;
@@ -40,6 +36,7 @@ public class Colorizor {
         }
         return resultBuilder.toString();
     }
+
     private static final String[] colorList = {ChatColor.AQUA.toString(), ChatColor.BLUE.toString(), ChatColor.DARK_BLUE.toString(), ChatColor.DARK_PURPLE.toString(), ChatColor.DARK_RED.toString(), ChatColor.RED.toString(), ChatColor.GOLD.toString(), ChatColor.GREEN.toString(), ChatColor.DARK_GREEN.toString()};
 
     private static String getNextColor() {

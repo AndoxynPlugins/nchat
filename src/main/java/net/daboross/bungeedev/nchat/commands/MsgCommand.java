@@ -18,19 +18,15 @@ package net.daboross.bungeedev.nchat.commands;
 
 import java.util.List;
 import lombok.NonNull;
-import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.UserFinder;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-/**
- *
- * @author daboross
- */
 public class MsgCommand extends Command {
 
     private final NChatPlugin plugin;

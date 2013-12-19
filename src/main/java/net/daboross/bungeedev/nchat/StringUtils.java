@@ -20,10 +20,6 @@ import java.util.List;
 import java.util.Locale;
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author daboross
- */
 public class StringUtils {
 
     public static String toggleCase(String input) {

@@ -18,10 +18,6 @@ package net.daboross.bungeedev.nchat;
 
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author daboross
- */
 public class Statics {
 
     public static class FORMAT {

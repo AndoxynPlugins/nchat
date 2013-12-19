@@ -27,10 +27,6 @@ import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-/**
- *
- * @author daboross
- */
 public class JoinListener implements Listener {
 
     private final NChatPlugin plugin;

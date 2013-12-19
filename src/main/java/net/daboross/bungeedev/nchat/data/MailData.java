@@ -16,10 +16,6 @@
  */
 package net.daboross.bungeedev.nchat.data;
 
-/**
- *
- * @author daboross
- */
 public interface MailData {
 
     /**

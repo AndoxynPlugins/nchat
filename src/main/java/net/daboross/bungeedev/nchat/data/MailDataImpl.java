@@ -16,10 +16,6 @@
  */
 package net.daboross.bungeedev.nchat.data;
 
-/**
- *
- * @author daboross
- */
 public class MailDataImpl implements MailData {
 
     private final String sender;

@@ -16,20 +16,16 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
-import net.daboross.bungeedev.nchat.StringUtils;
-import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.ChatSensor;
+import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-/**
- *
- * @author daboross
- */
 public class ShoutCommand extends Command {
 
     private final NChatPlugin plugin;

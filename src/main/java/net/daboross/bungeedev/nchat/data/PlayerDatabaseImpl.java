@@ -21,10 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author daboross
- */
 public class PlayerDatabaseImpl implements PlayerDatabase {
 
     private final Map<String, UserData> dataMap = new HashMap<>();

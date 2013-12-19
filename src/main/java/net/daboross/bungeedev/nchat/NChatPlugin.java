@@ -16,8 +16,6 @@
  */
 package net.daboross.bungeedev.nchat;
 
-import net.daboross.bungeedev.nchat.listeners.JoinListener;
-import net.daboross.bungeedev.nchat.listeners.ChatListener;
 import net.daboross.bungeedev.nchat.commands.ColorizorCommand;
 import net.daboross.bungeedev.nchat.commands.MeCommand;
 import net.daboross.bungeedev.nchat.commands.MsgCommand;
@@ -27,17 +25,14 @@ import net.daboross.bungeedev.nchat.commands.ShoutCommand;
 import net.daboross.bungeedev.nchat.commands.StaffChatCommand;
 import net.daboross.bungeedev.nchat.data.DisplayNameDatabase;
 import net.daboross.bungeedev.nchat.data.PlayerDatabaseImpl;
+import net.daboross.bungeedev.nchat.listeners.ChatListener;
+import net.daboross.bungeedev.nchat.listeners.JoinListener;
 import net.daboross.bungeedev.nchat.listeners.QuitListener;
-import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 
-/**
- * NChatPlugin Plugin Made By DaboRoss
- *
- * @author daboross
- */
 public final class NChatPlugin extends Plugin {
 
     private PlayerDatabaseImpl playerDatabase;
