@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat.listeners;
 
+import net.daboross.bukkitdev.mysqlmap.api.ResultRunnable;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.ncommon.ColorList;
@@ -44,11 +45,15 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoinServer(PostLoginEvent evt) {
         final ProxiedPlayer p = evt.getPlayer();
-        String name = plugin.getDisplayNameDatabase().getDisplayName(p.getName());
-        if (name == null) {
-            name = ChatSensor.formatPlayerDisplayname(p.getName());
-        }
-        p.setDisplayName(name);
-        plugin.getProxy().broadcast(ColorList.PREFIX_Q + p.getName() + ChatColor.GRAY + " > " + name);
+        plugin.getDisplayNameDatabase().getDisplayName(p.getName(), new ResultRunnable<String>() {
+            @Override
+            public void runWithResult(String name) {
+                if (name == null) {
+                    name = ChatSensor.formatPlayerDisplayname(p.getName());
+                }
+                p.setDisplayName(name);
+                plugin.getProxy().broadcast(ColorList.PREFIX_Q + p.getName() + ChatColor.GRAY + " > " + name);
+            }
+        });
     }
 }

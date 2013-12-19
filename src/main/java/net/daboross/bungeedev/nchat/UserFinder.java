@@ -27,7 +27,7 @@ public class UserFinder {
 
     public static List<ProxiedPlayer> findUsers(String partialUser) {
         Collection<ProxiedPlayer> online = ProxyServer.getInstance().getPlayers();
-        List<ProxiedPlayer> result = new ArrayList<ProxiedPlayer>();
+        List<ProxiedPlayer> result = new ArrayList<>();
         for (ProxiedPlayer p : online) {
             if (p.getName().equals(partialUser)) {
                 result.clear();

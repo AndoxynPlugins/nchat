@@ -52,7 +52,7 @@ public class ChatListener implements Listener {
                     plugin.getProxy().getLogger().log(Level.INFO, message);
                     ConnectorUtils.consoleMessage(message);
                 } else {
-                    String broadcast = String.format(Statics.FORMAT.CHAT, plugin.getDisplayNameDatabase().getDisplayName(sender.getName()), ChatSensor.getSensoredMessage(m));
+                    String broadcast = String.format(Statics.FORMAT.CHAT, sender.getDisplayName(), ChatSensor.getSensoredMessage(m));
                     ProxyServer.getInstance().broadcast(broadcast);
                     ConnectorUtils.consoleMessage(broadcast);
                 }
