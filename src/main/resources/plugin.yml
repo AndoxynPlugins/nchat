@@ -1,4 +1,5 @@
-name: ${project.artifactId}
+name: ${project.name}
 main: net.daboross.bungeedev.nchat.NChatPlugin
 version: ${project.version}
 author: Dabo Ross
+depends: ncommon

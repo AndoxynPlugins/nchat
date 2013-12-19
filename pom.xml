@@ -6,7 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>NChat</name>
+    <name>nchat</name>
     <description>NChat for BungeeCord</description>
     <url>https://github.com/daboross/nchat</url>
     <inceptionYear>2013</inceptionYear>
