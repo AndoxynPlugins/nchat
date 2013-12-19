@@ -16,8 +16,8 @@
  */
 package net.daboross.bungeedev.nchat.data;
 
-import net.daboross.bukkitdev.mysqlmap.api.MapTable;
-import net.daboross.bukkitdev.mysqlmap.api.ResultRunnable;
+import net.daboross.bungeedev.mysqlmap.api.MapTable;
+import net.daboross.bungeedev.mysqlmap.api.ResultRunnable;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.ncommon.NStatics;
 

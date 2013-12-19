@@ -16,7 +16,7 @@
  */
 package net.daboross.bungeedev.nchat.listeners;
 
-import net.daboross.bukkitdev.mysqlmap.api.ResultRunnable;
+import net.daboross.bungeedev.mysqlmap.api.ResultRunnable;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.ncommon.ColorList;
