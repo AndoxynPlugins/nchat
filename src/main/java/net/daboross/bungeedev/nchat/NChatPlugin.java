@@ -17,6 +17,7 @@
 package net.daboross.bungeedev.nchat;
 
 import net.daboross.bungeedev.nchat.commands.ColorizorCommand;
+import net.daboross.bungeedev.nchat.commands.DisplayNameMigrateCommand;
 import net.daboross.bungeedev.nchat.commands.MeCommand;
 import net.daboross.bungeedev.nchat.commands.MsgCommand;
 import net.daboross.bungeedev.nchat.commands.NickCommand;
@@ -59,7 +60,7 @@ public final class NChatPlugin extends Plugin {
         registerCommands(pm, new MeCommand(this), new MsgCommand(this),
                 new ReplyCommand(this), new ShoutCommand(this),
                 new ColorizorCommand(this), new NickCommand(this),
-                new StaffChatCommand(this));
+                new StaffChatCommand(this), new DisplayNameMigrateCommand(this));
     }
 
     private void registerListeners(PluginManager pm, Listener... listeners) {

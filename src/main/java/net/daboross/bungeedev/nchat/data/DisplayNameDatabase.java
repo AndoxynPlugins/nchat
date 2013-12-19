@@ -19,6 +19,7 @@ package net.daboross.bungeedev.nchat.data;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
+import lombok.Getter;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.md_5.bungee.api.ChatColor;
 
@@ -26,6 +27,7 @@ public class DisplayNameDatabase {
 
     private final NChatPlugin plugin;
     private File databaseFile;
+    @Getter
     private SimpleDatabase database;
 
     public DisplayNameDatabase(NChatPlugin plugin) {
