@@ -18,8 +18,8 @@ package net.daboross.bungeedev.nchat.commands;
 
 import lombok.NonNull;
 import net.daboross.bungeedev.nchat.NChatPlugin;
-import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.nchat.StringUtils;
+import net.daboross.bungeedev.ncommon.ColorList;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -36,13 +36,13 @@ public class ReplyCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(Statics.COLOR.MAIN + "Please specify a message to send.");
-            sender.sendMessage(Statics.COLOR.MAIN + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
+            sender.sendMessage(ColorList.REG + "Please specify a message to send.");
+            sender.sendMessage(ColorList.REG + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
         } else {
             String replyToName = plugin.getReplyTracker().getReplyto(sender.getName());
             CommandSender replyTo = replyToName == null ? null : ProxyServer.getInstance().getPlayer(replyToName);
             if (replyTo == null) {
-                sender.sendMessage(Statics.COLOR.MAIN + "No user found to reply to.");
+                sender.sendMessage(ColorList.REG + "No user found to reply to.");
             } else {
                 String message = StringUtils.arrayToString(args, " ");
                 plugin.getMessageHandler().sendMessage(sender, replyTo, message);

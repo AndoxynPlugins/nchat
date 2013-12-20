@@ -19,16 +19,13 @@ package net.daboross.bungeedev.nchat.data;
 import net.daboross.bungeedev.mysqlmap.api.MapTable;
 import net.daboross.bungeedev.mysqlmap.api.ResultRunnable;
 import net.daboross.bungeedev.nchat.NChatPlugin;
-import net.daboross.bungeedev.ncommon.NStatics;
 
 public class DisplayNameDatabase {
 
-    private final NChatPlugin plugin;
     private final MapTable<String, String> database;
 
     public DisplayNameDatabase(NChatPlugin plugin) {
-        this.plugin = plugin;
-        this.database = NStatics.getPlugin().getDatabase().getStringToStringTable("nchat_displaynames");
+        this.database = plugin.getNcommon().getDatabase().getStringToStringTable("nchat_displaynames");
     }
 
     public void getDisplayName(final String playerName, final ResultRunnable<String> runWith) {

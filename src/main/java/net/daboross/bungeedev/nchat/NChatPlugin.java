@@ -29,6 +29,7 @@ import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
 import net.daboross.bungeedev.nchat.listeners.ChatListener;
 import net.daboross.bungeedev.nchat.listeners.JoinListener;
 import net.daboross.bungeedev.nchat.listeners.QuitListener;
+import net.daboross.bungeedev.ncommon.NCommonPlugin;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -44,13 +45,21 @@ public final class NChatPlugin extends Plugin {
     private DisplayNameDatabase displayNameDatabase;
     @Getter
     private PlayerReplyTracker replyTracker;
+    @Getter
+    private NCommonPlugin ncommon;
 
     @Override
     public void onEnable() {
+        ncommon = (NCommonPlugin) getProxy().getPluginManager().getPlugin("ncommon");
         displayNameDatabase = new DisplayNameDatabase(this);
         messageHandler = new MessageHandler(this);
         playerDatabase = new PlayerDatabase();
         registerStuff();
+    }
+
+    @Override
+    public void onDisable() {
+        ncommon = null; // Just in case
     }
 
     private void registerStuff() {
