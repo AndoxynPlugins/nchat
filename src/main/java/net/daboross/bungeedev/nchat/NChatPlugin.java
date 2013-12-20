@@ -51,6 +51,7 @@ public final class NChatPlugin extends Plugin {
     @Override
     public void onEnable() {
         ncommon = (NCommonPlugin) getProxy().getPluginManager().getPlugin("ncommon");
+        replyTracker = new PlayerReplyTracker();
         displayNameDatabase = new DisplayNameDatabase(this);
         messageHandler = new MessageHandler(this);
         playerDatabase = new PlayerDatabase();
