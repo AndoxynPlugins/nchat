@@ -16,17 +16,13 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
-import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.data.PlayerDatabase;
+import net.daboross.bungeedev.ncommon.ColorList;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-/**
- *
- * @author daboross
- */
 public class StaffChatCommand extends Command {
 
     private final NChatPlugin plugin;
@@ -39,19 +35,19 @@ public class StaffChatCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) {
-            sender.sendMessage(Statics.COLOR.MAIN + "Sorry, Players Only");
+            sender.sendMessage(ColorList.REG + "Sorry, Players Only");
         }
         if (args.length != 0) {
-            sender.sendMessages(Statics.COLOR.MAIN + "Too many arguments", Statics.COLOR.MAIN + "Usage: /sc");
+            sender.sendMessages(ColorList.REG + "Too many arguments", ColorList.REG + "Usage: /sc");
             return;
         }
         PlayerDatabase database = plugin.getPlayerDatabase();
         if (database.isStaffChatEnabled(sender.getName())) {
             database.setStaffChatEnabled(sender.getName(), false);
-            sender.sendMessage(Statics.COLOR.MAIN + "StaffChat Disabled");
+            sender.sendMessage(ColorList.REG + "StaffChat Disabled");
         } else {
             database.setStaffChatEnabled(sender.getName(), true);
-            sender.sendMessage(Statics.COLOR.MAIN + "StaffChat Enabled");
+            sender.sendMessage(ColorList.REG + "StaffChat Enabled");
         }
     }
 }

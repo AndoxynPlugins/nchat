@@ -16,31 +16,41 @@
  */
 package net.daboross.bungeedev.nchat.data;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- *
- * @author daboross
- */
-public interface PlayerDatabase {
+public class PlayerDatabase {
 
-    public boolean isColorizorEnabled(String username);
+    private final Map<String, UserData> dataMap = new HashMap<>();
 
-    public void setColorizorEnabled(String username, boolean enabled);
+    public void clearPlayer(String username) {
+        dataMap.remove(username);
+    }
 
-    public List<MailData> getMails(String username);
+    public boolean isStaffChatEnabled(String username) {
+        UserData data = dataMap.get(username);
+        return data != null && data.isStaffChatEnabled();
+    }
 
-    public void addMail(String username, MailDataImpl mail);
+    public void setStaffChatEnabled(String username, boolean enabled) {
+        UserData data = dataMap.get(username);
+        if (data == null) {
+            data = new UserData();
+            dataMap.put(username, data);
+        }
+        data.setStaffChatEnabled(enabled);
+    }
 
-    public void clearMails(String username);
+    private static class UserData {
 
-    public String getNick(String username);
+        private boolean staffChatEnabled;
 
-    public void setNick(String username, String nickname);
+        public void setStaffChatEnabled(boolean staffChatEnabled) {
+            this.staffChatEnabled = staffChatEnabled;
+        }
 
-    public List<String> getFullNames(String partialName);
-
-    public boolean isStaffChatEnabled(String username);
-
-    public void setStaffChatEnabled(String username, boolean enabled);
+        public boolean isStaffChatEnabled() {
+            return staffChatEnabled;
+        }
+    }
 }

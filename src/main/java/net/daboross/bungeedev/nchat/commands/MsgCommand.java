@@ -18,19 +18,15 @@ package net.daboross.bungeedev.nchat.commands;
 
 import java.util.List;
 import lombok.NonNull;
-import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.NChatPlugin;
-import net.daboross.bungeedev.nchat.Statics;
-import net.daboross.bungeedev.nchat.UserFinder;
+import net.daboross.bungeedev.nchat.StringUtils;
+import net.daboross.bungeedev.ncommon.ColorList;
+import net.daboross.bungeedev.ncommon.utils.UserFinder;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-/**
- *
- * @author daboross
- */
 public class MsgCommand extends Command {
 
     private final NChatPlugin plugin;
@@ -43,20 +39,20 @@ public class MsgCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(Statics.COLOR.MAIN + "Please specify a user and a message.");
-            sender.sendMessage(Statics.COLOR.MAIN + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
+            sender.sendMessage(ColorList.REG + "Please specify a user and a message.");
+            sender.sendMessage(ColorList.REG + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
         } else if (args.length == 1) {
-            sender.sendMessage(Statics.COLOR.MAIN + "Please specify a message.");
-            sender.sendMessage(Statics.COLOR.MAIN + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
+            sender.sendMessage(ColorList.REG + "Please specify a message.");
+            sender.sendMessage(ColorList.REG + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
         } else {
             List<ProxiedPlayer> foundUsers = UserFinder.findUsers(args[0]);
             if (foundUsers.isEmpty()) {
-                sender.sendMessage(Statics.COLOR.MAIN + "User \"" + ChatColor.RED + args[0] + Statics.COLOR.MAIN + "\" not found or not online.");
+                sender.sendMessage(ColorList.REG + "User \"" + ChatColor.RED + args[0] + ColorList.REG + "\" not found or not online.");
             } else if (foundUsers.size() == 1) {
                 String message = StringUtils.arrayToString(1, args, " ");
                 plugin.getMessageHandler().sendMessage(sender, foundUsers.get(0), message);
             } else {
-                sender.sendMessage(Statics.COLOR.MAIN + "Multiple users matching \"" + args[0] + "\":");
+                sender.sendMessage(ColorList.REG + "Multiple users matching \"" + args[0] + "\":");
                 sender.sendMessage(getNameString(foundUsers));
             }
         }

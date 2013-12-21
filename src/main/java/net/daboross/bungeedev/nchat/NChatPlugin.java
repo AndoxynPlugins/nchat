@@ -16,9 +16,7 @@
  */
 package net.daboross.bungeedev.nchat;
 
-import net.daboross.bungeedev.nchat.listeners.JoinListener;
-import net.daboross.bungeedev.nchat.listeners.ChatListener;
-import net.daboross.bungeedev.nchat.commands.ColorizorCommand;
+import lombok.Getter;
 import net.daboross.bungeedev.nchat.commands.MeCommand;
 import net.daboross.bungeedev.nchat.commands.MsgCommand;
 import net.daboross.bungeedev.nchat.commands.NickCommand;
@@ -26,45 +24,50 @@ import net.daboross.bungeedev.nchat.commands.ReplyCommand;
 import net.daboross.bungeedev.nchat.commands.ShoutCommand;
 import net.daboross.bungeedev.nchat.commands.StaffChatCommand;
 import net.daboross.bungeedev.nchat.data.DisplayNameDatabase;
-import net.daboross.bungeedev.nchat.data.PlayerDatabaseImpl;
+import net.daboross.bungeedev.nchat.data.PlayerDatabase;
+import net.daboross.bungeedev.nchat.data.PlayerReplyTracker;
+import net.daboross.bungeedev.nchat.listeners.ChatListener;
+import net.daboross.bungeedev.nchat.listeners.JoinListener;
 import net.daboross.bungeedev.nchat.listeners.QuitListener;
-import net.md_5.bungee.api.plugin.Plugin;
+import net.daboross.bungeedev.ncommon.NCommonPlugin;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 
-/**
- * NChatPlugin Plugin Made By DaboRoss
- *
- * @author daboross
- */
 public final class NChatPlugin extends Plugin {
 
-    private PlayerDatabaseImpl playerDatabase;
+    @Getter
+    private PlayerDatabase playerDatabase;
+    @Getter
     private MessageHandler messageHandler;
+    @Getter
     private DisplayNameDatabase displayNameDatabase;
+    @Getter
+    private PlayerReplyTracker replyTracker;
+    @Getter
+    private NCommonPlugin ncommon;
 
     @Override
     public void onEnable() {
+        ncommon = (NCommonPlugin) getProxy().getPluginManager().getPlugin("ncommon");
+        replyTracker = new PlayerReplyTracker();
         displayNameDatabase = new DisplayNameDatabase(this);
         messageHandler = new MessageHandler(this);
-        playerDatabase = new PlayerDatabaseImpl();
+        playerDatabase = new PlayerDatabase();
         registerStuff();
     }
 
     @Override
     public void onDisable() {
-        displayNameDatabase.save();
+        ncommon = null; // Just in case
     }
 
     private void registerStuff() {
         PluginManager pm = getProxy().getPluginManager();
-        registerListeners(pm, new ChatListener(this), new JoinListener(this),
-                new QuitListener(this));
-        registerCommands(pm, new MeCommand(this), new MsgCommand(this),
-                new ReplyCommand(this), new ShoutCommand(this),
-                new ColorizorCommand(this), new NickCommand(this),
-                new StaffChatCommand(this));
+        registerListeners(pm, new ChatListener(this), new JoinListener(this), new QuitListener(this));
+        registerCommands(pm, new MeCommand(), new MsgCommand(this), new ReplyCommand(this),
+                new ShoutCommand(this), new NickCommand(this), new StaffChatCommand(this));
     }
 
     private void registerListeners(PluginManager pm, Listener... listeners) {
@@ -77,17 +80,5 @@ public final class NChatPlugin extends Plugin {
         for (Command command : commands) {
             pm.registerCommand(this, command);
         }
-    }
-
-    public DisplayNameDatabase getDisplayNameDatabase() {
-        return displayNameDatabase;
-    }
-
-    public PlayerDatabaseImpl getPlayerDatabase() {
-        return playerDatabase;
-    }
-
-    public MessageHandler getMessageHandler() {
-        return messageHandler;
     }
 }

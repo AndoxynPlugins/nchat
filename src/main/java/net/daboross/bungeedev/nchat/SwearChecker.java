@@ -21,14 +21,10 @@ import java.util.HashSet;
 import java.util.Set;
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author daboross
- */
 public class SwearChecker {
 
-    private static final Set<String> anywhereSwearWords = new HashSet<String>();
-    private static final Set<String> wordOnlySwearWords = new HashSet<String>();
+    private static final Set<String> anywhereSwearWords = new HashSet<>();
+    private static final Set<String> wordOnlySwearWords = new HashSet<>();
     private static final String DIVIDER_REGEX = "[^a-zA-Z]";
     private static final String REGEX_START = "^";
     private static final String REGEX_END = "$";

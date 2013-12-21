@@ -16,20 +16,17 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
-import net.daboross.bungeedev.nchat.StringUtils;
-import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.ChatSensor;
+import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.nchat.StringUtils;
+import net.daboross.bungeedev.ncommon.ColorList;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-/**
- *
- * @author daboross
- */
 public class ShoutCommand extends Command {
 
     private final NChatPlugin plugin;
@@ -42,10 +39,10 @@ public class ShoutCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(Statics.COLOR.MAIN + "Please specify a message");
-            sender.sendMessage(Statics.COLOR.MAIN + "Usage: /sh <message> (shouts <message>)");
+            sender.sendMessage(ColorList.REG + "Please specify a message");
+            sender.sendMessage(ColorList.REG + "Usage: /sh <message> (shouts <message>)");
         } else {
-            String message = String.format(Statics.FORMAT.SHOUT,
+            String message = String.format(Statics.Format.SHOUT,
                     sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server",
                     ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
             ProxyServer.getInstance().broadcast(message);

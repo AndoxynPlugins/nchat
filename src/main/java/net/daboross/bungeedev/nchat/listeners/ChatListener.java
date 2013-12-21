@@ -28,10 +28,6 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-/**
- *
- * @author Dabo Ross
- */
 public class ChatListener implements Listener {
 
     private final NChatPlugin plugin;
@@ -51,12 +47,12 @@ public class ChatListener implements Listener {
                 sender.sendMessage("That message is empty.");
             } else if (m.charAt(0) != '/') {
                 if (plugin.getPlayerDatabase().isStaffChatEnabled(sender.getName())) {
-                    String message = String.format(Statics.FORMAT.STAFFCHAT, sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server", ChatSensor.getSensoredMessage(m));
-                    ConnectorUtils.sendWithPermission("nchat.staffchat", message);
+                    String message = String.format(Statics.Format.STAFFCHAT, sender instanceof ProxiedPlayer ? sender.getDisplayName() : "Server", ChatSensor.getSensoredMessage(m));
+                    ConnectorUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
                     plugin.getProxy().getLogger().log(Level.INFO, message);
                     ConnectorUtils.consoleMessage(message);
                 } else {
-                    String broadcast = String.format(Statics.FORMAT.CHAT, plugin.getDisplayNameDatabase().getDisplayName(sender.getName()), ChatSensor.getSensoredMessage(m));
+                    String broadcast = String.format(Statics.Format.CHAT, sender.getDisplayName(), ChatSensor.getSensoredMessage(m));
                     ProxyServer.getInstance().broadcast(broadcast);
                     ConnectorUtils.consoleMessage(broadcast);
                 }

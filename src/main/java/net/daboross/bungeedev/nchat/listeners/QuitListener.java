@@ -21,10 +21,6 @@ import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-/**
- *
- * @author daboross
- */
 public class QuitListener implements Listener {
 
     private final NChatPlugin plugin;
@@ -36,5 +32,6 @@ public class QuitListener implements Listener {
     @EventHandler
     public void onQuit(PlayerDisconnectEvent evt) {
         plugin.getPlayerDatabase().clearPlayer(evt.getPlayer().getName());
+        plugin.getReplyTracker().removeReplyTo(evt.getPlayer().getName());
     }
 }

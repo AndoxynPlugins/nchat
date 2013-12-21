@@ -16,37 +16,29 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
-import lombok.NonNull;
-import net.daboross.bungeedev.nchat.StringUtils;
-import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.nchat.StringUtils;
+import net.daboross.bungeedev.ncommon.ColorList;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-/**
- *
- * @author daboross
- */
 public class MeCommand extends Command {
 
-    private final NChatPlugin plugin;
-
-    public MeCommand(@NonNull NChatPlugin plugin) {
+    public MeCommand() {
         super("me");
-        this.plugin = plugin;
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessages(Statics.COLOR.MAIN + "Please specify an action to describe.",
-                    Statics.COLOR.MAIN + "Usage: /me <action> (publicly describes you doing <action>)");
+            sender.sendMessages(ColorList.REG + "Please specify an action to describe.",
+                    ColorList.REG + "Usage: /me <action> (publicly describes you doing <action>)");
         } else {
-            String message = String.format(Statics.FORMAT.ME,
+            String message = String.format(Statics.Format.ME,
                     sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "Server",
                     ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
             ProxyServer.getInstance().broadcast(message);

@@ -16,39 +16,16 @@
  */
 package net.daboross.bungeedev.nchat;
 
-import java.util.List;
 import java.util.Locale;
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author daboross
- */
 public class StringUtils {
-
-    public static String toggleCase(String input) {
-        StringBuilder outputBuilder = new StringBuilder(input.length());
-        String[] words = input.split(" ");
-        boolean first = true;
-        for (String word : words) {
-            if (first) {
-                first = false;
-            } else {
-                outputBuilder.append(" ");
-            }
-            if (word.length() == 0) {
-                continue;
-            }
-            outputBuilder.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1, word.length()).toLowerCase());
-        }
-        return outputBuilder.toString();
-    }
 
     public static String firstLetterCaps(String input) {
         if (input.length() == 0) {
             return input;
         }
-        return new StringBuilder(String.valueOf(input.charAt(0)).toUpperCase(Locale.ENGLISH)).append(input.substring(1).toLowerCase(Locale.ENGLISH)).toString();
+        return String.valueOf(input.charAt(0)).toUpperCase(Locale.ENGLISH) + input.substring(1).toLowerCase(Locale.ENGLISH);
     }
 
     public static String translateColor(String input) {
@@ -90,44 +67,5 @@ public class StringUtils {
             }
             return resultBuilder.toString();
         }
-    }
-
-    public static <T> String objectArrayToString(int start, T[] array, String seperator) {
-        if (array.length == 0) {
-            return "";
-        } else if (start >= array.length) {
-            return "";
-        } else if (array.length - 1 == start) {
-            return array[start].toString();
-        } else {
-            StringBuilder resultBuilder = new StringBuilder(array[start].toString());
-            for (int i = start + 1; i < array.length; i++) {
-                resultBuilder.append(seperator).append(array[i]);
-            }
-            return resultBuilder.toString();
-        }
-    }
-
-    public static String listToString(int start, List list, String seperator) {
-        if (list.isEmpty()) {
-            return "";
-        } else if (start >= list.size()) {
-            return "";
-        } else if (list.size() - 1 == start) {
-            return list.get(start).toString();
-        } else {
-            StringBuilder resultBuilder = new StringBuilder(list.get(start).toString());
-            for (int i = start + 1; i < list.size(); i++) {
-                resultBuilder.append(seperator).append(list.get(start));
-            }
-            return resultBuilder.toString();
-        }
-    }
-
-    public static String[] copyAndInclude(String[] array, String... include) {
-        String[] value = new String[array.length + include.length];
-        System.arraycopy(array, 0, value, 0, array.length);
-        System.arraycopy(include, 0, value, array.length, include.length);
-        return value;
     }
 }
