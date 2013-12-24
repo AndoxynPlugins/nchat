@@ -16,9 +16,13 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
+import net.daboross.bungeedev.mysqlmap.api.ResultRunnable;
 import net.daboross.bungeedev.nchat.NChatPlugin;
+import net.daboross.bungeedev.nchat.Statics;
 import net.daboross.bungeedev.nchat.data.PlayerDatabase;
 import net.daboross.bungeedev.ncommon.ColorList;
+import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -33,21 +37,31 @@ public class StaffChatCommand extends Command {
     }
 
     @Override
-    public void execute(CommandSender sender, String[] args) {
+    public void execute(final CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) {
             sender.sendMessage(ColorList.REG + "Sorry, Players Only");
+            return;
         }
         if (args.length != 0) {
             sender.sendMessages(ColorList.REG + "Too many arguments", ColorList.REG + "Usage: /sc");
             return;
         }
-        PlayerDatabase database = plugin.getPlayerDatabase();
-        if (database.isStaffChatEnabled(sender.getName())) {
-            database.setStaffChatEnabled(sender.getName(), false);
-            sender.sendMessage(ColorList.REG + "StaffChat Disabled");
-        } else {
-            database.setStaffChatEnabled(sender.getName(), true);
-            sender.sendMessage(ColorList.REG + "StaffChat Enabled");
-        }
+        ConnectorUtils.runWithPermission(((ProxiedPlayer) sender).getServer(), Statics.Permission.STAFF_CHAT, new ResultRunnable<Boolean>() {
+            @Override
+            public void runWithResult(Boolean value) {
+                if (value) {
+                    PlayerDatabase database = plugin.getPlayerDatabase();
+                    if (database.isStaffChatEnabled(sender.getName())) {
+                        database.setStaffChatEnabled(sender.getName(), false);
+                        sender.sendMessage(ColorList.REG + "StaffChat Disabled");
+                    } else {
+                        database.setStaffChatEnabled(sender.getName(), true);
+                        sender.sendMessage(ColorList.REG + "StaffChat Enabled");
+                    }
+                } else {
+                    sender.sendMessage(ColorList.ERR+"You don't have permission to use staff chat.");
+                }
+            }
+        });
     }
 }
