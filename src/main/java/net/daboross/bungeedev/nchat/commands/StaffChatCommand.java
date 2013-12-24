@@ -25,6 +25,7 @@ import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.data.PlayerDatabase;
 import net.daboross.bungeedev.ncommon.ColorList;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -45,7 +46,7 @@ public class StaffChatCommand extends Command {
                 sender.sendMessage("Not enough arguments");
                 return;
             }
-            String message = String.format(Statics.Format.STAFFCHAT, "!Server", ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
+            String message = String.format(Statics.Format.STAFFCHAT, ChatColor.DARK_RED + "!" + ChatColor.DARK_BLUE + "Server", ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
             ConnectorUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
             plugin.getProxy().getLogger().log(Level.INFO, message);
             ConnectorUtils.consoleMessage(message);
