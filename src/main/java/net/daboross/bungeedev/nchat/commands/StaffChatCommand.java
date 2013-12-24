@@ -16,13 +16,15 @@
  */
 package net.daboross.bungeedev.nchat.commands;
 
+import java.util.logging.Level;
 import net.daboross.bungeedev.mysqlmap.api.ResultRunnable;
+import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
+import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.data.PlayerDatabase;
 import net.daboross.bungeedev.ncommon.ColorList;
 import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -39,7 +41,14 @@ public class StaffChatCommand extends Command {
     @Override
     public void execute(final CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) {
-            sender.sendMessage(ColorList.REG + "Sorry, Players Only");
+            if (args.length == 0) {
+                sender.sendMessage("Not enough arguments");
+                return;
+            }
+            String message = String.format(Statics.Format.STAFFCHAT, sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "!Server", ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
+            ConnectorUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
+            plugin.getProxy().getLogger().log(Level.INFO, message);
+            ConnectorUtils.consoleMessage(message);
             return;
         }
         if (args.length != 0) {
@@ -59,7 +68,7 @@ public class StaffChatCommand extends Command {
                         sender.sendMessage(ColorList.REG + "StaffChat Enabled");
                     }
                 } else {
-                    sender.sendMessage(ColorList.ERR+"You don't have permission to use staff chat.");
+                    sender.sendMessage(ColorList.ERR + "You don't have permission to use staff chat.");
                 }
             }
         });
