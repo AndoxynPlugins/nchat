@@ -45,7 +45,7 @@ public class StaffChatCommand extends Command {
                 sender.sendMessage("Not enough arguments");
                 return;
             }
-            String message = String.format(Statics.Format.STAFFCHAT, sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : "!Server", ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
+            String message = String.format(Statics.Format.STAFFCHAT, "!Server", ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
             ConnectorUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
             plugin.getProxy().getLogger().log(Level.INFO, message);
             ConnectorUtils.consoleMessage(message);
