@@ -16,23 +16,23 @@
  */
 package net.daboross.bungeedev.nchat;
 
-import net.md_5.bungee.api.ChatColor;
+import static net.md_5.bungee.api.ChatColor.*;
 
 public class Statics {
 
     public static class Format {
 
-        public static final String CHAT = ChatColor.DARK_GRAY + "#" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
-        public static final String MSG = ChatColor.DARK_BLUE + "[" + ChatColor.BLUE + "%s" + ChatColor.DARK_BLUE + " -> " + ChatColor.BLUE + "%s" + ChatColor.DARK_BLUE + "]" + ChatColor.WHITE + " %s";
-        public static final String MSG_SPY = ChatColor.DARK_RED + "[" + ChatColor.BLUE + "%s" + ChatColor.DARK_RED + " -> " + ChatColor.BLUE + "%s" + ChatColor.DARK_RED + "]" + ChatColor.AQUA + " %s";
-        public static final String ME = ChatColor.DARK_GRAY + "*" + ChatColor.BLUE + "%s" + ChatColor.GRAY + " %s";
-        public static final String SHOUT = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "!" + ChatColor.BLUE + "%s" + ChatColor.DARK_GRAY + "]" + ChatColor.GREEN + " %s";
-        public static final String STAFFCHAT = ChatColor.AQUA + "%%" + ChatColor.BLUE + "%s" + ChatColor.AQUA + " %s";
+        public static final String CHAT = DARK_GRAY + "#" + BLUE + "%s" + GRAY + " %s";
+        public static final String MSG = DARK_BLUE + "[" + BLUE + "%s" + DARK_BLUE + " -> " + BLUE + "%s" + DARK_BLUE + "]" + WHITE + " %s";
+        public static final String MSG_SPY = DARK_RED + "[" + BLUE + "%s" + DARK_RED + " -> " + BLUE + "%s" + DARK_RED + "]" + AQUA + " %s";
+        public static final String ME = DARK_GRAY + "*" + BLUE + "%s" + GRAY + " %s";
+        public static final String SHOUT = DARK_GRAY + "[" + BLUE + "%s" + DARK_GRAY + "]" + GREEN + " %s";
+        public static final String STAFFCHAT = AQUA + "%%" + BLUE + "%s" + AQUA + " %s";
     }
 
     public static class Strings {
 
-        public static final String MSG_YOU_REPRESENTATION = ChatColor.GOLD + "You";
+        public static final String MSG_YOU_REPRESENTATION = GOLD + "You";
     }
 
     public static class Permission {

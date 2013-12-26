@@ -20,8 +20,7 @@ import java.util.logging.Level;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
-import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
-import net.md_5.bungee.api.ProxyServer;
+import net.daboross.bungeedev.ncommon.utils.CUtils;
 import net.md_5.bungee.api.connection.Connection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
@@ -46,15 +45,15 @@ public class ChatListener implements Listener {
                 e.setCancelled(true);
                 sender.sendMessage("That message is empty.");
             } else if (m.charAt(0) != '/') {
-                if (plugin.getPlayerDatabase().isStaffChatEnabled(sender.getName())) {
+                if (plugin.getPlayerDatabase().staffChatEnabled(sender.getName())) {
                     String message = String.format(Statics.Format.STAFFCHAT, sender.getDisplayName(), ChatSensor.getSensoredMessage(m));
-                    ConnectorUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
+                    CUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
                     plugin.getProxy().getLogger().log(Level.INFO, message);
-                    ConnectorUtils.consoleMessage(message);
+                    CUtils.consoleMessage(message);
                 } else {
                     String broadcast = String.format(Statics.Format.CHAT, sender.getDisplayName(), ChatSensor.getSensoredMessage(m));
-                    ProxyServer.getInstance().broadcast(broadcast);
-                    ConnectorUtils.consoleMessage(broadcast);
+                    plugin.getProxy().broadcast(broadcast);
+                    CUtils.consoleMessage(broadcast);
                 }
                 e.setCancelled(true);
             }

@@ -16,48 +16,34 @@
  */
 package net.daboross.bungeedev.nchat;
 
-import java.util.logging.Level;
-import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
+import lombok.RequiredArgsConstructor;
+import net.daboross.bungeedev.ncommon.utils.CUtils;
+import net.daboross.bungeedev.ncommon.utils.NUtils;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
+@RequiredArgsConstructor
 public class MessageHandler {
 
     private final NChatPlugin plugin;
 
-    public MessageHandler(NChatPlugin plugin) {
-        this.plugin = plugin;
-    }
+    public void sendPrivateMessage(CommandSender sender, CommandSender receiver, String message) {
+        message = ChatSensor.getSensoredMessage(message);
+        boolean senderPlayer = sender instanceof ProxiedPlayer, receiverPlayer = receiver instanceof ProxiedPlayer;
+        String senderName = NUtils.name(sender), receiverName = NUtils.name(receiver);
 
-    public void sendMessage(CommandSender sender, CommandSender receiver, String message) {
-        String sensoredMessage = ChatSensor.getSensoredMessage(message);
-        String senderName = sender instanceof ProxiedPlayer ? ((ProxiedPlayer) sender).getDisplayName() : sender.getName();
-        String receiverName = receiver instanceof ProxiedPlayer ? ((ProxiedPlayer) receiver).getDisplayName() : receiver.getName();
-        String messageForSender = String.format(Statics.Format.MSG, Statics.Strings.MSG_YOU_REPRESENTATION, receiverName, sensoredMessage);
-        String messageForReceiver = String.format(Statics.Format.MSG, senderName, Statics.Strings.MSG_YOU_REPRESENTATION, sensoredMessage);
-        String messageForSpy = String.format(Statics.Format.MSG_SPY, senderName, receiverName, sensoredMessage);
-        sender.sendMessage(messageForSender);
-        receiver.sendMessage(messageForReceiver);
-        if (sender instanceof ProxiedPlayer) {
-            if (receiver instanceof ProxiedPlayer) {
-                ConnectorUtils.sendWithPermission(Statics.Permission.MSG_SPY, messageForSpy, sender.getName(), receiver.getName());
-                ProxyServer.getInstance().getLogger().log(Level.INFO, messageForSpy);
-            } else {
-                ConnectorUtils.sendWithPermission(Statics.Permission.MSG_SPY, messageForSpy, sender.getName());
-            }
-        } else if (receiver instanceof ProxiedPlayer) {
-            ConnectorUtils.sendWithPermission(Statics.Permission.MSG_SPY, messageForSpy, receiver.getName());
-        } else {
-            ConnectorUtils.sendWithPermission(Statics.Permission.MSG_SPY, messageForSpy);
-        }
-        ConnectorUtils.consoleMessage(messageForSpy);
-        for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
-            if (p.hasPermission(Statics.Permission.MSG_SPY) && p != sender && p != receiver) {
-                p.sendMessage(messageForSpy);
-            }
-        }
-        plugin.getReplyTracker().setReplyto(receiver.getName(), sender.getName());
-        plugin.getReplyTracker().setReplyto(sender.getName(), receiver.getName());
+        sender.sendMessage(String.format(Statics.Format.MSG, Statics.Strings.MSG_YOU_REPRESENTATION, receiverName, message));
+        receiver.sendMessage(String.format(Statics.Format.MSG, senderName, Statics.Strings.MSG_YOU_REPRESENTATION, message));
+
+        String spyMessage = String.format(Statics.Format.MSG_SPY, senderName, receiverName, message);
+
+        String[] exclude = senderPlayer ? (receiverPlayer ? new String[]{sender.getName(), receiver.getName()}
+                : new String[]{sender.getName()})
+                : (receiverPlayer ? new String[]{receiver.getName()} : new String[0]);
+
+        CUtils.sendWithPermission(Statics.Permission.MSG_SPY, spyMessage, exclude);
+        CUtils.consoleMessage(spyMessage);
+
+        plugin.getReplyTracker().setReplyRecords(sender.getName(), receiver.getName());
     }
 }

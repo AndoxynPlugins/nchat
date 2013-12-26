@@ -23,16 +23,16 @@ public class PlayerDatabase {
 
     private final Map<String, UserData> dataMap = new HashMap<>();
 
-    public void clearPlayer(String username) {
+    public void removePlayer(String username) {
         dataMap.remove(username);
     }
 
-    public boolean isStaffChatEnabled(String username) {
+    public boolean staffChatEnabled(String username) {
         UserData data = dataMap.get(username);
         return data != null && data.isStaffChatEnabled();
     }
 
-    public void setStaffChatEnabled(String username, boolean enabled) {
+    public void staffChatEnabled(String username, boolean enabled) {
         UserData data = dataMap.get(username);
         if (data == null) {
             data = new UserData();

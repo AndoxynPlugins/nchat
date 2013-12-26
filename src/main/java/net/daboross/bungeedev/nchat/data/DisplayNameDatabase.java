@@ -28,11 +28,11 @@ public class DisplayNameDatabase {
         this.database = plugin.getNcommon().getDatabase().getStringToStringTable("nchat_displaynames");
     }
 
-    public void getDisplayName(final String playerName, final ResultRunnable<String> runWith) {
+    public void get(String playerName, ResultRunnable<String> runWith) {
         database.get(playerName.toLowerCase(), runWith);
     }
 
-    public void setDisplayName(String playerName, String displayName) {
+    public void set(String playerName, String displayName) {
         database.set(playerName.toLowerCase(), displayName, null);
     }
 }

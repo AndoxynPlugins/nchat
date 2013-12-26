@@ -23,8 +23,9 @@ public class PlayerReplyTracker {
 
     private final Map<String, String> replytoMap = new HashMap<>();
 
-    public void setReplyto(String username, String replyto) {
-        replytoMap.put(username, replyto);
+    public void setReplyRecords(String user1, String user2) {
+        replytoMap.put(user1, user2);
+        replytoMap.put(user2, user1);
     }
 
     public void removeReplyTo(String username) {

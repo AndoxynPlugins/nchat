@@ -16,6 +16,7 @@
  */
 package net.daboross.bungeedev.nchat;
 
+import net.daboross.bungeedev.ncommon.utils.NUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class ChatSensor {
@@ -37,16 +38,11 @@ public class ChatSensor {
     }
 
     public static String getSensoredMessage(String message) {
-        String output = message;
-        output = checkAndColors(output);
-        output = trimMessage(output);
-        output = replaceFullCaps(output);
-        output = SwearChecker.swearCheck(output);
-        return output;
-    }
-
-    private static String checkAndColors(String message) {
-        return StringUtils.translateColor(message);
+        message = NUtils.translateColor(message);
+        message = trimMessage(message);
+        message = replaceFullCaps(message);
+        message = SwearChecker.swearCheck(message);
+        return message;
     }
 
     private static String trimMessage(String message) {
@@ -54,11 +50,10 @@ public class ChatSensor {
     }
 
     private static String replaceFullCaps(String message) {
-        String newMessage = ChatColor.stripColor(message);
-        int totalChars = newMessage.length();
+        String noColor = ChatColor.stripColor(message);
         int capChars = 0;
         int lowChars = 0;
-        char[] charArray = newMessage.toCharArray();
+        char[] charArray = noColor.toCharArray();
         for (char c : charArray) {
             if (Character.isUpperCase(c)) {
                 capChars++;
@@ -66,8 +61,8 @@ public class ChatSensor {
                 lowChars++;
             }
         }
-        if ((capChars > (lowChars * 2)) && totalChars > 5 || (capChars > 9)) {
-            return StringUtils.firstLetterCaps(message);
+        if (((capChars > lowChars * 2) && noColor.length() > 5) || (capChars > 9)) {
+            return NUtils.firstLetterCaps(message);
         } else {
             return message;
         }

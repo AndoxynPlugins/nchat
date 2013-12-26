@@ -21,14 +21,13 @@ import net.daboross.bungeedev.mysqlmap.api.ResultRunnable;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.nchat.Statics;
-import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.nchat.data.PlayerDatabase;
-import net.daboross.bungeedev.ncommon.ColorList;
-import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
-import net.md_5.bungee.api.ChatColor;
+import net.daboross.bungeedev.ncommon.utils.CUtils;
+import net.daboross.bungeedev.ncommon.utils.NUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+import static net.daboross.bungeedev.ncommon.ColorList.*;
 
 public class StaffChatCommand extends Command {
 
@@ -46,30 +45,31 @@ public class StaffChatCommand extends Command {
                 sender.sendMessage("Not enough arguments");
                 return;
             }
-            String message = String.format(Statics.Format.STAFFCHAT, ChatColor.DARK_RED + "!" + ChatColor.DARK_BLUE + "Server", ChatSensor.getSensoredMessage(StringUtils.arrayToString(args, " ")));
-            ConnectorUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
+            String message = String.format(Statics.Format.STAFFCHAT, NUtils.name(sender),
+                    ChatSensor.getSensoredMessage(NUtils.arrayToString(args, " ")));
+            CUtils.sendWithPermission(Statics.Permission.STAFF_CHAT, message);
             plugin.getProxy().getLogger().log(Level.INFO, message);
-            ConnectorUtils.consoleMessage(message);
+            CUtils.consoleMessage(message);
             return;
         }
         if (args.length != 0) {
-            sender.sendMessages(ColorList.REG + "Too many arguments", ColorList.REG + "Usage: /sc");
+            sender.sendMessages(REG + "Too many arguments", REG + "Usage: /a");
             return;
         }
-        ConnectorUtils.runWithPermission(((ProxiedPlayer) sender).getServer(), Statics.Permission.STAFF_CHAT, new ResultRunnable<Boolean>() {
+        CUtils.runWithPermission(((ProxiedPlayer) sender).getServer(), Statics.Permission.STAFF_CHAT, new ResultRunnable<Boolean>() {
             @Override
             public void runWithResult(Boolean value) {
                 if (value) {
                     PlayerDatabase database = plugin.getPlayerDatabase();
-                    if (database.isStaffChatEnabled(sender.getName())) {
-                        database.setStaffChatEnabled(sender.getName(), false);
-                        sender.sendMessage(ColorList.REG + "StaffChat Disabled");
+                    if (database.staffChatEnabled(sender.getName())) {
+                        database.staffChatEnabled(sender.getName(), false);
+                        sender.sendMessage(REG + "StaffChat Disabled");
                     } else {
-                        database.setStaffChatEnabled(sender.getName(), true);
-                        sender.sendMessage(ColorList.REG + "StaffChat Enabled");
+                        database.staffChatEnabled(sender.getName(), true);
+                        sender.sendMessage(REG + "StaffChat Enabled");
                     }
                 } else {
-                    sender.sendMessage(ColorList.ERR + "You don't have permission to use staff chat.");
+                    sender.sendMessage(ERR + "You don't have permission to use staff chat.");
                 }
             }
         });

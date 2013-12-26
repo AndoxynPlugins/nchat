@@ -20,7 +20,7 @@ import net.daboross.bungeedev.mysqlmap.api.ResultRunnable;
 import net.daboross.bungeedev.nchat.ChatSensor;
 import net.daboross.bungeedev.nchat.NChatPlugin;
 import net.daboross.bungeedev.ncommon.ColorList;
-import net.daboross.bungeedev.ncommon.utils.ConnectorUtils;
+import net.daboross.bungeedev.ncommon.utils.CUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
@@ -30,6 +30,7 @@ import net.md_5.bungee.event.EventHandler;
 
 public class JoinListener implements Listener {
 
+    public static final String JOIN_FORMAT = ColorList.PREFIX_Q + "%s" + ChatColor.DARK_GRAY + " (%s" + ChatColor.DARK_GRAY + ")" + ChatColor.GRAY + " joined";
     private final NChatPlugin plugin;
 
     public JoinListener(NChatPlugin plugin) {
@@ -37,23 +38,25 @@ public class JoinListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(ServerConnectedEvent evt) {
+    public void onJoinProxy(PostLoginEvent evt) {
         final ProxiedPlayer p = evt.getPlayer();
-        ConnectorUtils.setDisplayName(evt.getServer(), p.getDisplayName());
-    }
-
-    @EventHandler
-    public void onJoinServer(PostLoginEvent evt) {
-        final ProxiedPlayer p = evt.getPlayer();
-        plugin.getDisplayNameDatabase().getDisplayName(p.getName(), new ResultRunnable<String>() {
+        plugin.getDisplayNameDatabase().get(p.getName(), new ResultRunnable<String>() {
             @Override
             public void runWithResult(String name) {
                 if (name == null) {
                     name = ChatSensor.formatPlayerDisplayname(p.getName());
                 }
                 p.setDisplayName(name);
-                plugin.getProxy().broadcast(ColorList.PREFIX_Q + p.getName() + ChatColor.GRAY + " > " + name);
+                String message = String.format(JOIN_FORMAT, name, p.getName());
+                plugin.getProxy().broadcast(message);
+                CUtils.consoleMessage(message);
             }
         });
+    }
+
+    @EventHandler
+    public void onServerConnected(ServerConnectedEvent evt) {
+        final ProxiedPlayer p = evt.getPlayer();
+        CUtils.setDisplayName(evt.getServer(), p.getDisplayName());
     }
 }

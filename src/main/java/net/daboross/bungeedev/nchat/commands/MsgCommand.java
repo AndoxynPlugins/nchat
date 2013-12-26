@@ -19,9 +19,8 @@ package net.daboross.bungeedev.nchat.commands;
 import java.util.List;
 import lombok.NonNull;
 import net.daboross.bungeedev.nchat.NChatPlugin;
-import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.ncommon.ColorList;
-import net.daboross.bungeedev.ncommon.utils.UserFinder;
+import net.daboross.bungeedev.ncommon.utils.NUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -45,12 +44,12 @@ public class MsgCommand extends Command {
             sender.sendMessage(ColorList.REG + "Please specify a message.");
             sender.sendMessage(ColorList.REG + "Usage: /msg <user> <message> (sends a private <message> to <user>)");
         } else {
-            List<ProxiedPlayer> foundUsers = UserFinder.findUsers(args[0]);
+            List<ProxiedPlayer> foundUsers = NUtils.findUsers(args[0]);
             if (foundUsers.isEmpty()) {
-                sender.sendMessage(ColorList.REG + "User \"" + ChatColor.RED + args[0] + ColorList.REG + "\" not found or not online.");
+                sender.sendMessage(ColorList.REG + "User \"" + ChatColor.RED + args[0] + ColorList.REG + "\" not online.");
             } else if (foundUsers.size() == 1) {
-                String message = StringUtils.arrayToString(1, args, " ");
-                plugin.getMessageHandler().sendMessage(sender, foundUsers.get(0), message);
+                String message = NUtils.arrayToString(1, args, " ");
+                plugin.getMessageHandler().sendPrivateMessage(sender, foundUsers.get(0), message);
             } else {
                 sender.sendMessage(ColorList.REG + "Multiple users matching \"" + args[0] + "\":");
                 sender.sendMessage(getNameString(foundUsers));

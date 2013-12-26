@@ -66,7 +66,7 @@ public final class NChatPlugin extends Plugin {
     private void registerStuff() {
         PluginManager pm = getProxy().getPluginManager();
         registerListeners(pm, new ChatListener(this), new JoinListener(this), new QuitListener(this));
-        registerCommands(pm, new MeCommand(), new MsgCommand(this), new ReplyCommand(this),
+        registerCommands(pm, new MeCommand(plugin), new MsgCommand(this), new ReplyCommand(this),
                 new ShoutCommand(this), new NickCommand(this), new StaffChatCommand(this));
     }
 

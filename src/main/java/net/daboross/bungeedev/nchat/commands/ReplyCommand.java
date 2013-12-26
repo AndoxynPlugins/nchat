@@ -18,10 +18,9 @@ package net.daboross.bungeedev.nchat.commands;
 
 import lombok.NonNull;
 import net.daboross.bungeedev.nchat.NChatPlugin;
-import net.daboross.bungeedev.nchat.StringUtils;
 import net.daboross.bungeedev.ncommon.ColorList;
+import net.daboross.bungeedev.ncommon.utils.NUtils;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
 
 public class ReplyCommand extends Command {
@@ -40,12 +39,12 @@ public class ReplyCommand extends Command {
             sender.sendMessage(ColorList.REG + "Usage: /r <message> (Sends <message> to the last person who messaged you.)");
         } else {
             String replyToName = plugin.getReplyTracker().getReplyto(sender.getName());
-            CommandSender replyTo = replyToName == null ? null : ProxyServer.getInstance().getPlayer(replyToName);
+            CommandSender replyTo = replyToName == null ? null : plugin.getProxy().getPlayer(replyToName);
             if (replyTo == null) {
                 sender.sendMessage(ColorList.REG + "No user found to reply to.");
             } else {
-                String message = StringUtils.arrayToString(args, " ");
-                plugin.getMessageHandler().sendMessage(sender, replyTo, message);
+                String message = NUtils.arrayToString(args, " ");
+                plugin.getMessageHandler().sendPrivateMessage(sender, replyTo, message);
             }
         }
     }

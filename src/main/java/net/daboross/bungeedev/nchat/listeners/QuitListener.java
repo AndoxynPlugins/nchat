@@ -31,7 +31,7 @@ public class QuitListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerDisconnectEvent evt) {
-        plugin.getPlayerDatabase().clearPlayer(evt.getPlayer().getName());
+        plugin.getPlayerDatabase().removePlayer(evt.getPlayer().getName());
         plugin.getReplyTracker().removeReplyTo(evt.getPlayer().getName());
     }
 }
