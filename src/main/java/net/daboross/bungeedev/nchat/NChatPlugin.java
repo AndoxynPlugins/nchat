@@ -55,7 +55,12 @@ public final class NChatPlugin extends Plugin {
         displayNameDatabase = new DisplayNameDatabase(this);
         messageHandler = new MessageHandler(this);
         playerDatabase = new PlayerDatabase();
-        registerStuff();
+
+
+        registerListeners(new ChatListener(this), new JoinListener(this), new QuitListener(this));
+
+        registerCommands(new MeCommand(this), new MsgCommand(this), new ReplyCommand(this),
+                new ShoutCommand(this), new NickCommand(this), new StaffChatCommand(this));
     }
 
     @Override
@@ -63,20 +68,15 @@ public final class NChatPlugin extends Plugin {
         ncommon = null; // Just in case
     }
 
-    private void registerStuff() {
+    private void registerListeners(Listener... listeners) {
         PluginManager pm = getProxy().getPluginManager();
-        registerListeners(pm, new ChatListener(this), new JoinListener(this), new QuitListener(this));
-        registerCommands(pm, new MeCommand(plugin), new MsgCommand(this), new ReplyCommand(this),
-                new ShoutCommand(this), new NickCommand(this), new StaffChatCommand(this));
-    }
-
-    private void registerListeners(PluginManager pm, Listener... listeners) {
         for (Listener listener : listeners) {
             pm.registerListener(this, listener);
         }
     }
 
-    private void registerCommands(PluginManager pm, Command... commands) {
+    private void registerCommands(Command... commands) {
+        PluginManager pm = getProxy().getPluginManager();
         for (Command command : commands) {
             pm.registerCommand(this, command);
         }
